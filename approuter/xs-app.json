@@ -1,0 +1,8 @@
+{
+  "welcomeFile": "PM030APP2/",
+  "authenticationMethod": "none",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": []
+}

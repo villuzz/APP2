@@ -1,0 +1,22 @@
+{
+  "generator-template-ui5-project": {
+    "projectname": "APP2",
+    "namespaceUI5": "PM030",
+    "platform": "SAP HTML5 Application Repository service for SAP BTP",
+    "viewtype": "XML",
+    "ui5libs": "Content delivery network (SAPUI5)",
+    "newdir": true,
+    "codeassist": true,
+    "namespaceURI": "PM030",
+    "opa5pos": [
+      "Main"
+    ],
+    "opa5Journeys": [
+      "Main"
+    ],
+    "uimodules": [
+      "uimodule"
+    ],
+    "setupCompleted": true
+  }
+}
