@@ -1,11 +1,18 @@
 {
   "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^(.*)",
+      "authenticationType": "none",
+      "csrfProtection": false,
+      "source": "^/catalog/(.*)$",
+      "destination": "PM030-srv"
+    },
+    {
+      "source": "^(.*)$",
       "target": "$1",
-      "authenticationType": "xsuaa",
-      "service": "html5-apps-repo-rt"
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
     }
   ]
 }

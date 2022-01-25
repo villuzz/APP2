@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog title="{i18n>UploadRisultati}" showHeader="true" horizontalScrolling="true" verticalScrolling="true"
+		draggable="true" contentWidth="650px" contentHeight="200px">
+		<content>
+			<VBox class="sapUiTinyMargin">
+				<Label text="Caricamento da Foglio Excel" design="Bold" class="sapUiTinyMarginTop"/>
+				<Text text="1) Accedere al file excel (scaricato da DOWNLOAD PROTOTIPI) e aggiornare i campi desiderati" wrapping="true" class="sapUiTinyMarginTop"/>
+        <Text text="2) Per aggiungere nuove righe inserire nell Index un Progressivo concatenato da _C" wrapping="true" class="sapUiTinyMarginTop"/>
+				<Text text="3) Procedere al caricamento" wrapping="true" class="sapUiTinyMarginTop"/>
+			</VBox>
+			<HBox alignItems="Center" justifyContent="Center">
+				<u:FileUploader id="fileUploader" name="myFileUpload" icon="sap-icon://upload" iconFirst="true" buttonText="{i18n>Upload_File}"
+					fileType="XLSX,xlsx,xls,XLS,csv,CSV" class="sapUiMediumMarginBeginEnd sapUiSmallMarginTop" change="onUpload"/>
+			</HBox>
+		</content>
+		<beginButton>
+			<Button text="{i18n>Cancel}" type="Emphasized" press="onCloseFileUpload"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Carica}" press="handleUploadPress"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

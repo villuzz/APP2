@@ -8,8 +8,23 @@
       "version": "0.0.1"
     },
     "title": "{{appTitle}}",
-    "description": "{{appDescription}}"
+    "description": "{{appDescription}}",
+    "dataSources": {
+      "mainService": {
+        "uri": "/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
   },
+  "sap.cloud": {
+    "public": true,
+    "service": "cloud.service"
+  },  
   "sap.ui": {
     "technology": "UI5",
     "icons": {
@@ -27,7 +42,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.60",
       "libs": {
@@ -43,6 +58,17 @@
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
           "bundleName": "PM030.APP2.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true,
+          "groupId": "$direct"
         }
       }
     },
@@ -64,13 +90,20 @@
         "clearControlAggregation": false
       },
       "routes": [
+       
         {
           "name": "RouteMainView",
           "pattern": "RouteMainView",
           "target": [
             "TargetMainView"
           ]
-        }
+        },{
+					"pattern": "",
+					"name": "ViewPage",
+					"target": [
+						"ViewPage"
+					]
+				}
       ],
       "targets": {
         "TargetMainView": {
@@ -79,7 +112,14 @@
           "clearControlAggregation": false,
           "viewId": "MainView",
           "viewName": "MainView"
-        }
+        },
+        "ViewPage": {
+					"controlAggregation": "pages",
+					"viewName": "ViewPage",
+					"viewId": "ViewPage",
+					"viewLevel": 1,
+					"transition": "slide"
+				}
       }
     },
     "rootView": {
