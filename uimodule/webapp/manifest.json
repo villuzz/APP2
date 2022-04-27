@@ -14,7 +14,6 @@
         "uri": "/catalog/",
         "type": "OData",
         "settings": {
-          "annotations": [],
           "localUri": "localService/metadata.xml",
           "odataVersion": "2.0"
         }
@@ -62,13 +61,9 @@
       },
       "": {
         "dataSource": "mainService",
-        "preload": true,
+        "preload": false,
         "settings": {
-          "synchronizationMode": "None",
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true,
-          "groupId": "$direct"
+          "useBatch": false
         }
       }
     },
@@ -103,6 +98,12 @@
 					"target": [
 						"ViewPage"
 					]
+				},{
+					"pattern": "DetailPage/:ID::COPY:",
+					"name": "DetailPage",
+					"target": [
+						"DetailPage"
+					]
 				}
       ],
       "targets": {
@@ -119,6 +120,13 @@
 					"viewId": "ViewPage",
 					"viewLevel": 1,
 					"transition": "slide"
+				},
+				"DetailPage": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "DetailPage",
+					"viewName": "DetailPage"
 				}
       }
     },

@@ -1,0 +1,334 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table" xmlns:f="sap.f" controllerName="PM030.APP2.controller.DetailPage">
+    <f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true" showFooter="false" fitContent="true" class="sapUiNoContentPadding" stickySubheaderProvider="iconTabBar">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:content>
+                    <HBox height="100%" alignItems="Center" alignContent="Center" justifyContent="Center">
+                        <Button type="Transparent" icon="sap-icon://nav-back" press="onBack" class="sapUiTinyMarginEnd"></Button>
+                        <Title text="{i18n>CreazionePiano}" class="sapUiTinyMarginTop"/>
+                    </HBox>
+                </f:content>
+                <f:navigationActions>
+                    <Button id="save" text="{i18n>Save}" type="Emphasized" press="handleSavePress"/>
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+                <items>
+                      <IconTabFilter text="Azioni Elementari Prototipo">
+                        <OverflowToolbar width="100%" height="3em">
+                        <Button icon="sap-icon://add" text="Aggiungi" type="Emphasized" press="onAddAE"/>
+                            <Button text="Copia" icon="sap-icon://copy" type="Emphasized" press="onCopy" class="sapUiTinyMarginBegin"/>
+                            <Button text="Cancella" type="Emphasized" icon="sap-icon://delete" press="onCancelAE" class="sapUiTinyMarginBegin"/>
+                            <ToolbarSpacer/>
+                            <Button text="Colonne" icon="sap-icon://action-settings" press="onPersoButtonPressed" class="sapUiTinyMarginBegin"/>
+                        </OverflowToolbar>
+                        <ScrollContainer width="100%" height="100%" vertical="true" horizontal="true">
+                            <Table id="tAzioni" items="{ path: 'sSelect>/AZIONI' }" sticky="ColumnHeaders" mode="MultiSelect">
+                                <columns>
+                                    <Column width="8em" id="dCol2"><Text text="{i18n>CONTATORE}"/></Column>
+                                    <Column width="6em" id="dCol3"><Text text="{i18n>ATTIVO}"/></Column>
+                                    <Column width="5em" id="dCol5"><Label required="true" text="{i18n>SISTEMA}"/></Column>
+                                    <Column width="7em" id="dCol6"><Label required="true" text="{i18n>PROGRES}"/></Column>
+                                    <Column width="14em" id="dCol7"><Text text="{i18n>DESC_PROG}"/></Column>
+                                    <Column width="5em" id="dCol8"><Label required="true" text="{i18n>CLASSE}"/></Column>
+                                    <Column width="16em" id="dCol9"><Text text="{i18n>DES_COMPONENTE}"/></Column>
+                                    <Column width="6em" id="dCol10"><Text text="{i18n>DIVISIONE}"/></Column>
+                                    <Column width="7em" id="dCol37"><Label required="true" text="{i18n>SEDE_TECNICA}"/></Column>
+                                    <Column width="16em" id="dCol20"><Label required="true" text="{i18n>SEDE_TECNICA_P}"/></Column>
+                                    <Column width="16em" id="dCol36"><Text text="{i18n>DESC_SEDE}"/></Column>
+                                    <Column width="10em" id="dCol28"><Text text="{i18n>EQUIPMENT}"/></Column>
+                                    <Column width="5em" id="dCol29"><Text text="{i18n>TESTO_ESTESO_P2}"/></Column>
+                                    <Column width="16em" id="dCol30"><Text text="{i18n>CLASSE_SEDE}"/></Column>
+                                    <Column width="16em" id="dCol31"><Text text="{i18n>CARATT_SEDE}"/></Column>
+                                    <Column width="16em" id="dCol32"><Text text="{i18n>OGGETTO_TECNICO}"/></Column>
+                                    <Column width="10em" id="dCol33"><Text text="{i18n>PROFILO}"/></Column>
+                                    <Column width="10em" id="dCol34"><Label required="true" text="{i18n>ZBAU}"/></Column>
+                                    <Column width="10em" id="dCol35"><Text text="{i18n>VALORE}"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Input value="{sSelect>CONTATORE}" maxLength="10" editable="false"/>
+                                            <Switch type="AcceptReject" state="{sSelect>ATTIVO}" customTextOn="Attivo" customTextOff="Disattivo"></Switch>
+                                            <Input value="{sSelect>SISTEMA}" maxLength="2"/>
+                                            <Input value="{sSelect>PROGRES}" type="Number" maxLength="5"/>
+                                            <Input value="{sSelect>DESC_PROG}" maxLength="40"/>
+                                            <Input value="{sSelect>CLASSE}" maxLength="2"/>
+                                            <Input value="{sSelect>DES_COMPONENTE}" maxLength="18"/>
+                                            <Input value="{sSelect>DIVISIONE}" maxLength="4"/>
+                                            <Input value="{sSelect>SEDE_TECNICA}" maxLength="1"/>
+                                            <Input value="{sSelect>SEDE_TECNICA_P}" maxLength="40" type="Text" showValueHelp="true" valueHelpRequest="handleSedeTecnica"/>
+                                            <Text text="{sSelect>DESC_SEDE}" />
+                                            <Input value="{sSelect>EQUIPMENT}" maxLength="30"/>
+                                            <Button icon="sap-icon://document-text" tooltip="{sSelect>TESTO_ESTESO_P}" type="Transparent" press="handleTesto"/>
+                                            <Input value="{sSelect>CLASSE_SEDE}" maxLength="30"/>
+                                            <Input value="{sSelect>CARATT_SEDE}" maxLength="30"/>
+                                            <Input value="{sSelect>OGGETTO_TECNICO}" maxLength="10"/>
+                                            <Input value="{sSelect>PROFILO}" maxLength="9"/>
+                                            <Input value="{sSelect>ZBAU}" maxLength="10" />
+                                            <Input value="{sSelect>VALORE}" maxLength="30"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </ScrollContainer>
+                    </IconTabFilter>
+                    <IconTabFilter text="Frequenze">
+                        <VBox class="sapUiSmallMargin">
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ColumnLayout columnsM="2" columnsL="2" columnsXL="2"/>
+                                </form:layout>
+                                <form:formContainers>
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>RISK}">
+                                                <form:fields><Input value="{sSelect>/RISK}" maxLength="1"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>Frequenza}">
+                                                <form:fields>
+                                                    <Select xmlns="sap.m" id="tipoFrequenza" required="true" selectedKey="{sSelect>/TIPOFREQUENZA}" change="onChangetipoFrequenza">
+                                                        <items>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="" text=""/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="C" text="C"/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="T" text="T"/>
+                                                        </items>
+                                                    </Select>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    <form:FormContainer id="VIS_FREQ_TEMPO" >
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>FREQ_TEMPO}" >
+                                                <form:fields><Input value="{sSelect>/FREQ_TEMPO}" required="true" type="Number" maxLength="4"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>UNITA_TEMPO}">
+                                                <form:fields><Input value="{sSelect>/UNITA_TEMPO}" required="true" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    <form:FormContainer id="VIS_FREQ_CICLO">
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>FREQ_CICLO}">
+                                                <form:fields><Input value="{sSelect>/FREQ_CICLO}" required="true" type="Number" maxLength="4"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>UNITA_CICLO}">
+                                                <form:fields><Input value="{sSelect>/UNITA_CICLO}" required="true" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>LIMITE}">
+                                                <form:fields><Input value="{sSelect>/LIMITE}" required="true" maxLength="22"/></form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                </form:formContainers>
+                            </form:Form>
+                        </VBox>
+                    </IconTabFilter>
+
+                    <IconTabFilter text="Pianificazione">
+                        <VBox class="sapUiSmallMargin">
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ColumnLayout columnsM="2" columnsL="3" columnsXL="6"/>
+                                </form:layout>
+                                <form:formContainers>
+                                    <form:FormContainer title="Attività 1" >
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>LSTAR}"  >
+                                                <form:fields ><Input value="{sSelect>/LSTAR}" required="true" maxLength="6"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>STEUS}">
+                                                <form:fields><Input value="{sSelect>/STEUS}" required="true" maxLength="4"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>NUM}">
+                                                <form:fields><Input value="{sSelect>/NUM}" required="true" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    <form:FormContainer title="Attività 2">
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>LSTAR_1}">
+                                                <form:fields><Input value="{sSelect>/LSTAR_1}" maxLength="6"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>STEUS_1}">
+                                                <form:fields><Input value="{sSelect>/STEUS_1}" maxLength="4"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>NUM_1}">
+                                                <form:fields><Input value="{sSelect>/NUM_1}" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    <form:FormContainer title="Attività 3">
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>LSTAR_2}">
+                                                <form:fields><Input value="{sSelect>/LSTAR_2}" maxLength="6"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>STEUS_2}">
+                                                <form:fields><Input value="{sSelect>/STEUS_2}" maxLength="4"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>NUM_2}">
+                                                <form:fields><Input value="{sSelect>/NUM_2}" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    <form:FormContainer title="Attività 4">
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>LSTAR_3}">
+                                                <form:fields><Input value="{sSelect>/LSTAR_3}" maxLength="6"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>STEUS_3}">
+                                                <form:fields><Input value="{sSelect>/STEUS_3}" maxLength="4"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>NUM_3}">
+                                                <form:fields><Input value="{sSelect>/NUM_3}" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    <form:FormContainer title="Attività 5">
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>LSTAR_4}">
+                                                <form:fields><Input value="{sSelect>/LSTAR_4}" maxLength="6"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>STEUS_4}">
+                                                <form:fields><Input value="{sSelect>/STEUS_4}" maxLength="4"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>NUM_4}">
+                                                <form:fields><Input value="{sSelect>/NUM_4}" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                    <form:FormContainer title="Attività 6">
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>LSTAR_5}">
+                                                <form:fields><Input value="{sSelect>/LSTAR_5}" maxLength="6"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>STEUS_5}">
+                                                <form:fields><Input value="{sSelect>/STEUS_5}" maxLength="4"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>NUM_5}">
+                                                <form:fields><Input value="{sSelect>/NUM_5}" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                </form:formContainers>
+                            </form:Form>
+                        </VBox>
+                    </IconTabFilter>
+                 
+                     <IconTabFilter id="first" text="Index Prototipo">
+                        <VBox class="sapUiSmallMargin">
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
+                                </form:layout>
+                                <form:formContainers>
+                                    <form:FormContainer>
+                                        <form:formElements>
+                                            <form:FormElement label="{i18n>INDEX}">
+                                                <form:fields><Input value="{sSelect>/INDEX}" editable="false"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>TIPO_GESTIONE}">
+                                                <form:fields><Input value="{sSelect>/TIPO_GESTIONE}" required="true" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>TIPO_GESTIONE_1}">
+                                                <form:fields><Input value="{sSelect>/TIPO_GESTIONE_1}" required="true" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>TIPO_GESTIONE_2}">
+                                                <form:fields><Input value="{sSelect>/TIPO_GESTIONE_2}" required="true" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>DIVISIONEC}" icon="">
+                                                <form:fields> 
+                                                  <ComboBox id="cbDivisioneC" showSecondaryValues= "true" items="{ path: 'sHelp>/DIVISIONEC', length:2000 }" selectedKey="{sSelect>/DIVISIONEC}">
+                                                    <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                  </ComboBox>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>CENTRO_LAVORO}">
+                                                <form:fields>
+                                                <ComboBox showSecondaryValues= "true" items="{ path: 'sHelp>/CENTRO_LAVORO', length:2500  }" selectedKey="{sSelect>/CENTRO_LAVORO}">
+                                                    <core:ListItem key="{sHelp>Fieldname2}" text="{sHelp>Fieldname2}" additionalText="{sHelp>Fieldname1} - {sHelp>Fieldname3}"/>
+                                                  </ComboBox>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>PRIORITA}">
+                                                <form:fields>
+                                                  <ComboBox showSecondaryValues= "true" required="true" items="{ path: 'sHelp>/PRIORITA' }" selectedKey="{sSelect>/PRIORITA}">
+                                                    <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                  </ComboBox>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>POINT}">
+                                                <form:fields><Input value="{sSelect>/POINT}" maxLength="12"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>MPTYP}">
+                                                <form:fields><Input value="{sSelect>/MPTYP}" maxLength="1"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>INDISPONIBILITA}" >
+                                                <form:fields>
+                                                  <Select xmlns="sap.m" id="onlyActive"  required="true" selectedKey="{sSelect>/INDISPONIBILITA}">
+                                                    <items>
+                                                    <core:ListItem xmlns:core="sap.ui.core" key="" text="" />
+                                                    <core:ListItem xmlns:core="sap.ui.core" key="0" icon="sap-icon://accept" text="0" />
+                                                    <core:ListItem xmlns:core="sap.ui.core" key="1" icon="sap-icon://decline" text="1"/>
+                                                    </items>
+                                                  </Select>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>TIPO_ATTIVITA}">
+                                                <form:fields><Input value="{sSelect>/TIPO_ATTIVITA}" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>TIPO_ORDINE}">
+                                                <form:fields>
+                                                 <ComboBox showSecondaryValues= "true" items="{ path: 'sHelp>/TIPO_ORDINE' }" selectedKey="{sSelect>/TIPO_ORDINE}">
+                                                    <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2} - {sHelp>Fieldname3}"/>
+                                                  </ComboBox>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>DESC_BREVE}">
+                                                <form:fields>
+                                                    <TextArea value="{sSelect>/DESC_BREVE}" showExceededText="true" maxLength="40" height="7em" valueState="{= ${/value}.length > 40 ? 'Warning' : 'None' }"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>STRATEGIA}">
+                                                <form:fields>
+                                                    <Select xmlns="sap.m" change="onSelStrategia" required="true" items="{path : '/Strategia'}" showSecondaryValues="true" selectedKey="{sSelect>/STRATEGIA}">
+                                                        <items>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="{STRATEGIA}" text="{STRATEGIA}" additionalText="{STRATEGIA_DESC}"/>
+                                                        </items>
+                                                    </Select>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>STRATEGIA_DESC}">
+                                                <form:fields><Input value="{sSelect>/STRATEGIA_DESC}" maxLength="50" editable="false"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>TESTO_ESTESO}">
+                                                <form:fields>
+                                                    <TextArea value="{sSelect>/TESTO_ESTESO}" showExceededText="true" maxLength="255" height="13em" valueState="{= ${/value}.length > 255 ? 'Warning' : 'None' }"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                </form:formContainers>
+                            </form:Form>
+                        </VBox>
+                        
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+            
+        </f:content>
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <ToolbarSpacer/>
+            </OverflowToolbar>
+        </f:footer>
+        <f:dependents>
+            <core:Fragment fragmentName="PM030.APP2.fragment.SedeTecnica" type="XML"></core:Fragment>
+            <core:Fragment fragmentName="PM030.APP2.fragment.popTestoEsteso" type="XML"></core:Fragment>
+        </f:dependents>
+    </f:DynamicPage>
+</mvc:View>

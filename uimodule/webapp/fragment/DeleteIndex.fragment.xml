@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="myPopover" resizable="true" draggable="true" title="{i18n>ConfirmDeleteIndex}">
+        <content>
+            <HBox class="sapUiSmallMarginTopBottom">
+                <VBox alignItems="Center" width="50%" >
+                    <Button id="Index" text="{i18n>INDEX}" press="handleDeleteIndex"/>
+                </VBox>
+                <VBox alignItems="Center" width="50%">
+                    <Button id="Azioni" text="{i18n>CONTATORE}" press="handleDeleteAzioni"/>
+                </VBox>
+            </HBox>
+        </content>
+        <endButton>
+            <Button id="Cancella" text="Cancella" press="handleDeleteAnnulla"/>
+
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

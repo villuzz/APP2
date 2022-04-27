@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Dialog id="DialogVariant" afterClose="onAfterClose" contentWidth="10%" contentHeight="20%" class="sapUiSizeCozy" showHeader="false">
+		<Page title="{i18n>SaveVariant}">
+			<content>
+				<HBox alignItems="Center" alignContent="Center" justifyContent="Center" height="100%" width="100%">
+					<!--<Label text="{i18n>VariantName}:"></Label>-->
+					<Input id="VariantName" value="" tooltip="{i18n>VariantName}" placeholder="{i18n>VariantName}"/>
+				</HBox>
+			</content>
+			<footer>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button icon="sap-icon://save" text="{i18n>Save}" press="onSaveVariant"/>
+					<Button icon="sap-icon://decline" text="{i18n>Annulla}" press="onCloseVariant"/>
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,34 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+  
+  <Dialog contentHeight="500px" id="popAzioni" resizable="true" draggable="true" title="{i18n>AzioniElementari}">
+  <content>
+		<Table id="popTAzioni" items="{ path: 'Azioni>/' }" sticky="HeaderToolbar,ColumnHeaders" mode="None">
+      <columns>
+          <Column><Text text="{i18n>CONTATORE}"/></Column>                 
+          <Column><Text text="{i18n>SISTEMA}"/></Column>
+          <Column><Text text="{i18n>PROGRES}"/></Column>
+          <Column><Text text="{i18n>CLASSE}"/></Column>
+          <Column width="30%" ><Text text="{i18n>DES_COMPONENTE}"/></Column>
+          <!--<Column width="4em" ><Text text=""/></Column>-->
+      </columns>
+      <items>
+          <ColumnListItem vAlign="Middle">
+              <cells>
+                  <Text text="{Azioni>CONTATORE}" />
+                  <Text text="{Azioni>SISTEMA}" />
+                  <Text text="{Azioni>PROGRES}" />
+                  <Text text="{Azioni>CLASSE}" />
+                  <Text text="{Azioni>DES_COMPONENTE}" />
+                 <!-- <Button icon="sap-icon://delete" type="Transparent" press="onCancelAE"/>-->
+              </cells>
+          </ColumnListItem>
+      </items>
+    </Table>
+    </content>
+        <endButton>
+            <Button text="{i18n>Annulla}" type="Emphasized" press="onCloseAzioni"/>
+        </endButton>
+	</Dialog>
+</core:FragmentDefinition>

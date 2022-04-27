@@ -1,0 +1,12 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover id="popInfoSede" class="sapUiResponsivePadding--header sapUiResponsivePadding--footer" showHeader="false" height="15em" placement="Left">
+    <VBox class="sapUiSmallMargin">
+	      <Label text="Regole Sede Tecniche" design="Bold" class=""/>
+				<Text text="n : Accetta numeri da 1 a 9" wrapping="true" class="sapUiTinyMarginTop"/>
+        <Text text="k : Accetta lettere da A a Z" wrapping="true" class="sapUiTinyMarginTop"/>
+        <Text text="x : Accetta sia numeri da 1 a 9 che lettere da A a Z" wrapping="true" class="sapUiTinyMarginTop"/>
+    </VBox>
+	</Popover>
+</core:FragmentDefinition>

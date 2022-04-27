@@ -2,18 +2,18 @@
   "name": "APP2",
   "version": "0.0.1",
   "scripts": {
-    "start": "ui5 serve --config=uimodule/ui5.yaml  --open index.html",
-    "build:ui": "run-s  build:uimodule",
-    "test": "run-s lint karma",
-    "karma-ci": "karma start karma-ci.conf.js",
-    "clearCoverage": "shx rm -rf coverage",
-    "karma": "run-s clearCoverage karma-ci",
-    "lint": "eslint .",
-    "build:mta": "mbt build",
-    "deploy:cf": "cross-var cf deploy mta_archives/APP2_$npm_package_version.mtar",
-    "deploy": "run-s build:mta deploy:cf",
-    "serve:uimodule": "ui5 serve --config=uimodule/ui5.yaml",
-    "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle"
+      "start": "ui5 serve --config=uimodule/ui5.yaml  --open index.html",
+      "build:ui": "run-s  build:uimodule",
+      "test": "run-s lint karma",
+      "karma-ci": "karma start karma-ci.conf.js",
+      "clearCoverage": "shx rm -rf coverage",
+      "karma": "run-s clearCoverage karma-ci",
+      "lint": "eslint .",
+      "build:mta": "mbt build",
+      "deploy:cf": "cross-var cf deploy mta_archives/geodeallegroapp_$npm_package_version.mtar",
+      "deploy": "run-s build:mta deploy:cf",
+      "serve:uimodule": "ui5 serve --config=uimodule/ui5.yaml",
+      "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest approuter/uimodule/webapp"
   },
   "devDependencies": {
     "shx": "^0.3.3",
@@ -38,5 +38,9 @@
       "ui5-middleware-cfdestination",
       "ui5-task-zipper"
     ]
+  },
+  "dependencies": {
+    "deployment": "^0.2.3",
+    "xlsx": "^0.18.0"
   }
 }

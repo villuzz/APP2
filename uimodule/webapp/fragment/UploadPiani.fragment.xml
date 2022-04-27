@@ -1,12 +1,13 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
-	<Dialog title="{i18n>UploadRisultati}" showHeader="true" horizontalScrolling="true" verticalScrolling="true"
-		draggable="true" contentWidth="650px" contentHeight="200px">
+	<Dialog title="{i18n>UploadRisultati}" id="UploadPiani" showHeader="true" horizontalScrolling="true" verticalScrolling="true"
+		draggable="true" contentWidth="650px" contentHeight="220px">
 		<content>
 			<VBox class="sapUiTinyMargin">
 				<Label text="Caricamento da Foglio Excel" design="Bold" class="sapUiTinyMarginTop"/>
 				<Text text="1) Accedere al file excel (scaricato da DOWNLOAD PROTOTIPI) e aggiornare i campi desiderati" wrapping="true" class="sapUiTinyMarginTop"/>
-        <Text text="2) Per aggiungere nuove righe inserire nell Index un Progressivo concatenato da _C" wrapping="true" class="sapUiTinyMarginTop"/>
-				<Text text="3) Procedere al caricamento" wrapping="true" class="sapUiTinyMarginTop"/>
+        <Text text="2) Per aggiungere nuovi Index inserire un Progressivo con C- all'inizio" wrapping="true" class="sapUiTinyMarginTop"/>
+        <Text text="3) Per aggiungere nuove Azioni Elementari inserire l Index desiderato e sull Azione Elementare un Progressivo con C- all'inizio" wrapping="true" class="sapUiTinyMarginTop"/>
+				<Text text="4) Procedere al caricamento" wrapping="true" class="sapUiTinyMarginTop"/>
 			</VBox>
 			<HBox alignItems="Center" justifyContent="Center">
 				<u:FileUploader id="fileUploader" name="myFileUpload" icon="sap-icon://upload" iconFirst="true" buttonText="{i18n>Upload_File}"

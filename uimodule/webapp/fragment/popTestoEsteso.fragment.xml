@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="popTesto" title="{i18n>TestoEsteso}">
+    <content>
+   
+		<TextArea id="vTextArea" class="sapUiTinyMargin" showExceededText="true" maxLength="255" width="50em" height="15em" valueState="{= ${/value}.length > 255 ? 'Warning' : 'None' }"/>
+                                    
+    </content>
+    <beginButton>
+			<Button text="{i18n>Confirm}" type="Emphasized" press="onCloseTestoConfirm"/>
+		</beginButton>
+        <endButton>
+            <Button text="{i18n>Annulla}" type="Emphasized" press="onCloseTesto"/>
+        </endButton>
+	</Dialog>
+</core:FragmentDefinition>

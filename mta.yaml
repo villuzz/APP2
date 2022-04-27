@@ -11,9 +11,11 @@ modules:
       disk-quota: 512M
       memory: 512M
     requires:
+      - name: ins-gds-gpgdh-cf-uitheme-newpm030
       - name: APP2_destination
       - name: APP2_html5_repo_runtime
       - name: APP2_uaa
+      - name: APP2_connectivity
   - name: webapp_deployer
     type: com.sap.application.content
     path: deployer
@@ -37,6 +39,11 @@ modules:
         - npm run build:uimodule --prefix ..
       supported-platforms: []
 resources:
+  - name: ins-gds-gpgdh-cf-uitheme-newpm030
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: theming 
+      service-plan: standard
   - name: APP2_destination
     type: org.cloudfoundry.managed-service
     parameters:
@@ -63,3 +70,8 @@ resources:
       path: ./xs-security.json
       service-plan: application
       service: xsuaa
+  - name: APP2_connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: lite
+      service: connectivity

@@ -1,8 +1,29 @@
 {
-  "welcomeFile": "PM030APP2/",
-  "authenticationMethod": "none",
+  "welcomeFile": "uimodule/index.html",
+  "authenticationMethod": "route",
   "logout": {
-    "logoutEndpoint": "/do/logout"
+    "logoutEndpoint": "/do/logout",
+    "logoutPage": "uimodule/index.html"    
   },
-  "routes": []
+  "routes": [
+    {
+      "source": "^/uimodule/(.*)$",
+      "target": "$1",
+      "authenticationType": "xsuaa",
+      "localDir": "uimodule/webapp",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    },
+    {
+      "authenticationType": "none",
+      "csrfProtection": false,
+      "source": "^/catalog/(.*)$",
+      "destination": "PM030-srv"
+    },
+    {
+      "source": "^/themerun/(.*)$",
+      "target": "$1",
+      "service": "com.sap.ui.theming",
+      "endpoint": "runtime"
+    }
+  ]
 }

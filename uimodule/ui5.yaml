@@ -26,14 +26,8 @@ server:
       configuration:
         debug: true
         port: 1091
-        xsappJson: webapp/xs-app.json
+        xsappJson: ../approuter/xs-app.json
         destinations: 
         - name: "PM030-srv"
           url: "https://gpgdh-dev-sol-newpm030-pm030-srv.cfapps.eu10.hana.ondemand.com/v2/"
-builder:
-  customTasks:
-    -  name: ui5-task-zipper
-       afterTask: uglify
-       configuration:
-         includeDependencies: false
-         archiveName: uimodule
+

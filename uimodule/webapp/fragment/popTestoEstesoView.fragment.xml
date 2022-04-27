@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="popTesto" title="{i18n>TestoEsteso}">
+    <content>
+   <HBox width="50em" height="15em" class="sapUiSmallMargin">
+		<Text id="vTextArea"  width="100%" wrapping="true"/>
+       </HBox>                             
+    </content>
+        <endButton>
+            <Button text="{i18n>Chiudi}" type="Emphasized" press="onCloseTesto"/>
+        </endButton>
+	</Dialog>
+</core:FragmentDefinition>

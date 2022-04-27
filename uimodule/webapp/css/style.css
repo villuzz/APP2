@@ -1,1 +1,16 @@
 /* Enter your custom styles here */
+
+ 
+.columnPosizioni :nth-child(1)
+{
+
+}
+.stipAdmin .sapMListTblCell {
+  border-left: 1px solid #ccc;
+}
+
+tr[data-mydata="G"] {
+  background: #f0f0f0 !important;
+}
+
+

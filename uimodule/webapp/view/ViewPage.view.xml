@@ -1,222 +1,282 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table" xmlns:f="sap.f" controllerName="PM030.APP2.controller.ViewPage">
-    <f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true" showFooter="false" fitContent="true" class="sapUiContentPadding">
-        <f:title>
-            <f:DynamicPageTitle>
-                <f:content>
-                    <HBox height="100%" alignItems="Center" alignContent="Center" justifyContent="Center">
-                        <Title text="{i18n>PrototipiPiani}" class="sapUiTinyMarginTop"/>
-                    </HBox>
-                </f:content>
-                <f:actions></f:actions>
-                <f:navigationActions>
-                    <Button icon="sap-icon://action-settings" press="onPersoButtonPressed" class="sapUiTinyMarginBegin"/>
-                    <Button icon="sap-icon://download" press="onDataExport" class="sapUiTinyMarginBegin"/>
-                    <Button xmlns="sap.m" icon="sap-icon://upload" press="handleUploadPiani" class="sapUiTinyMarginBegin"/>
-                    <Button xmlns="sap.m" icon="sap-icon://document" press="handleNuovo" class="sapUiTinyMarginBegin"/>
-                </f:navigationActions>
-            </f:DynamicPageTitle>
-        </f:title>
-        <f:header>
-            <f:DynamicPageHeader pinnable="true">
-                <f:content>
-                    <fb:FilterBar id="filterbarPiste" useToolbar="false" search="onSearchResult" showRestoreButton="true" showClearButton="true">
-                        <fb:filterGroupItems>
-                            <fb:FilterGroupItem id="FISedeTecnica" visible="true" groupName="__$INTERNAL$" name="SedeTecnica" label="{i18n>SedeTecnica}" partOfCurrentVariant="true" visibleInFilterBar="true">
-                                <fb:control>
-                                    <Select xmlns="sap.m" id="SedeTecnica" change="onSedeTecnica" items="{path : '/SedeTecnica'}">
-                                        <items>
-                                            <core:Item xmlns:core="sap.ui.core" key="{SEDE_TECNICA}" text="{SEDE_TECNICA}"/>
-                                        </items>
-                                    </Select>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="FIStrategia" visible="true" groupName="__$INTERNAL$" name="Strategia" label="{i18n>Strategia}" partOfCurrentVariant="true" visibleInFilterBar="true">
-                                <fb:control>
-                                    <Select xmlns="sap.m" id="Strategia" change="onStrategia" items="{path : '/Strategia'}" showSecondaryValues= "true">
-                                        <items>
-                                            <core:Item xmlns:core="sap.ui.core" key="{STARTEGIA}" text="{STARTEGIA}" additionalText="{STRATEGIA_DESC}" />
-                                        </items>
-                                    </Select>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                        </fb:filterGroupItems>
-                    </fb:FilterBar>
-                    <OverflowToolbar style="Clear">
-                        <ToolbarSpacer/>
-                    </OverflowToolbar>
-                </f:content>
-            </f:DynamicPageHeader>
-        </f:header>
-        <f:content>
-        <ScrollContainer width="100%" height="100%" vertical="true" horizontal="true">
-            <Table id="tbPiani" items="{ path: '/Index_Azione', suspended: true }" showNoData="false" mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders">
-                <columns>
-                    <Column width="10em" id="col1"><Text text="{i18n>INDEX}"/></Column>
-                    <Column width="10em" id="col2"><Text text="{i18n>STARTEGIA}"/></Column>
-                    <Column width="15em" id="col3"><Text text="{i18n>STRATEGIA_DESC}"/></Column>
-                    <Column width="15em" id="col4"><Text text="{i18n>SEDE_TECNICA}"/></Column>
-                    <Column width="10em" id="col5"><Text text="{i18n>DIVISIONE}"/></Column>
-                    <Column width="10em" id="col6"><Text text="{i18n>LIVELLO1}"/></Column>
-                    <Column width="10em" id="col7"><Text text="{i18n>LIVELLO2}"/></Column>
-                    <Column width="10em" id="col8"><Text text="{i18n>LIVELLO3}"/></Column>
-                    <Column width="10em" id="col9"><Text text="{i18n>LIVELLO4}"/></Column>
-                    <Column width="10em" id="col10"><Text text="{i18n>LIVELLO5}"/></Column>
-                    <Column width="10em" id="col11"><Text text="{i18n>LIVELLO6}"/></Column>
-                    <Column width="15em" id="col12"><Text text="{i18n>DESC_SEDE}"/></Column>
-                    <Column width="10em" id="col13"><Text text="{i18n>CLASSE_SEDE}"/></Column>
-                    <Column width="10em" id="col14"><Text text="{i18n>CARATT_SEDE}"/></Column>
-                    <Column width="15em" id="col15"><Text text="{i18n>OGGETTO_TECNICO}"/></Column>
-                    <Column width="10em" id="col16"><Text text="{i18n>PROFILO}"/></Column>
-                    <Column width="10em" id="col17"><Text text="{i18n>ZBAU}"/></Column>
-                    <Column width="10em" id="col18"><Text text="{i18n>DIVISIONEC}"/></Column>
-                    <Column width="10em" id="col19"><Text text="{i18n>CENTRO_LAVORO}"/></Column>
-                    <Column width="10em" id="col20"><Text text="{i18n>LSTAR}"/></Column>
-                    <Column width="12em" id="col21"><Text text="{i18n>STEUS}"/></Column>
-                    <Column width="10em" id="col22"><Text text="{i18n>NUM}"/></Column>
-                    <Column width="10em" id="col23"><Text text="{i18n>PERSONE}"/></Column>
-                    <Column width="10em" id="col24"><Text text="{i18n>HPER}"/></Column>
-                    <Column width="10em" id="col25"><Text text="{i18n>LSTAR_1}"/></Column>
-                    <Column width="12em" id="col26"><Text text="{i18n>STEUS_1}"/></Column>
-                    <Column width="10em" id="col27"><Text text="{i18n>NUM_1}"/></Column>
-                    <Column width="10em" id="col28"><Text text="{i18n>PERSONE_1}"/></Column>
-                    <Column width="10em" id="col29"><Text text="{i18n>HPER_1}"/></Column>
-                    <Column width="10em" id="col30"><Text text="{i18n>LSTAR_2}"/></Column>
-                    <Column width="12em" id="col31"><Text text="{i18n>STEUS_2}"/></Column>
-                    <Column width="10em" id="col32"><Text text="{i18n>NUM_2}"/></Column>
-                    <Column width="10em" id="col33"><Text text="{i18n>PERSONE_2}"/></Column>
-                    <Column width="10em" id="col34"><Text text="{i18n>HPER_2}"/></Column>
-                    <Column width="10em" id="col35"><Text text="{i18n>LSTAR_3}"/></Column>
-                    <Column width="12em" id="col36"><Text text="{i18n>STEUS_3}"/></Column>
-                    <Column width="10em" id="col37"><Text text="{i18n>NUM_3}"/></Column>
-                    <Column width="10em" id="col38"><Text text="{i18n>PERSONE_3}"/></Column>
-                    <Column width="10em" id="col39"><Text text="{i18n>HPER_3}"/></Column>
-                    <Column width="10em" id="col40"><Text text="{i18n>LSTAR_4}"/></Column>
-                    <Column width="12em" id="col41"><Text text="{i18n>STEUS_4}"/></Column>
-                    <Column width="10em" id="col42"><Text text="{i18n>NUM_4}"/></Column>
-                    <Column width="10em" id="col43"><Text text="{i18n>PERSONE_4}"/></Column>
-                    <Column width="10em" id="col44"><Text text="{i18n>HPER_4}"/></Column>
-                    <Column width="10em" id="col45"><Text text="{i18n>LSTAR_5}"/></Column>
-                    <Column width="12em" id="col46"><Text text="{i18n>STEUS_5}"/></Column>
-                    <Column width="10em" id="col47"><Text text="{i18n>NUM_5}"/></Column>
-                    <Column width="10em" id="col48"><Text text="{i18n>PERSONE_5}"/></Column>
-                    <Column width="10em" id="col49"><Text text="{i18n>HPER_5}"/></Column>
-                    <Column width="10em" id="col50"><Text text="{i18n>PRIORITA}"/></Column>
-                    <Column width="10em" id="col51"><Text text="{i18n>DESTINATARIO}"/></Column>
-                    <Column width="10em" id="col52"><Text text="{i18n>TESTO_ESTESO}"/></Column>
-                    <Column width="10em" id="col53"><Text text="{i18n>SISTEMA_PMO}"/></Column>
-                    <Column width="10em" id="col54"><Text text="{i18n>PROGRES_PMO}"/></Column>
-                    <Column width="10em" id="col55"><Text text="{i18n>CLASSE_PMO}"/></Column>
-                    <Column width="10em" id="col56"><Text text="{i18n>TIPO_GESTIONE}"/></Column>
-                    <Column width="10em" id="col57"><Text text="{i18n>TIPO_GESTIONE_1}"/></Column>
-                    <Column width="10em" id="col58"><Text text="{i18n>TIPO_GESTIONE_2}"/></Column>
-                    <Column width="10em" id="col59"><Text text="{i18n>RISK}"/></Column>
-                    <Column width="13em" id="col60"><Text text="{i18n>POINT}"/></Column>
-                    <Column width="10em" id="col61"><Text text="{i18n>MPTYP}"/></Column>
-                    <Column width="10em" id="col62"><Text text="{i18n>LIMITE}"/></Column>
-                    <Column width="10em" id="col63"><Text text="{i18n>FREQ_TEMPO}"/></Column>
-                    <Column width="10em" id="col64"><Text text="{i18n>UNITA_TEMPO}"/></Column>
-                    <Column width="13em" id="col65"><Text text="{i18n>FREQ_CICLO}"/></Column>
-                    <Column width="10em" id="col66"><Text text="{i18n>UNITA_CICLO}"/></Column>
-                    <Column width="13em" id="col67"><Text text="{i18n>FREQ_RISK}"/></Column>
-                    <Column width="10em" id="col68"><Text text="{i18n>UNITA_RISK}"/></Column>
-                    <Column width="10em" id="col69"><Text text="{i18n>LIMITE2}"/></Column>
-                    <Column width="10em" id="col70"><Text text="{i18n>CONTATORE}"/></Column>
-                    <Column width="12em" id="col71"><Text text="{i18n>DATA_MODIFICA}"/></Column>
-                    <Column width="10em" id="col72"><Text text="{i18n>SISTEMA}"/></Column>
-                    <Column width="10em" id="col73"><Text text="{i18n>PROGRES}"/></Column>
-                    <Column width="10em" id="col74"><Text text="{i18n>CLASSE}"/></Column>
-                    <Column width="15em" id="col75"><Text text="{i18n>DES_COMPONENTE}"/></Column>
-                </columns>
-                <items>
-                    <ColumnListItem vAlign="Middle" type="Active" press="onPressLine">
-                        <cells>
-                            <Text text="{INDEX}"/>
-                            <Text text="{STARTEGIA}"/>
-                            <Text text="{STRATEGIA_DESC}"/>
-                            <Text text="{SEDE_TECNICA}"/>
-                            <Text text="{DIVISIONE}"/>
-                            <Text text="{LIVELLO1}"/>
-                            <Text text="{LIVELLO2}"/>
-                            <Text text="{LIVELLO3}"/>
-                            <Text text="{LIVELLO4}"/>
-                            <Text text="{LIVELLO5}"/>
-                            <Text text="{LIVELLO6}"/>
-                            <Text text="{DESC_SEDE}"/>
-                            <Text text="{CLASSE_SEDE}"/>
-                            <Text text="{CARATT_SEDE}"/>
-                            <Text text="{OGGETTO_TECNICO}"/>
-                            <Text text="{PROFILO}"/>
-                            <Text text="{ZBAU}"/>
-                            <Text text="{DIVISIONEC}"/>
-                            <Text text="{CENTRO_LAVORO}"/>
-                            <Text text="{LSTAR}"/>
-                            <Text text="{STEUS}"/>
-                            <Text text="{NUM}"/>
-                            <Text text="{PERSONE}"/>
-                            <Text text="{HPER}"/>
-                            <Text text="{LSTAR_1}"/>
-                            <Text text="{STEUS_1}"/>
-                            <Text text="{NUM_1}"/>
-                            <Text text="{PERSONE_1}"/>
-                            <Text text="{HPER_1}"/>
-                            <Text text="{LSTAR_2}"/>
-                            <Text text="{STEUS_2}"/>
-                            <Text text="{NUM_2}"/>
-                            <Text text="{PERSONE_2}"/>
-                            <Text text="{HPER_2}"/>
-                            <Text text="{LSTAR_3}"/>
-                            <Text text="{STEUS_3}"/>
-                            <Text text="{NUM_3}"/>
-                            <Text text="{PERSONE_3}"/>
-                            <Text text="{HPER_3}"/>
-                            <Text text="{LSTAR_4}"/>
-                            <Text text="{STEUS_4}"/>
-                            <Text text="{NUM_4}"/>
-                            <Text text="{PERSONE_4}"/>
-                            <Text text="{HPER_4}"/>
-                            <Text text="{LSTAR_5}"/>
-                            <Text text="{STEUS_5}"/>
-                            <Text text="{NUM_5}"/>
-                            <Text text="{PERSONE_5}"/>
-                            <Text text="{HPER_5}"/>
-                            <Text text="{PRIORITA}"/>
-                            <Text text="{DESTINATARIO}"/>
-                            <Text text="{TESTO_ESTESO}"/>
-                            <Text text="{SISTEMA_PMO}"/>
-                            <Text text="{PROGRES_PMO}"/>
-                            <Text text="{CLASSE_PMO}"/>
-                            <Text text="{TIPO_GESTIONE}"/>
-                            <Text text="{TIPO_GESTIONE_1}"/>
-                            <Text text="{TIPO_GESTIONE_2}"/>
-                            <Text text="{RISK}"/>
-                            <Text text="{POINT}"/>
-                            <Text text="{MPTYP}"/>
-                            <Text text="{LIMITE}"/>
-                            <Text text="{FREQ_TEMPO}"/>
-                            <Text text="{UNITA_TEMPO}"/>
-                            <Text text="{FREQ_CICLO}"/>
-                            <Text text="{UNITA_CICLO}"/>
-                            <Text text="{FREQ_RISK}"/>
-                            <Text text="{UNITA_RISK}"/>
-                            <Text text="{LIMITE2}"/>
-                            <Text text="{CONTATORE}"/>
-                            <Text text="{DATA_MODIFICA}"/>
-                            <Text text="{SISTEMA}"/>
-                            <Text text="{PROGRES}"/>
-                            <Text text="{CLASSE}"/>
-                            <Text text="{DES_COMPONENTE}"/>
 
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-        </ScrollContainer >
+  <f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true" showFooter="false" fitContent="true" class="sapUiContentPadding">
+    <f:title>
+      <f:DynamicPageTitle>
+        <f:content>
+      
+           <HBox height="100%" alignItems="Center" alignContent="Center" justifyContent="Center">
+                        <Title text="{i18n>PrototipiPiani}"/>
+                    </HBox>
         </f:content>
-        <f:footer>
-            <OverflowToolbar>
-                <ToolbarSpacer/>
-                <ToolbarSpacer/>
-            </OverflowToolbar>
-        </f:footer>
-    </f:DynamicPage>
+        <f:actions></f:actions>
+        <f:navigationActions>
+          <Button text="Nuovo"  icon="sap-icon://document" press="handleNuovo" class="sapUiTinyMarginBegin"/>
+          <Button text="Modifica" icon="sap-icon://edit" press="onModify" class="sapUiTinyMarginBegin"/>
+          <Button text="Copia"  icon="sap-icon://copy" press="onCopy" class="sapUiTinyMarginBegin"/>
+          <Button text="Cancella" icon="sap-icon://delete" press="handleDelete" class="sapUiTinyMarginBegin"/>
+        </f:navigationActions>
+      </f:DynamicPageTitle>
+    </f:title>
+    <f:header>
+      <f:DynamicPageHeader pinnable="true">
+        <f:content>
+          <fb:FilterBar search="onSearch" clear="onClearFilter" showClearOnFB="true" showRestoreButton="true" showClearButton="true">
+            <fb:filterGroupItems>
+                <fb:FilterGroupItem id="FICONTATORE" visible="true" groupName="__$INTERNAL$" name="Contatore" label="{i18n>CONTATORE}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                  <MultiComboBox selectedKeys="{sFilter>/CONTATORE}" items="{ path: '/Azioni', sorter: [{ path: 'CONTATORE', descending: false, group:false }] }" >
+                    <core:Item key="{CONTATORE}" text="{CONTATORE}"/>
+                  </MultiComboBox>
+                </fb:control>
+              </fb:FilterGroupItem>
+              <fb:FilterGroupItem id="FISISTEMA" visible="true" groupName="__$INTERNAL$" name="SISTEMA" label="{i18n>SISTEMA}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                  <MultiComboBox selectionChange="onFilterHelp" selectedKeys="{sFilter>/SISTEMA}" items="{ path: 'sHelp>/SISTEMA', sorter: [{ path: 'SISTEMA', descending: false, group:false }] }" > 
+                    <core:Item key="{sHelp>SISTEMA}" text="{sHelp>SISTEMA}"/>
+                  </MultiComboBox>
+                </fb:control>
+              </fb:FilterGroupItem>
+              <fb:FilterGroupItem id="FICLASSE" visible="true" groupName="__$INTERNAL$" name="CLASSE" label="{i18n>CLASSE}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                  <MultiComboBox selectionChange="onFilterHelp" selectedKeys="{sFilter>/CLASSE}" items="{ path: 'sHelp>/CLASSE', sorter: [{ path: 'CLASSE', descending: false, group:false }] }" > 
+                    <core:Item key="{sHelp>CLASSE}" text="{sHelp>CLASSE}"/>
+                  </MultiComboBox>
+                </fb:control>
+              </fb:FilterGroupItem>
+              <fb:FilterGroupItem id="FIPROGRES" visible="true" groupName="__$INTERNAL$" name="PROGRES" label="{i18n>PROGRES}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                  <MultiComboBox selectionChange="onFilterHelp" selectedKeys="{sFilter>/PROGRES}" items="{ path: 'sHelp>/PROGRES', sorter: [{ path: 'PROGRES', descending: false, group:false }] }" > 
+                    <core:Item key="{sHelp>PROGRES}" text="{sHelp>PROGRES}"/>
+                  </MultiComboBox>
+                </fb:control>
+              </fb:FilterGroupItem>
+              <fb:FilterGroupItem id="FISedeTecnica" visible="true" groupName="__$INTERNAL$" name="SedeTecnica" label="{i18n>SedeTecnica}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                <HBox>
+                  <Input id="iSedeTecnica" value="{sFilter>/SEDE_TECNICA}" class="sapUiSmallMarginBottom" type="Text" showValueHelp="true" valueHelpRequest="handleSedeTecnica"/>
+                  
+                 </HBox>
+                </fb:control>
+              </fb:FilterGroupItem>
+              <fb:FilterGroupItem id="FISedeTecnicaMassive" visible="true" groupName="__$INTERNAL$" name="SedeTecnicaMassive" label="{i18n>IncludiSotto}"   partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+               
+                  <Switch type="AcceptReject" state="{sFilter>/INCLUDI}" ></Switch>
+                  
+                </fb:control>
+              </fb:FilterGroupItem>
+              <fb:FilterGroupItem id="FIStrategia" visible="true" groupName="__$INTERNAL$" name="Strategia" label="{i18n>Strategia}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                  <MultiComboBox id="cbSTRATEGIA" selectedKeys="{sFilter>/STRATEGIA}"  items="{ path: '/Strategia', filters: [{ path: 'ID', operator: 'NE', value1: 0 }]}" showSecondaryValues="true">
+                    <core:ListItem key="{STRATEGIA}" text="{STRATEGIA}" additionalText="{STRATEGIA_DESC}"/>
+                  </MultiComboBox>
+                </fb:control>
+              </fb:FilterGroupItem>
+              
+              <fb:FilterGroupItem id="FIonlyActive" visible="true" groupName="__$INTERNAL$" name="onlyActive" label="{i18n>onlyActive}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                 <Select xmlns="sap.m" id="onlyActive" selectedKey="{sFilter>/ATTIVO}">
+                  <items>
+                   <core:ListItem xmlns:core="sap.ui.core" key="0" text="" />
+                   <core:ListItem xmlns:core="sap.ui.core" key="true" icon="sap-icon://accept" text="Attivo" />
+                   <core:ListItem xmlns:core="sap.ui.core" key="false" icon="sap-icon://decline" text="Disattivo"/>
+                  </items>
+                 </Select>
+                </fb:control>
+              </fb:FilterGroupItem>
+
+               <fb:FilterGroupItem id="FIINDEX" visible="true" groupName="__$INTERNAL$" name="Index" label="{i18n>INDEX}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                  <MultiComboBox selectedKeys="{sFilter>/INDEX}" items="{ path: '/Index', sorter: [{ path: 'INDEX', descending: false, group:false }] }">
+                    <core:Item key="{INDEX}" text="{INDEX}"/>
+                  </MultiComboBox>
+                </fb:control>
+              </fb:FilterGroupItem>
+
+              <!--  Contatore - Sistema - Classe - Progressivo - ST Tipo - Strategia - Stato - Index Prototipo
+                <fb:FilterGroupItem id="FIonlyIndex" visible="true" groupName="__$INTERNAL$" name="onlyIndex" label="{i18n>onlyIndex}" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                  <Switch id="onlyIndex" type="AcceptReject" state="true"></Switch>
+                </fb:control>
+              </fb:FilterGroupItem>-->
+            </fb:filterGroupItems>
+          </fb:FilterBar>
+          <OverflowToolbar style="Clear">
+          <Button type="Default" tooltip="List" text="{i18n>ListVar}" icon="sap-icon://activity-items" press="onListVariant"/>
+					<Button type="Default" tooltip="Save" text="{i18n>SalvaVar}" icon="sap-icon://save" press="onPressVariant"/>
+            <ToolbarSpacer/>
+
+          <Button text="Scarica" icon="sap-icon://download" press="onDataExport" class="sapUiTinyMarginBegin"/>
+          <Button text="Carica"  icon="sap-icon://upload" press="handleUploadPiani" class="sapUiTinyMarginBegin"/>
+          <Button text="Colonne" icon="sap-icon://action-settings" press="onPersoButtonPressed" class="sapUiTinyMarginBegin"/>
+          </OverflowToolbar>
+        </f:content>
+      </f:DynamicPageHeader>
+    </f:header>
+    <f:content>
+      <ScrollContainer width="100%" height="100%" vertical="true" horizontal="true">
+
+        <Table id="tbPiani" items="{ path: 'allIndex>/' }" class="backClass sapUiSizeCompact stipAdmin" showNoData="false" mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders">
+          <columns>
+            <!--<Column width="3.2rem" id="col0" hAlign="Begin">
+              <CheckBox id="chmain" text=" " select="allCheck" class="" wrapping="true"/>
+            </Column>-->
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col1"><Text text="{i18n>INDEX}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col2"><Text text="{i18n>CONTATORE}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col3"><Text text="{i18n>ATTIVO}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col5"><Text text="{i18n>SISTEMA}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col6"><Text text="{i18n>PROGRES}"/></Column>
+            <Column width="16em" styleClass="columnPosizioni" id="col7"><Text text="{i18n>DESC_PROG}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col8"><Text text="{i18n>CLASSE}"/></Column>
+            <Column width="16em" styleClass="columnPosizioni" id="col9"><Text text="{i18n>DES_COMPONENTE}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col10"><Text text="{i18n>DIVISIONE}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col20"><Text text="{i18n>SEDE_TECNICA}"/></Column>
+            <Column width="15em" styleClass="columnPosizioni" id="col21"><Text text="{i18n>SEDE_TECNICA_P}"/></Column>
+            <Column width="18em" styleClass="columnPosizioni" id="col27"><Text text="{i18n>DESC_SEDE}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col28"><Text text="{i18n>EQUIPMENT}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col29"><Text text="{i18n>TESTO_ESTESO_P}"/></Column>
+            <Column width="16em" styleClass="columnPosizioni" id="col30"><Text text="{i18n>CLASSE_SEDE}"/></Column>
+            <Column width="16em" styleClass="columnPosizioni" id="col31"><Text text="{i18n>CARATT_SEDE}"/></Column>
+            <Column width="16em" styleClass="columnPosizioni" id="col32"><Text text="{i18n>OGGETTO_TECNICO}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col33"><Text text="{i18n>PROFILO}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col34"><Text text="{i18n>ZBAU}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col35"><Text text="{i18n>VALORE}"/></Column>
+            <Column width="16em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col37"><Text text="{i18n>STRATEGIA}"/></Column>
+            <Column width="16em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col38"><Text text="{i18n>STRATEGIA_DESC}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col39"><Text text="{i18n>DIVISIONEC}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col40"><Text text="{i18n>CENTRO_LAVORO}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col50"><Text text="{i18n>TIPO_GESTIONE}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col51"><Text text="{i18n>TIPO_GESTIONE_1}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col52"><Text text="{i18n>TIPO_GESTIONE_2}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col53"><Text text="{i18n>PRIORITA}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col54"><Text text="{i18n>TIPO_ATTIVITA}"/></Column>
+            <Column width="18em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col55"><Text text="{i18n>DESC_BREVE}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col56"><Text text="{i18n>TESTO_ESTESO}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col57"><Text text="{i18n>INDISPONIBILITA}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col58"><Text text="{i18n>TIPO_ORDINE}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col59"><Text text="{i18n>LSTAR}"/></Column>
+            <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col60"><Text text="{i18n>STEUS}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col70"><Text text="{i18n>NUM}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col71"><Text text="{i18n>LSTAR_1}"/></Column>
+            <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col72"><Text text="{i18n>STEUS_1}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col73"><Text text="{i18n>NUM_1}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col74"><Text text="{i18n>LSTAR_2}"/></Column>
+            <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col75"><Text text="{i18n>STEUS_2}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col76"><Text text="{i18n>NUM_2}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col77"><Text text="{i18n>LSTAR_3}"/></Column>
+            <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col78"><Text text="{i18n>STEUS_3}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col79"><Text text="{i18n>NUM_3}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col80"><Text text="{i18n>LSTAR_4}"/></Column>
+            <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col90"><Text text="{i18n>STEUS_4}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col91"><Text text="{i18n>NUM_4}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col92"><Text text="{i18n>LSTAR_5}"/></Column>
+            <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col93"><Text text="{i18n>STEUS_5}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col94"><Text text="{i18n>NUM_5}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col95"><Text text="{i18n>RISK}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col96"><Text text="{i18n>LIMITE}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col97"><Text text="{i18n>FREQ_TEMPO}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col98"><Text text="{i18n>UNITA_TEMPO}"/></Column>
+            <Column width="14em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col99"><Text text="{i18n>FREQ_CICLO}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col100"><Text text="{i18n>UNITA_CICLO}"/></Column>
+            <Column width="14em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col101"><Text text="{i18n>POINT}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col102"><Text text="{i18n>MPTYP}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col103"><Text text="{i18n>TIPOFREQUENZA}"/></Column>
+
+          </columns>
+          <items>
+            <ColumnListItem vAlign="Middle" type="Active">
+              <customData>
+                <core:CustomData id="custm1" key="mydata" value="{allIndex>COLORSET}" writeToDom="true"></core:CustomData>
+              </customData>
+              <cells>
+                <!--<CheckBox id="ch" visible="{allIndex>DISPLAY_CHECKBOX}" selected="{allIndex>CHECK_CHECKBOX}">
+                  <customData>
+                    <core:CustomData key="mergeKey" value="{allIndex>ID}"/>
+                  </customData>
+                </CheckBox>-->
+                <Text text="{allIndex>INDEX}" >
+                  <customData> <core:CustomData key="mergeKey" value="{allIndex>ID}"/> </customData>
+                </Text>
+                <Text text="{allIndex>CONTATORE} " />
+                <Switch type="AcceptReject" state="{allIndex>ATTIVO}" customTextOn="Attivo" customTextOff="Disattivo" change="onChangeAttivo" ></Switch>
+                <Text text="{allIndex>SISTEMA} " />
+                <Text text="{allIndex>PROGRES} " />
+                <Text text="{allIndex>DESC_PROG} " />
+                <Text text="{allIndex>CLASSE} " />
+                <Text text="{allIndex>DES_COMPONENTE} " />
+                <Text text="{allIndex>DIVISIONE} " />
+                <Text text="{allIndex>SEDE_TECNICA} " />
+                <Text text="{allIndex>SEDE_TECNICA_P} " />
+                <Text text="{allIndex>DESC_SEDE} " />
+                <Text text="{allIndex>EQUIPMENT} " />
+                <Button icon="sap-icon://document-text" tooltip="{allIndex>TESTO_ESTESO_P}" type="Transparent" press="handleTesto" />
+                <Text text="{allIndex>CLASSE_SEDE} " />
+                <Text text="{allIndex>CARATT_SEDE} " />
+                <Text text="{allIndex>OGGETTO_TECNICO} " />
+                <Text text="{allIndex>PROFILO} " />
+                <Text text="{allIndex>ZBAU} " />
+                <Text text="{allIndex>VALORE} " />
+                <Text text="{allIndex>STRATEGIA}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>STRATEGIA_DESC}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>DIVISIONEC}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>CENTRO_LAVORO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>TIPO_GESTIONE}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>TIPO_GESTIONE_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>TIPO_GESTIONE_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>PRIORITA}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>TIPO_ATTIVITA}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>DESC_BREVE}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Button icon="sap-icon://document-text" tooltip="{allIndex>TESTO_ESTESO}" type="Transparent" press="handleTesto2" ><customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Button>
+                <Text text="{allIndex>INDISPONIBILITA}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>TIPO_ORDINE}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>LSTAR}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>STEUS}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>NUM}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>LSTAR_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>STEUS_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>NUM_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>LSTAR_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>STEUS_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>NUM_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>LSTAR_3}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>STEUS_3}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>NUM_3}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>LSTAR_4}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>STEUS_4}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>NUM_4}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>LSTAR_5}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>STEUS_5}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>NUM_5}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>RISK}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>LIMITE}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>FREQ_TEMPO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>UNITA_TEMPO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>FREQ_CICLO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>UNITA_CICLO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>POINT}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>MPTYP}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>TIPOFREQUENZA}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </ScrollContainer>
+    </f:content>
+    <f:footer>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+        <ToolbarSpacer/>
+      </OverflowToolbar>
+    </f:footer>
+    <f:dependents>
+      <core:Fragment fragmentName="PM030.APP2.fragment.DeleteIndex" type="XML"></core:Fragment>
+      <core:Fragment fragmentName="PM030.APP2.fragment.SedeTecnica" type="XML"></core:Fragment>
+      <core:Fragment fragmentName="PM030.APP2.fragment.UploadPiani" type="XML"></core:Fragment>
+      <core:Fragment fragmentName="PM030.APP2.fragment.popTestoEstesoView" type="XML"></core:Fragment>
+      <core:Fragment fragmentName="PM030.APP2.fragment.Variant" type="XML"></core:Fragment>
+			<core:Fragment fragmentName="PM030.APP2.fragment.SaveVariant" type="XML"></core:Fragment>
+    </f:dependents>
+  </f:DynamicPage>
 </mvc:View>

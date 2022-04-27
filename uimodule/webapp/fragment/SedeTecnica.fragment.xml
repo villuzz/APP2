@@ -1,0 +1,98 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog contentHeight="500px" id="DialogSede" resizable="true" draggable="true" title="{i18n>SelezionaSedeTecnica}">
+     <customHeader>
+        <Bar>
+            <contentLeft>
+                
+            </contentLeft>
+            <contentMiddle>
+                <Title text="{i18n>SelezionaSedeTecnica}" />
+            </contentMiddle>
+             <contentRight>
+                <Button icon="sap-icon://synchronize" type="Transparent" press="onResetSedeTecnica"/>
+                    <Button icon="sap-icon://hint" type="Transparent" press="handlePopoverPress"/>
+            </contentRight>
+        </Bar>
+    </customHeader>
+        <content>
+            <HBox width="100%" height="5em" alignContent="Center" alignItems="Center" >
+                <VBox width="12.5%" class="sapUiTinyMarginBegin">
+                    <Text text="{i18n>SEDE_TECNICA}"/>
+                    <ComboBox id="selSede" items="{SedeTecnica>/}" value="{sSedeTecnica>/SEDE_TECNICA}" change="onFilterSedeTecnica" width="90%" >
+                      <core:Item key="{SEDE_TECNICA}" text="{SedeTecnica>SEDE_TECNICA}"/>
+                    </ComboBox>
+                </VBox>
+                <VBox width="12.5%" class="sapUiTinyMarginBegin">
+                    <Text text="{i18n>LIVELLO1}"/>
+                    <ComboBox id="selLvl1" items="{Livello1>/}" value="{sSedeTecnica>/LIVELLO1}" change="onFilterSedeTecnica" width="90%" >
+                      <core:Item key="{LIVELLO1}" text="{Livello1>LIVELLO1}"/>
+                    </ComboBox>
+                </VBox>
+                <VBox width="12.5%">
+                    <Text text="{i18n>LIVELLO2}"/>
+                    <ComboBox id="selLvl2" items="{Livello2>/}" value="{sSedeTecnica>/LIVELLO2}" change="onFilterSedeTecnica" width="90%" >
+                      <core:Item key="{LIVELLO2}" text="{Livello2>LIVELLO2}"/>
+                    </ComboBox>
+                </VBox>
+                <VBox width="12.5%">
+                    <Text text="{i18n>LIVELLO3}"/>
+                    <ComboBox id="selLvl3" items="{Livello3>/}" value="{sSedeTecnica>/LIVELLO3}" change="onFilterSedeTecnica" width="90%" >
+                      <core:Item key="{LIVELLO3}" text="{Livello3>LIVELLO3}"/>
+                    </ComboBox>
+                </VBox>
+                <VBox width="12.5%">
+                    <Text text="{i18n>LIVELLO4}"/>
+                    <ComboBox id="selLvl4" items="{Livello4>/}" value="{sSedeTecnica>/LIVELLO4}" change="onFilterSedeTecnica" width="90%" >
+                      <core:Item key="{LIVELLO4}" text="{Livello4>LIVELLO4}"/>
+                    </ComboBox>
+                </VBox>
+                <VBox width="12.5%">
+                    <Text text="{i18n>LIVELLO5}"/>
+                    <ComboBox id="selLvl5" items="{Livello5>/}" value="{sSedeTecnica>/LIVELLO5}" change="onFilterSedeTecnica" width="90%" >
+                      <core:Item key="{LIVELLO5}" text="{Livello5>LIVELLO5}"/>
+                    </ComboBox>
+                </VBox>
+                <VBox width="12.5%">
+                    <Text text="{i18n>LIVELLO6}"/>
+                    <ComboBox id="selLvl6" items="{Livello6>/}" value="{sSedeTecnica>/LIVELLO6}" change="onFilterSedeTecnica" width="90%" >
+                      <core:Item key="{LIVELLO6}" text="{Livello6>LIVELLO6}"/>
+                    </ComboBox>
+                </VBox>
+                <VBox width="12.5%">
+                </VBox>
+            </HBox>
+            <HBox>
+                <Table id="tSedeTecnica" items="{/Sede}" sticky="HeaderToolbar,ColumnHeaders">
+                    <columns>
+                        <!--<Column width="15%"><Text text="{i18n>SEDE_TECNICA}"/></Column>-->
+                        <Column width="10%"><Text text="{i18n>LIVELLO1}"/></Column>
+                        <Column width="10%"><Text text="{i18n>LIVELLO2}"/></Column>
+                        <Column width="10%"><Text text="{i18n>LIVELLO3}"/></Column>
+                        <Column width="10%"><Text text="{i18n>LIVELLO4}"/></Column>
+                        <Column width="10%"><Text text="{i18n>LIVELLO5}"/></Column>
+                        <Column width="10%"><Text text="{i18n>LIVELLO6}"/></Column>
+                        <Column width="20%"><Text text="{i18n>DESC_SEDE}"/></Column>
+                        <Column width="20%"><Text text="{i18n>NOTE}"/></Column>
+                    </columns>
+                    <ColumnListItem press="onPressSedeTecnica" type="Active">
+                        <cells>
+                            <!--<Text text="{SEDE_TECNICA}"/>-->
+                            <Text text="{LIVELLO1}"/>
+                            <Text text="{LIVELLO2}"/>
+                            <Text text="{LIVELLO3}"/>
+                            <Text text="{LIVELLO4}"/>
+                            <Text text="{LIVELLO5}"/>
+                            <Text text="{LIVELLO6}"/>
+                            <Text text="{DESC_SEDE}"/>
+                            <Text text="{NOTE}"/>
+                        </cells>
+                    </ColumnListItem>
+                </Table>
+
+            </HBox>
+        </content>
+        <endButton>
+            <Button text="{i18n>Annulla}" type="Emphasized" press="onCloseSedeTecnica"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
