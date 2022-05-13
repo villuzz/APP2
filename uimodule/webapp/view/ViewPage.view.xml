@@ -124,7 +124,7 @@
             </Column>-->
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col1"><Text text="{i18n>INDEX}"/></Column>
             <Column width="10em" styleClass="columnPosizioni" id="col2"><Text text="{i18n>CONTATORE}"/></Column>
-            <Column width="10em" styleClass="columnPosizioni" id="col3"><Text text="{i18n>ATTIVO}"/></Column>
+            <Column width="7em" styleClass="columnPosizioni" id="col3" hAlign="Center"><Text text="{i18n>ATTIVO}"/></Column>
             <Column width="10em" styleClass="columnPosizioni" id="col5"><Text text="{i18n>SISTEMA}"/></Column>
             <Column width="10em" styleClass="columnPosizioni" id="col6"><Text text="{i18n>PROGRES}"/></Column>
             <Column width="16em" styleClass="columnPosizioni" id="col7"><Text text="{i18n>DESC_PROG}"/></Column>
@@ -142,6 +142,8 @@
             <Column width="10em" styleClass="columnPosizioni" id="col33"><Text text="{i18n>PROFILO}"/></Column>
             <Column width="10em" styleClass="columnPosizioni" id="col34"><Text text="{i18n>ZBAU}"/></Column>
             <Column width="10em" styleClass="columnPosizioni" id="col35"><Text text="{i18n>VALORE}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col104"><Text text="{i18n>MATNR}"/></Column>
+            <Column width="10em" styleClass="columnPosizioni" id="col105"><Text text="{i18n>ASNUM}"/></Column>
             <Column width="16em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col37"><Text text="{i18n>STRATEGIA}"/></Column>
             <Column width="16em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col38"><Text text="{i18n>STRATEGIA_DESC}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col39"><Text text="{i18n>DIVISIONEC}"/></Column>
@@ -217,6 +219,8 @@
                 <Text text="{allIndex>PROFILO} " />
                 <Text text="{allIndex>ZBAU} " />
                 <Text text="{allIndex>VALORE} " />
+                <Button icon="sap-icon://activity-2" type="Transparent" press="HandleMaterialView"/>
+                <Button icon="sap-icon://crm-service-manager" type="Transparent" press="HandleServiziView"/>
                 <Text text="{allIndex>STRATEGIA}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>STRATEGIA_DESC}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>DIVISIONEC}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
@@ -271,6 +275,8 @@
       </OverflowToolbar>
     </f:footer>
     <f:dependents>
+      <core:Fragment fragmentName="PM030.APP2.fragment.popMaterialiView" type="XML"></core:Fragment>
+      <core:Fragment fragmentName="PM030.APP2.fragment.popServiziView" type="XML"></core:Fragment>
       <core:Fragment fragmentName="PM030.APP2.fragment.DeleteIndex" type="XML"></core:Fragment>
       <core:Fragment fragmentName="PM030.APP2.fragment.SedeTecnica" type="XML"></core:Fragment>
       <core:Fragment fragmentName="PM030.APP2.fragment.UploadPiani" type="XML"></core:Fragment>

@@ -7,10 +7,15 @@ sap.ui.define([
     'sap/ui/model/Filter',
     'sap/ui/model/FilterOperator',
     "PM030/APP2/util/PianiTableAzioni",
-], function (Controller, JSONModel, MessageBox, PianiTable, TablePersoController, Filter, FilterOperator, PianiTableAzioni) {
+    'sap/ui/core/library',
+    "PM030/APP2/util/Validator",
+], function (Controller, JSONModel, MessageBox, PianiTable, TablePersoController, Filter, FilterOperator, PianiTableAzioni, coreLibrary, Validator) {
     "use strict";
 
+    var ValueState = coreLibrary.ValueState;
+
     return Controller.extend("PM030.APP2.controller.DetailPage", {
+        Validator: Validator,
         onInit: function () {
 
             this._oTPCDetail = new TablePersoController({table: this.byId("tAzioni"), componentName: "Azioni", persoService: PianiTableAzioni}).activate();
@@ -20,16 +25,14 @@ sap.ui.define([
 
         },
         routeMatched: async function () {
-          //this.getView().byId("cbDivisioneC").getModel().setSizeLimit(2000);
-          //this.getView().byId("cbDivisioneC").getModel().refresh();
+            // this.getView().byId("cbDivisioneC").getModel().setSizeLimit(2000);
+            // this.getView().byId("cbDivisioneC").getModel().refresh();
         },
         _onObjectMatched: async function (oEvent) {
 
-          sap.ui.core.BusyIndicator.show(0);
-
+            sap.ui.core.BusyIndicator.show(0);
+            Validator.clearValidation();
             this.byId("iconTabBar").setSelectedKey(this.byId("iconTabBar").getItems()[0].getId());
-
-            this.getValueHelp(); //PER QUELLI PICCOLI VA BENE, PER GLI ALTRI CHIAMARE SOLO AL BISOGNO TODO
 
             var oModel = new sap.ui.model.json.JSONModel();
             var sIndex = {},
@@ -66,6 +69,13 @@ sap.ui.define([
                         selConcat = selConcat.substring(0, (selConcat.length - 1));
                     }
                     sIndex.AZIONI[i].SEDE_TECNICA_P = selConcat;
+
+                    aFilter = [];
+                    aFilter.push(new Filter("INDEX", FilterOperator.EQ, sIndex.INDEX));
+                    aFilter.push(new Filter("CONTATORE", FilterOperator.EQ, sIndex.AZIONI[i].CONTATORE));
+
+                    sIndex.AZIONI[i].Material = await this._getTable("/AzioniMateriali", aFilter);
+                    sIndex.AZIONI[i].Servizi = await this._getTable("/AzioniServizi", aFilter);
                 }
                 if (this.selCOPY !== undefined) {
                     this.selINDEX = undefined;
@@ -91,29 +101,147 @@ sap.ui.define([
                 oModel.setData(sIndex);
                 this.getView().setModel(oModel, "sSelect");
             }
-            sap.ui.core.BusyIndicator.hide(0);
+
+            if (this.getView().getModel("sHelp") === undefined) {
+                await this.getValueHelp(); // PER QUELLI PICCOLI VA BENE, PER GLI ALTRI CHIAMARE SOLO AL BISOGNO TODO
+            }sap.ui.core.BusyIndicator.hide(0);
         },
-        getValueHelp: async function(){
-          var sData = {};
+        getValueHelp: async function () {
+            var sData = {};
             var oModelHelp = new sap.ui.model.json.JSONModel();
             sData.PRIORITA = await this.Shpl("ZPM4R_D_PRIORITA", "FV");
-            sData.DIVISIONEC = await this.Shpl("H_T001W", "SH");
-            sData.CENTRO_LAVORO = await this.Shpl("ZPM4R_H_DESTINATARIO", "SH");
-            sData.TIPO_ORDINE = await this.Shpl("H_T003O", "SH");
+            sData.TIPO_ORDINE = await this.Shpl("T003O", "CH");
+            sData.DIVISIONE = await this.Shpl("H_T001W", "SH");
+            sData.STEUS = await this.Shpl("T430", "CH");
+            sData.POINT = await this.Shpl("T370P", "CH");
+            sData.LSTAR = await this.Shpl("LARTN", "SH");
+            sData.TIPO_ATTIVITA = await this.Shpl("T350I", "CH");
+            sData.SEDE_TECNICA = await this._getTableDistinct("/SedeDistinct", [], "SEDE_TECNICA");
+            sData.TIPO_GESTIONE = await this._getTableNoError("/T_TP_MAN");
+            sData.TIPO_GESTIONE_1 = await this._getTableNoError("/T_TP_MAN1");
+            sData.TIPO_GESTIONE_2 = await this._getTableNoError("/T_TP_MAN2");
+            sData.CENTRO_LAVORO = await this._getTable("/T_DEST");
+            sData.TIPO_ATTIVITA = await this.Shpl("T353I", "CH");
+            sData.SISTEMA = await this._getTableNoError("/T_ACT_SYST");
+            // sData.PROGRES = await this._getTableNoError("/T_ACT_PROG");
+            sData.CLASSE = await this._getTableNoError("/T_ACT_CL");
             oModelHelp.setData(sData);
             this.getView().setModel(oModelHelp, "sHelp");
+        },
+        onFilterHelp: async function (oEvent) { // sap.ui.core.BusyIndicator.show();
+            var sFilter = this.getView().getModel("sSelect").getData();
+            var tempFilter = [];
+            var aFiltersClass = [],
+                aFilterProgress = [],
+                aFilterSystem = [];
+
+            /*if (sFilter.DIVISIONEC !== undefined) {
+                if (sFilter.DIVISIONEC.length !== 0) {
+                    aFiltersClass.push(new Filter("Werks", FilterOperator.EQ, sFilter.DIVISIONEC));
+                    aFilterProgress.push(new Filter("Werks", FilterOperator.EQ, sFilter.DIVISIONEC));
+                    aFilterSystem.push(new Filter("Werks", FilterOperator.EQ, sFilter.DIVISIONEC));
+                }
+            }*/
+
+            if (sFilter.SISTEMA !== undefined) {
+                if (sFilter.SISTEMA.length !== 0) {
+                    aFiltersClass.push(new Filter("Sistema", FilterOperator.EQ, sFilter.SISTEMA));
+                    aFilterProgress.push(new Filter("Sistema", FilterOperator.EQ, sFilter.SISTEMA));
+                }
+            }
+
+            var sHelp = this.getView().getModel("sHelp").getData();
+
+            if (aFilterSystem !== []) {
+                sHelp.SISTEMA = await this._getTableNoError("/T_ACT_SYST", aFilterSystem);
+            }
+            if (aFilterProgress !== []) {
+                sHelp.PROGRES = await this._getTableNoError("/T_ACT_PROG", aFilterProgress);
+            }
+            if (aFiltersClass !== []) {
+                sHelp.CLASSE = await this._getTableNoError("/T_ACT_CL", aFiltersClass);
+            }
+
+            this.getView().getModel("sHelp").refresh();
+            // this.handleChangeCb(oEvent);
+            // sap.ui.core.BusyIndicator.hide();
+        },
+
+        ProgressSearch: function (oEvent) {
+
+            var sValue = oEvent.getParameter("value");
+            var oFilter = new Filter("Progres", FilterOperator.Contains, sValue);
+
+            oEvent.getSource().getBinding("items").filter([oFilter]);
+        },
+        ProgressClose: function (oEvent) {
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            oEvent.getSource().getBinding("items").filter([]);
+
+            if (! oSelectedItem) {
+                return;
+            }
+            this.lineSelected.PROGRES = oSelectedItem.getTitle();
+            this.lineSelected.DESC_PROG = oSelectedItem.getDescription();
+            this.getView().getModel("sSelect").refresh();
+        },
+        onValueHelpProgress: async function (oEvent) { // var sFilter = oEvent.getSource().getBindingContext("sSelect").getObject();
+            this.lineSelected = oEvent.getSource().getBindingContext("sSelect").getObject();
+
+            var aFilters = [];
+            if (this.lineSelected.DIVISIONE !== undefined && this.lineSelected.DIVISIONE !== "" && this.lineSelected.DIVISIONE !== null) {
+                aFilters.push(new Filter("Werks", FilterOperator.EQ, this.lineSelected.DIVISIONE));
+            }
+            if (this.lineSelected.SISTEMA !== undefined && this.lineSelected.SISTEMA !== "" && this.lineSelected.SISTEMA !== null) {
+                aFilters.push(new Filter("Sistema", FilterOperator.EQ, this.lineSelected.SISTEMA));
+            }
+            var sPROGRES = await this._getTableNoError("/T_ACT_PROG", aFilters);
+            var oModelHelp = new sap.ui.model.json.JSONModel();
+            oModelHelp.setData(sPROGRES);
+            this.getView().setModel(oModelHelp, "sProgress");
+            this.byId("ProgressHelp").open();
+        },
+
+        handleChangeCb: function (oEvent) {
+            var oValidatedComboBox = oEvent.getSource(),
+                sSelectedKey = oValidatedComboBox.getSelectedKey(),
+                sValue = oValidatedComboBox.getValue();
+
+            if (! sSelectedKey && sValue) {
+                oValidatedComboBox.setValueState(ValueState.Error);
+            } else {
+                oValidatedComboBox.setValueState(ValueState.None);
+            }
+        },
+        handleChangeIn: function (oEvent) {
+            var oValidatedInput = oEvent.getSource(),
+                sSuggestion = oEvent.getSource().getSuggestionRows(),
+                sValue = oValidatedInput.getValue();
+            if (!_.contains(sSuggestion, sValue)) {
+                oValidatedInput.setValueState(ValueState.Error);
+            } else {
+                oValidatedInput.setValueState(ValueState.None);
+            }
+        },
+        onChangeProgress: function (oEvent) {
+            var descProgress = oEvent.getSource().getSelectedItem().getBindingContext("sHelp").getObject().Txt;
+            oEvent.getSource().getBindingContext("sSelect").getObject().DESC_PROG = descProgress;
         },
         Shpl: async function (ShplName, ShplType) {
             var aFilter = [];
             aFilter.push(new Filter("ShplName", FilterOperator.EQ, ShplName));
             aFilter.push(new Filter("ShplType", FilterOperator.EQ, ShplType));
 
-            var result = await this._getTable("/dySearch", aFilter);
-            if (result[0].ReturnFieldValueSet) {
-              result = result[0].ReturnFieldValueSet.results;
-              result.splice(0,1);
+            var result = await this._getTableNoError("/dySearch", aFilter);
+            if (result[0] !== undefined) {
+                if (result[0].ReturnFieldValueSet) {
+                    result = result[0].ReturnFieldValueSet.results;
+                    result.splice(0, 1);
+                } else {
+                    result = [];
+                }
             } else {
-              result = [];
+                result = [];
             }
             return result;
         },
@@ -242,120 +370,187 @@ sap.ui.define([
         handleSavePress: async function () {
             sap.ui.core.BusyIndicator.show();
 
-            var sIndex = this.IndexModel(this.getView().getModel("sSelect").getData());
-            var aAzioni = this.getView().getModel("sSelect").getData().AZIONI;
-            var i = 0,
-                results,
-                sAzioni,
-                msg = "";
+            var ControlValidate = Validator.validateView();
+            if (ControlValidate) {
+                var sIndex = this.IndexModel(this.getView().getModel("sSelect").getData());
+                var aAzioni = this.getView().getModel("sSelect").getData().AZIONI;
+                var i = 0,
+                    results,
+                    sAzioni,
+                    msg = "";
+                var line,
+                    sURL,
+                    j;
 
-            // controllo Dati Indice
-            msg = await this.ControlIndex(sIndex);
-            if (msg === "") {
-                for (i = 0; i < aAzioni.length; i++) { // controllo Dati Azioni Elementari
-                    var aSede = this.AzioniModel(aAzioni[i]);
-                    msg = await this.ControlAzione(aSede, sIndex);
+                // controllo Dati Indice
+                msg = await this.ControlIndex(sIndex);
+                if (msg === "") {
+                    for (i = 0; i < aAzioni.length; i++) { // controllo Dati Azioni Elementari
+                        var aSede = this.AzioniModel(aAzioni[i]);
+                        msg = await this.ControlAzione(aSede, sIndex);
 
-                    if (msg !== "") {
-                        msg = msg + ", riga n° " + (
-                            i + 1
-                        );
-                        break;
-                    } else if (aAzioni[i].DESC_SEDE === "") {
-                        aAzioni[i].DESC_SEDE = this.DESC_SEDE;
+                        if (msg !== "") {
+                            msg = msg + ", riga n° " + (
+                                i + 1
+                            );
+                            break;
+                        }
+                        if (aAzioni[i].DESC_SEDE === "") {
+                            aAzioni[i].DESC_SEDE = this.DESC_SEDE;
+                        }
+                        if (aAzioni[i].DESC_PROG === "") {
+                          aAzioni[i].DESC_PROG = this.DESC_PROG;
+                      }
                     }
                 }
-            }
 
-            if (msg !== "") {
-                MessageBox.error(msg);
-            } else { // Creazione
-                if (this.selINDEX === undefined) {
-                    delete sIndex.ID;
-                    delete sIndex.AZIONI;
+                if (msg !== "") {
+                    MessageBox.error(msg);
+                } else { // Creazione
+                    if (this.selINDEX === undefined) {
+                        if (aAzioni.length > 0) {
+                            delete sIndex.ID;
+                            delete sIndex.AZIONI;
 
-                    // get Last Index
-                    sIndex.INDEX = await this._getLastItemData("/Index", "", "INDEX");
-                    sIndex.INDEX ++;
-                    // Testata
-                    results = await this._saveHana("/Index", sIndex);
+                            // get Last Index
+                            sIndex.INDEX = await this._getLastItemData("/Index", "", "INDEX");
+                            sIndex.INDEX ++;
+                            // Testata
+                            results = await this._saveHana("/Index", sIndex);
 
-                    for (i = 0; i < aAzioni.length; i++) {
-                        sAzioni = this.AzioniModel(aAzioni[i]);
-                        delete sAzioni.SEDE_TECNICA_P;
-                        sAzioni.ID = results.ID;
-                        sAzioni.INDEX = results.INDEX;
-                        // sAzioni.CONTATORE = String(i + 1);
-                        // get Last Contatore
-                        sAzioni.CONTATORE = await this._getLastItemData("/Azioni", "", "CONTATORE");
-                        sAzioni.CONTATORE ++;
+                            for (i = 0; i < aAzioni.length; i++) {
+                                sAzioni = this.AzioniModel(aAzioni[i]);
+                                delete sAzioni.SEDE_TECNICA_P;
+                                sAzioni.ID = results.ID;
+                                sAzioni.INDEX = results.INDEX;
+                                // sAzioni.CONTATORE = String(i + 1);
+                                // get Last Contatore
+                                sAzioni.CONTATORE = await this._getLastItemData("/Azioni", "", "CONTATORE");
+                                sAzioni.CONTATORE ++;
 
-                        await this._saveHana("/Azioni", sAzioni);
-                    }
-                } else { // Modifica
+                                if (sAzioni.Servizi !== undefined) {
+                                    for (j = 0; j < sAzioni.Servizi.length; j++) {
+                                        line = sAzioni.Servizi[j];
+                                        if (line.ASNUM !== "") {
+                                            await this._saveHanaNoError("/AzioniServizi", line);
+                                        }
+                                    }
+                                }
+                                if (sAzioni.Material !== undefined) {
+                                    for (j = 0; j < sAzioni.Material.length; j++) {
+                                        line = sAzioni.Material[j];
+                                        if (line.MATNR !== "") {
+                                            await this._saveHanaNoError("/AzioniMateriali", line);
+                                        }
+                                    }
+                                }
+                                delete sAzioni.Servizi;
+                                delete sAzioni.Material;
 
-                    var sURL = "/Index/" + sIndex.ID;
-                    delete sIndex.AZIONI;
-                    delete sIndex.__metadata;
-                    delete sIndex.modifiedBy;
-                    delete sIndex.modifiedAt;
-                    delete sIndex.createdBy;
-                    delete sIndex.createdAt;
-
-                    results = await this._updateHana(sURL, sIndex);
-
-                    // Righe Cancellate
-                    for (i = 0; i < this.delAzioni.length; i++) {
-
-                        this.delAzioni[i].ID = sIndex.ID;
-                        sURL = "/Azioni/" + this.delAzioni[i].ID + "/" + this.delAzioni[i].CONTATORE;
-                        sAzioni = this.AzioniModel(this.delAzioni[i]);
-                        delete sAzioni.SEDE_TECNICA_P;
-                        await this._removeHana(sURL, sAzioni);
-                    }
-
-                    /*var cont = 0;
-                    for (i = 0; i < aAzioni.length; i++) {
-                        sAzioni = aAzioni[i];
-                        if (sAzioni.CONTATORE !== "New") {
-                            if (Number(sAzioni.CONTATORE) >= cont) {
-                                cont = Number(sAzioni.CONTATORE) + 1;
+                                await this._saveHana("/Azioni", sAzioni);
                             }
                         }
-                    }*/
+                    } else { // Modifica
 
-                    for (i = 0; i < aAzioni.length; i++) {
-                        sAzioni = this.AzioniModel(aAzioni[i]);
-                        delete sAzioni.SEDE_TECNICA_P;
-                        // righe nuove
-                        if (sAzioni.CONTATORE === "New") {
-                            sAzioni.ID = results.ID;
-                            sAzioni.INDEX = results.INDEX;
-                            // sAzioni.CONTATORE = String(cont);
-                            // cont++;
-                            // get Last Contatore
-                            sAzioni.CONTATORE = await this._getLastItemData("/Azioni", "", "CONTATORE");
-                            sAzioni.CONTATORE ++;
 
-                            await this._saveHana("/Azioni", sAzioni);
-                        } else { // righe modificate
-                            delete sAzioni.__metadata;
-                            delete sAzioni.modifiedBy;
-                            delete sAzioni.modifiedAt;
-                            delete sAzioni.createdBy;
-                            delete sAzioni.createdAt;
+                        aFilter = [];
+                        aFilter.push(new Filter("INDEX", FilterOperator.EQ, sIndex.INDEX));
 
-                            sAzioni.ID = sIndex.ID;
-                            sURL = "/Azioni/" + sAzioni.ID + "/" + sAzioni.CONTATORE;
-                            results = await this._updateHana(sURL, sAzioni);
+                        var delMaterial = await this._getTable("/AzioniMateriali", aFilter);
+                        var delServizi = await this._getTable("/AzioniServizi", aFilter);
+
+                        for (i = 0; i < delMaterial.length; i++) {
+                            sURL = "/AzioniMateriali/" + delMaterial[i].INDEX + "/" + delMaterial[i].CONTATORE + "/" + delMaterial[i].MATNR;
+                            await this._removeHana(sURL, delMaterial[i]);
+                        }
+                        for (i = 0; i < delServizi.length; i++) {
+                            sURL = "/AzioniServizi/" + delServizi[i].INDEX + "/" + delServizi[i].CONTATORE + "/" + delServizi[i].ASNUM;
+                            await this._removeHana(sURL, delServizi[i]);
+                        }
+
+                        sURL = "/Index/" + sIndex.ID;
+                        delete sIndex.AZIONI;
+                        delete sIndex.__metadata;
+                        delete sIndex.modifiedBy;
+                        delete sIndex.modifiedAt;
+                        delete sIndex.createdBy;
+                        delete sIndex.createdAt;
+
+                        results = await this._updateHana(sURL, sIndex);
+
+                        // Righe Cancellate
+                        for (i = 0; i < this.delAzioni.length; i++) {
+                            this.delAzioni[i].ID = sIndex.ID;
+                            sAzioni = this.AzioniModel(this.delAzioni[i]);
+                            delete sAzioni.SEDE_TECNICA_P;
+                            delete sAzioni.Servizi;
+                            delete sAzioni.Material;
+                            sURL = "/Azioni/" + this.delAzioni[i].ID + "/" + this.delAzioni[i].CONTATORE;
+                            await this._removeHana(sURL, sAzioni);
+                        }
+
+                        for (i = 0; i < aAzioni.length; i++) {
+                            sAzioni = this.AzioniModel(aAzioni[i]);
+                            delete sAzioni.SEDE_TECNICA_P;
+
+                            if (sAzioni.Servizi !== undefined) {
+                                for (j = 0; j < sAzioni.Servizi.length; j++) {
+                                    line = sAzioni.Servizi[j];
+                                    if (line.ASNUM !== "") {
+                                        delete line.__metadata;
+                                        await this._saveHanaNoError("/AzioniServizi", line);
+                                    }
+                                }
+                            }
+                            if (sAzioni.Material !== undefined) {
+                                for (j = 0; j < sAzioni.Material.length; j++) {
+                                    line = sAzioni.Material[j];
+                                    if (line.MATNR !== "") {
+                                        delete line.__metadata;
+                                        await this._saveHanaNoError("/AzioniMateriali", line);
+                                    }
+                                }
+                            }
+                            delete sAzioni.Servizi;
+                            delete sAzioni.Material;
+
+                            // righe nuove
+                            if (sAzioni.CONTATORE === "New") {
+                                sAzioni.ID = results.ID;
+                                sAzioni.INDEX = results.INDEX;
+                                // sAzioni.CONTATORE = String(cont);
+                                // cont++;
+                                // get Last Contatore
+                                sAzioni.CONTATORE = await this._getLastItemData("/Azioni", "", "CONTATORE");
+                                sAzioni.CONTATORE ++;
+
+                                await this._saveHana("/Azioni", sAzioni);
+                            } else { // righe modificate
+                                delete sAzioni.__metadata;
+                                delete sAzioni.modifiedBy;
+                                delete sAzioni.modifiedAt;
+                                delete sAzioni.createdBy;
+                                delete sAzioni.createdAt;
+
+                                sAzioni.ID = sIndex.ID;
+                                sURL = "/Azioni/" + sAzioni.ID + "/" + sAzioni.CONTATORE;
+                                results = await this._updateHana(sURL, sAzioni);
+                            }
+                        }
+                        var aFilter = [];
+                        aFilter.push(new Filter("ID", FilterOperator.EQ, sIndex.ID));
+                        var result = await this._getLastItemData("/Azioni", aFilter, "INDEX");
+                        if (result === 0) {
+                            await this._removeHana("/Index/" + sIndex.ID);
                         }
                     }
+
+
+                    this.navTo("ViewPage");
                 }
-
-
-                this.navTo("ViewPage");
             }
             sap.ui.core.BusyIndicator.hide(0);
+
         },
         formatDate: function (sValue) {
             if (sValue === "" || sValue === undefined || sValue === null) {
@@ -526,11 +721,103 @@ sap.ui.define([
                         OGGETTO_TECNICO: "",
                         PROFILO: "",
                         ZBAU: "",
-                        VALORE: ""
+                        VALORE: "",
+                        Servizi: [],
+                        Material: []
                     }
                 ]
             };
             return sData;
+        },
+        handleMaterial: function (oEvent) {
+            this.lineSelected = oEvent.getSource().getBindingContext("sSelect").getObject();
+            if (this.lineSelected.Material === undefined) {
+                this.lineSelected.Material = [];
+            }
+            var oModel = new sap.ui.model.json.JSONModel();
+            oModel.setData(this.lineSelected.Material);
+            this.setModel(oModel, "aMaterial");
+
+            this.byId("popMateriali").open();
+        },
+        onConfirmMatnr: function () {
+            this.lineSelected.Material = this.getView().getModel("aMaterial").getData();
+            this.getView().getModel("sSelect").refresh();
+            this.byId("popMateriali").close();
+        },
+        onCloseMatnr: function () {
+            this.byId("popMateriali").close();
+        },
+        onAddMatnr: function () {
+            this.getView().getModel("aMaterial").getData().push(this.initMaterial());
+            this.getView().getModel("aMaterial").refresh();
+        },
+        onCancelMatnr: function (oEvent) {
+            var MATNR = this.getView().getModel("aMaterial").getData();
+            var deleteRecord = oEvent.getSource().getBindingContext("aMaterial").getObject();
+            for (var i = 0; i < MATNR.length; i++) {
+                if (MATNR[i] === deleteRecord) {
+                    MATNR.splice(i, 1);
+                    this.getView().getModel("aMaterial").refresh();
+                    break;
+                }
+            }
+        },
+        initMaterial: function () {
+            return {
+                INDEX: this.lineSelected.INDEX,
+                CONTATORE: this.lineSelected.CONTATORE,
+                MATNR: "",
+                MAKTX: "",
+                MENGE: null,
+                MEINS: ""
+            };
+        },
+        handleServizi: function (oEvent) {
+            this.lineSelected = oEvent.getSource().getBindingContext("sSelect").getObject();
+            if (this.lineSelected.Servizi === undefined) {
+                this.lineSelected.Servizi = [];
+            }
+            var oModel = new sap.ui.model.json.JSONModel();
+            oModel.setData(this.lineSelected.Servizi);
+            this.setModel(oModel, "aServizi");
+
+            this.byId("popServizi").open();
+        },
+        onConfirmServizi: function () {
+            this.lineSelected.Servizi = this.getView().getModel("aServizi").getData();
+            this.getView().getModel("sSelect").refresh();
+            this.byId("popServizi").close();
+        },
+        onCloseServizi: function () {
+            this.byId("popServizi").close();
+        },
+        onAddServizi: function () {
+            this.getView().getModel("aServizi").getData().push(this.initServizi());
+            this.getView().getModel("aServizi").refresh();
+        },
+        onCancelServizi: function (oEvent) {
+            var SERVIZI = this.getView().getModel("aServizi").getData();
+            var deleteRecord = oEvent.getSource().getBindingContext("aServizi").getObject();
+            for (var i = 0; i < SERVIZI.length; i++) {
+                if (SERVIZI[i] === deleteRecord) {
+                    debugger
+                    SERVIZI.splice(i, 1);
+                    this.getView().getModel("aServizi").refresh();
+                    break;
+                }
+            }
+        },
+        initServizi: function () {
+            return {
+                INDEX: this.lineSelected.INDEX,
+                CONTATORE: this.lineSelected.CONTATORE,
+                ASNUM: "",
+                ASKTX: "",
+                MENGE: null,
+                MEINS: ""
+            };
+
         }
 
     });

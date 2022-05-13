@@ -147,6 +147,7 @@ sap.ui.define([
         onChangeAttivo: function (oEvent) {
             this.lineSelected = oEvent.getSource().getBindingContext("allIndex").getObject();
             var that = this;
+            var Source = oEvent.getSource();
             MessageBox.confirm("Confermi l operazione di cambio stato? ", {
                 styleClass: "sapUiSizeCompact",
                 actions: [
@@ -155,7 +156,8 @@ sap.ui.define([
                 emphasizedAction: "Si",
                 initialFocus: sap.m.MessageBox.Action.NO,
                 onClose: function (oAction) {
-                    if (oAction === "NO") { // that.cancel();
+                    if (oAction === "NO") {
+                        Source.setState(! Source.getState());
                     } else if (oAction === "Si") {
                         that.onChangeAttivoConfirm();
                     }
@@ -247,42 +249,42 @@ sap.ui.define([
                 if (aSede[0] !== undefined && aSede[0] !== "") {
                     oFilter = new Filter("LIVELLO1", FilterOperator.EQ, aSede[0]);
                     aFilters.push(oFilter);
-                } else if (!sFilter.INCLUDI) {
+                } else if (! sFilter.INCLUDI) {
                     oFilter = new Filter("LIVELLO1", FilterOperator.EQ, "");
                     aFilters.push(oFilter);
                 }
                 if (aSede[1] !== undefined && aSede[1] !== "") {
                     oFilter = new Filter("LIVELLO2", FilterOperator.EQ, aSede[1]);
                     aFilters.push(oFilter);
-                } else if (!sFilter.INCLUDI) {
+                } else if (! sFilter.INCLUDI) {
                     oFilter = new Filter("LIVELLO2", FilterOperator.EQ, "");
                     aFilters.push(oFilter);
                 }
                 if (aSede[2] !== undefined && aSede[2] !== "") {
                     oFilter = new Filter("LIVELLO3", FilterOperator.EQ, aSede[2]);
                     aFilters.push(oFilter);
-                } else if (!sFilter.INCLUDI) {
+                } else if (! sFilter.INCLUDI) {
                     oFilter = new Filter("LIVELLO3", FilterOperator.EQ, "");
                     aFilters.push(oFilter);
                 }
                 if (aSede[3] !== undefined && aSede[3] !== "") {
                     oFilter = new Filter("LIVELLO4", FilterOperator.EQ, aSede[3]);
                     aFilters.push(oFilter);
-                } else if (!sFilter.INCLUDI) {
+                } else if (! sFilter.INCLUDI) {
                     oFilter = new Filter("LIVELLO4", FilterOperator.EQ, "");
                     aFilters.push(oFilter);
                 }
                 if (aSede[4] !== undefined && aSede[4] !== "") {
                     oFilter = new Filter("LIVELLO5", FilterOperator.EQ, aSede[4]);
                     aFilters.push(oFilter);
-                } else if (!sFilter.INCLUDI) {
+                } else if (! sFilter.INCLUDI) {
                     oFilter = new Filter("LIVELLO5", FilterOperator.EQ, "");
                     aFilters.push(oFilter);
                 }
                 if (aSede[5] !== undefined && aSede[5] !== "") {
                     oFilter = new Filter("LIVELLO6", FilterOperator.EQ, aSede[5]);
                     aFilters.push(oFilter);
-                } else if (!sFilter.INCLUDI) {
+                } else if (! sFilter.INCLUDI) {
                     oFilter = new Filter("LIVELLO6", FilterOperator.EQ, "");
                     aFilters.push(oFilter);
                 }
@@ -418,6 +420,14 @@ sap.ui.define([
             }
         },
         handleDelete: async function () {
+            // Pulisci Azioni
+            /*   var aFilter = [];
+          aFilter.push(new Filter("INDEX", FilterOperator.EQ, null));
+
+          var pippo = await this._getTable("/Azioni", aFilter);
+          for (var i = 0; i < pippo.length; i++) {
+            await this._removeHana("/Azioni/" + pippo[i].ID + "/" + pippo[i].CONTATORE);
+          }*/
             sap.ui.core.BusyIndicator.show();
             var items = this.getView().byId("tbPiani").getSelectedItems();
             if (items.length > 0) {
@@ -483,9 +493,16 @@ sap.ui.define([
             this._import(e.getParameter("files") && e.getParameter("files")[0]);
         },
         _import: function (file) {
+            var oResource = this.getResourceBundle();
             var that = this;
             var oMainModel = new sap.ui.model.json.JSONModel();
-            this.getView().setModel(oMainModel, "uploadModel");
+            var oMainModel1 = new sap.ui.model.json.JSONModel();
+            var oMainModel2 = new sap.ui.model.json.JSONModel();
+            var oMainModel3 = new sap.ui.model.json.JSONModel();
+            this.getView().setModel(oMainModel, "uploadIndici");
+            this.getView().setModel(oMainModel1, "uploadAzioni");
+            this.getView().setModel(oMainModel2, "uploadMaterial");
+            this.getView().setModel(oMainModel3, "uploadServizi");
             var excelData = {};
             if (file && window.FileReader) {
                 var reader = new FileReader();
@@ -495,8 +512,22 @@ sap.ui.define([
                     workbook.SheetNames.forEach(function (sheetName) { // Here is your object for every sheet in workbook
                         excelData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
                         if (excelData.length > 0) {
-                            that.getView().getModel("uploadModel").setData(excelData);
-                            that.getView().getModel("uploadModel").refresh(true);
+                            switch (sheetName) {
+                                case oResource.getText("IndiciExcel"): that.getView().getModel("uploadIndici").setData(excelData);
+                                    that.getView().getModel("uploadIndici").refresh(true);
+                                    break;
+                                case oResource.getText("AzioniExcel"): that.getView().getModel("uploadAzioni").setData(excelData);
+                                    that.getView().getModel("uploadAzioni").refresh(true);
+                                    break;
+                                case oResource.getText("MaterialiExcel"): that.getView().getModel("uploadMaterial").setData(excelData);
+                                    that.getView().getModel("uploadMaterial").refresh(true);
+                                    break;
+                                case oResource.getText("ServiziExcel"): that.getView().getModel("uploadServizi").setData(excelData);
+                                    that.getView().getModel("uploadServizi").refresh(true);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     });
                 };
@@ -522,72 +553,111 @@ sap.ui.define([
                 MessageBox.warning("Inserire un File da caricare");
             } else {
                 sap.ui.core.BusyIndicator.show();
-                var i = 0,
-                    aIndex = [],
-                    sURL,
+                var sURL,
                     results,
                     msg = "";
-                var rows = this.getView().getModel("uploadModel").getData();
-                var sIndex = [];
-                // controllo Dati Indice
-                for (i = 0; i < rows.length; i++) {
+                var aIndiciTemp = this.getView().getModel("uploadIndici").getData();
+                var aAzioniTemp = this.getView().getModel("uploadAzioni").getData();
+                var aMaterialTemp = this.getView().getModel("uploadMaterial").getData();
+                var aServiziTemp = this.getView().getModel("uploadServizi").getData();
+                var sIndex = {},
+                    sAzione = {},
+                    aIndex = [],
+                    aAzione = [],
+                    sMaterial = {},
+                    aMaterial = [],
+                    sServizi = {},
+                    aServizi = [];
 
-                    sIndex = this.IndexModel(rows[i]);
-                    if (! aIndex.includes(sIndex.INDEX)) {
-                        aIndex.push(sIndex.INDEX);
-                        msg = await this.ControlIndex(sIndex);
-                        // Strategia
-                        var checkStrategia = await this.checkStrategia(sIndex);
-                        if (checkStrategia === "") {
-                            msg = "Campo Strategia inserito erroneamente";
-                        }
+                var k;
 
-                        if (msg !== "") {
-                            msg = msg + ", riga Excel n° " + (
-                                i + 2
-                            );
-                            break;
+                // Formatta dati arrivati da Excel
+                for (var i = 0; i < aIndiciTemp.length; i++) {
+                    sIndex = this.IndexModel(aIndiciTemp[i]);
+                    aIndex.push(sIndex);
+                    // Append Indici
+
+                    // Check Indice
+                    msg = await this.ControlIndex(sIndex);
+                    // Strategia
+                    var checkStrategia = await this.checkStrategia(sIndex);
+                    if (checkStrategia === "") {
+                        msg = "Campo Strategia inserito erroneamente";
+                    }
+
+                    if (msg !== "") {
+                        msg = msg + ", Indici riga Excel n° " + (
+                            i + 2
+                        );
+                        break;
+                    }
+                    for (var j = 0; j < aAzioniTemp.length; j++) {
+                        sAzione = this.AzioniModel(aAzioniTemp[j]);
+                        if (sIndex.INDEX === sAzione.INDEX) {
+                            aAzione.push(sAzione);
+                            // Append Azioni
+                            // Check Azioni
+                            msg = await this.ControlAzione(sAzione, sIndex);
+                            if (msg !== "") {
+                                msg = msg + ", Azioni riga n° Excel " + (
+                                    j + 2
+                                );
+                                break;
+                            }
+                            if (sAzione.DESC_SEDE === undefined) {
+                                sAzione.DESC_SEDE = this.DESC_SEDE;
+                            }
+                            if (sAzione.DESC_PROG === "") {
+                              sAzione.DESC_PROG = this.DESC_PROG;
+                            }
+
+                            // Append Material Servizi
+
+                            for (k = 0; k < aMaterialTemp.length; k++) {
+                                sMaterial = this.MaterialModel(aMaterialTemp[k]);
+                                if (sMaterial.CONTATORE === sAzione.CONTATORE) {
+                                    sMaterial.INDEX = sAzione.INDEX;
+                                    aMaterial.push(sMaterial);
+                                    msg = await this.ControlMateriali(sMaterial);
+                                    if (msg !== "") {
+                                        msg = msg + ", Materiali riga n° Excel " + (
+                                            k + 2
+                                        );
+                                        break;
+                                    }
+                                }
+                            }
+                            for (k = 0; k < aServiziTemp.length; k++) {
+                                sServizi = this.ServiziModel(aServiziTemp[k]);
+                                if (sServizi.CONTATORE === sAzione.CONTATORE) {
+                                    sServizi.INDEX = sAzione.INDEX;
+                                    aServizi.push(sServizi);
+                                    msg = await this.ControlServizi(sServizi);
+                                    if (msg !== "") {
+                                        msg = msg + ", Servizi riga n° Excel " + (
+                                            k + 2
+                                        );
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-                // controllo Dati Azioni Elementari
-                if (msg === "") {
-                    for (i = 0; i < rows.length; i++) {
-
-                        sIndex = this.IndexModel(rows[i]);
-                        var sAzioni = this.AzioniModel(rows[i]);
-                        msg = await this.ControlAzione(sAzioni, sIndex);
-                        if (msg !== "") {
-                            msg = msg + ", riga n° Excel " + (
-                                i + 2
-                            );
-                            break;
-                        } else if (rows[i][oResource.getText("DESC_SEDE")] === undefined) {
-                            rows[i][oResource.getText("DESC_SEDE")] = this.DESC_SEDE;
-                        }
+                    if (msg !== "") {
+                        break;
                     }
                 }
 
+                // Fine Controlli - Inizio Salvataggio
                 if (msg !== "") {
                     sap.ui.core.BusyIndicator.hide(0);
                     MessageBox.error(msg);
                 } else {
-                    aIndex = [];
-                    for (i = 0; i < rows.length; i++) {
 
-                        var sIndex = this.IndexModel(rows[i]);
-                        var sAzioni = this.AzioniModel(rows[i]);
+                    for (i = 0; i < aIndex.length; i++) {
+                        var sIndex = aIndex[i];
 
-                        if (sAzioni.SEDE_TECNICA === "") {
-                            sAzioni.LIVELLO1 = "";
-                            sAzioni.LIVELLO2 = "";
-                            sAzioni.LIVELLO3 = "";
-                            sAzioni.LIVELLO4 = "";
-                            sAzioni.LIVELLO5 = "";
-                            sAzioni.LIVELLO6 = "";
-                            sAzioni.DESC_SEDE = "";
-                        }
-
+                        var CurrentIndex = sIndex.INDEX.toString();
                         // ID Strategia
                         var selStrategia = await this.checkStrategia(sIndex);
                         sIndex.ID_STRATEGIA = selStrategia.ID_STRATEGIA;
@@ -595,47 +665,63 @@ sap.ui.define([
 
                         // Testata Nuova
                         if (sIndex.INDEX.startsWith("C-")) {
-
-                            if (! aIndex.includes(sIndex.INDEX)) {
-                                aIndex.push(sIndex.INDEX);
-                                // delete sIndex.ID;
-                                sIndex.INDEX = await this._getLastItemData("/Index", "", "INDEX");
-                                sIndex.INDEX ++;
-
-                                results = await this._saveHana("/Index", sIndex);
-                                sIndex.ID = results.ID;
-                            }
-
+                            sIndex.INDEX = await this._getLastItemData("/Index", "", "INDEX");
+                            sIndex.INDEX ++;
+                            results = await this._saveHana("/Index", sIndex);
+                            sIndex.ID = results.ID;
                         } else { // Testata Modifica
-                            if (! aIndex.includes(sIndex.INDEX)) {
-                                aIndex.push(sIndex.INDEX);
+                            var aFilter = [];
+                            aFilter.push(new Filter("INDEX", FilterOperator.EQ, sIndex.INDEX));
+                            sIndex.ID = await this._getLastItemData("/Index", aFilter, "ID");
+                            sIndex.INDEX = Number(sIndex.INDEX);
+                            sURL = "/Index/" + sIndex.ID;
+                            results = await this._updateHana(sURL, sIndex);
+                        }
 
-                                var aFilter = [];
-                                aFilter.push(new Filter("INDEX", FilterOperator.EQ, sIndex.INDEX));
-                                sIndex.ID = await this._getLastItemData("/Index", aFilter, "ID");
+                        for (var j = 0; j < aAzione.length; j++) {
+                            sAzione = aAzione[j];
+                            if (CurrentIndex === sAzione.INDEX) {
+                                var CurrentAzione = sAzione.CONTATORE.toString();
+                                sAzione.ID = results.ID;
+                                sAzione.INDEX = results.INDEX;
+                                if (sAzione.SEDE_TECNICA === "") {
+                                    sAzione.LIVELLO1 = "";
+                                    sAzione.LIVELLO2 = "";
+                                    sAzione.LIVELLO3 = "";
+                                    sAzione.LIVELLO4 = "";
+                                    sAzione.LIVELLO5 = "";
+                                    sAzione.LIVELLO6 = "";
+                                    sAzione.DESC_SEDE = "";
+                                }
+                                // Posizione Nuova
+                                if (sAzione.CONTATORE.startsWith("C-")) {
+                                    sAzione.CONTATORE = await this._getLastItemData("/Azioni", "", "CONTATORE");
+                                    sAzione.CONTATORE++;
+                                    await this._saveHana("/Azioni", sAzione);
+                                } else { // Posizione Modifica
+                                    sAzione.CONTATORE = Number(sAzione.CONTATORE);
+                                    sURL = "/Azioni/" + sAzione.ID + "/" + sAzione.CONTATORE;
+                                    await this._updateHana(sURL, sAzione);
+                                }
+                                for (k = 0; k < aMaterial.length; k++) {
+                                    if (CurrentAzione === aMaterial[k].CONTATORE) {
+                                        aMaterial[k].CONTATORE = sAzione.CONTATORE;
+                                        aMaterial[k].INDEX = sAzione.INDEX;
+                                        sURL = "/AzioniMateriali/" + aMaterial[k].INDEX + "/" + aMaterial[k].CONTATORE + "/" + aMaterial[k].MATNR;
+                                        await this._updateHana(sURL, aMaterial[k]);
+                                    }
+                                }
+                                for (k = 0; k < aServizi.length; k++) {
+                                    if (CurrentAzione === aServizi[k].CONTATORE) {
+                                        aServizi[k].CONTATORE = sAzione.CONTATORE;
+                                        aServizi[k].INDEX = sAzione.INDEX;
+                                        sURL = "/AzioniServizi/" + aServizi[k].INDEX + "/" + aServizi[k].CONTATORE + "/" + aServizi[k].ASNUM;
+                                        await this._updateHana(sURL, aServizi[k]);
+                                    }
+                                }
 
-                                sIndex.INDEX = Number(sIndex.INDEX);
 
-                                sURL = "/Index/" + sIndex.ID;
-                                results = await this._updateHana(sURL, sIndex);
                             }
-                        } sAzioni.ID = results.ID;
-                        sAzioni.INDEX = results.INDEX;
-
-                        // Posizione Nuova
-                        if (sAzioni.CONTATORE.startsWith("C-")) {
-
-                            sAzioni.CONTATORE = await this._getLastItemData("/Azioni", "", "CONTATORE");
-                            sAzioni.CONTATORE ++;
-
-                            results = await this._saveHana("/Azioni", sAzioni);
-
-                        } else { // Posizione Modifica
-
-                            sAzioni.CONTATORE = Number(sAzioni.CONTATORE);
-
-                            sURL = "/Azioni/" + sAzioni.ID + "/" + sAzioni.CONTATORE;
-                            results = await this._updateHana(sURL, sAzioni);
                         }
 
                     }
@@ -647,91 +733,86 @@ sap.ui.define([
                 }
             }
         },
-        AzioniModel: function (sValue) {
+        MaterialModel: function (sValue) {
             var oResource = this.getResourceBundle();
+            var sData = {};
+            sData.CONTATORE = (sValue[oResource.getText("CONTATORE").replaceAll(" ", "_")] === undefined) ? "" : sValue[oResource.getText("CONTATORE").replaceAll(" ", "_")].toString();
+            sData.MATNR = (sValue[oResource.getText("MATNR").replaceAll(" ", "_")] === undefined) ? "" : sValue[oResource.getText("MATNR").replaceAll(" ", "_")].toString();
+            sData.MENGE = (sValue[oResource.getText("MENGE").replaceAll(" ", "_")] === undefined) ? "" : sValue[oResource.getText("MENGE").replaceAll(" ", "_")].toString();
+            sData.MEINS = (sValue[oResource.getText("MEINS").replaceAll(" ", "_")] === undefined) ? "" : sValue[oResource.getText("MEINS").replaceAll(" ", "_")].toString();
+            return sData;
+        },
+        ServiziModel: function (sValue) {
+            var oResource = this.getResourceBundle();
+            var sData = {};
+            sData.CONTATORE = (sValue[oResource.getText("CONTATORE").replaceAll(" ", "_")] === undefined) ? "" : sValue[oResource.getText("CONTATORE").replaceAll(" ", "_")].toString();
+            sData.ASNUM = (sValue[oResource.getText("ASNUM").replaceAll(" ", "_")] === undefined) ? "" : sValue[oResource.getText("ASNUM").replaceAll(" ", "_")].toString();
+            sData.MENGE = (sValue[oResource.getText("MENGE").replaceAll(" ", "_")] === undefined) ? "" : sValue[oResource.getText("MENGE").replaceAll(" ", "_")].toString();
+            sData.MEINS = (sValue[oResource.getText("MEINS").replaceAll(" ", "_")] === undefined) ? "" : sValue[oResource.getText("MEINS").replaceAll(" ", "_")].toString();
+            return sData;
+        },
+        AzioniModel: function (sValue) {
 
-            var SedeTecnica = (sValue[oResource.getText("SEDE_TECNICA_P")] === undefined) ? "" : sValue[oResource.getText("SEDE_TECNICA_P")].toString();
-            SedeTecnica
+            var sData = {},
+                vValue = "";
+            var aColumn = this._oTPC._oPersonalizations.aColumns;
+            for (var i = 0; i < aColumn.length; i++) {
+                if (aColumn[i].group === "Azione") {
+                    vValue = aColumn[i].text.replaceAll(" ", "_");
+                    sData[aColumn[i].field] = (sValue[vValue] === undefined) ? "" : sValue[vValue].toString();
+                    if (aColumn[i].field === "ATTIVO") {
+                        if (sData[aColumn[i].field] === "X") {
+                            sData[aColumn[i].field] = true;
+                        } else {
+                            sData[aColumn[i].field] = false;
+                        }
+                    }
+                } else if (aColumn[i].field === "INDEX") {
+                    vValue = aColumn[i].text.replaceAll(" ", "_");
+                    sData[aColumn[i].field] = (sValue[vValue] === undefined) ? "" : sValue[vValue].toString();
+                }
+            }
+            sData.PROGRES = (sData.PROGRES === null ? null : Number(sData.PROGRES));
+            sData.CARATT_SEDE = (sData.CARATT_SEDE === null ? null : sData.CARATT_SEDE);
+            var SedeTecnica = sData.SEDE_TECNICA_P;
             if (SedeTecnica !== undefined) {
                 SedeTecnica = SedeTecnica.split("-");
             } else {
                 SedeTecnica = [];
-            }
-            var rValue = {
-                CONTATORE: (sValue[oResource.getText("CONTATORE")] === undefined) ? "" : sValue[oResource.getText("CONTATORE")].toString(),
-                ATTIVO: (sValue[oResource.getText("ATTIVO")] === undefined) ? undefined : sValue[oResource.getText("ATTIVO")].toString(),
-                SISTEMA: (sValue[oResource.getText("SISTEMA")] === undefined) ? "" : sValue[oResource.getText("SISTEMA")].toString(),
-                PROGRES: (sValue[oResource.getText("PROGRES")] === undefined) ? "" : sValue[oResource.getText("PROGRES")].toString(),
-                DESC_PROG: (sValue[oResource.getText("DESC_PROG")] === undefined) ? "" : sValue[oResource.getText("DESC_PROG")].toString(),
-                CLASSE: (sValue[oResource.getText("CLASSE")] === undefined) ? "" : sValue[oResource.getText("CLASSE")].toString(),
-                DES_COMPONENTE: (sValue[oResource.getText("DES_COMPONENTE")] === undefined) ? "" : sValue[oResource.getText("DES_COMPONENTE")].toString(),
-                DIVISIONE: (sValue[oResource.getText("DIVISIONE")] === undefined) ? "" : sValue[oResource.getText("DIVISIONE")].toString(),
-                SEDE_TECNICA: (sValue[oResource.getText("SEDE_TECNICA")] === undefined) ? "" : sValue[oResource.getText("SEDE_TECNICA")].toString(),
-                LIVELLO1: (SedeTecnica[0] === undefined ? "" : SedeTecnica[0]),
-                LIVELLO2: (SedeTecnica[1] === undefined ? "" : SedeTecnica[1]),
-                LIVELLO3: (SedeTecnica[2] === undefined ? "" : SedeTecnica[2]),
-                LIVELLO4: (SedeTecnica[3] === undefined ? "" : SedeTecnica[3]),
-                LIVELLO5: (SedeTecnica[4] === undefined ? "" : SedeTecnica[4]),
-                LIVELLO6: (SedeTecnica[5] === undefined ? "" : SedeTecnica[5]),
-                DESC_SEDE: (sValue[oResource.getText("DESC_SEDE")] === undefined) ? "" : sValue[oResource.getText("DESC_SEDE")].toString(),
-                EQUIPMENT: (sValue[oResource.getText("EQUIPMENT")] === undefined) ? "" : sValue[oResource.getText("EQUIPMENT")].toString(),
-                TESTO_ESTESO_P: (sValue[oResource.getText("TESTO_ESTESO_P")] === undefined) ? "" : sValue[oResource.getText("TESTO_ESTESO_P")].toString(),
-                CLASSE_SEDE: (sValue[oResource.getText("CLASSE_SEDE")] === undefined) ? "" : sValue[oResource.getText("CLASSE_SEDE")].toString(),
-                CARATT_SEDE: (sValue[oResource.getText("CARATT_SEDE")] === undefined) ? "" : sValue[oResource.getText("CARATT_SEDE")].toString(),
-                OGGETTO_TECNICO: (sValue[oResource.getText("OGGETTO_TECNICO")] === undefined) ? "" : sValue[oResource.getText("OGGETTO_TECNICO")].toString(),
-                PROFILO: (sValue[oResource.getText("PROFILO")] === undefined) ? "" : sValue[oResource.getText("PROFILO")].toString(),
-                ZBAU: (sValue[oResource.getText("ZBAU")] === undefined) ? "" : sValue[oResource.getText("ZBAU")].toString(),
-                VALORE: (sValue[oResource.getText("VALORE")] === undefined) ? "" : sValue[oResource.getText("VALORE")].toString()
-            };
-            return rValue;
+            } sData.LIVELLO1 = (SedeTecnica[0] === undefined ? "" : SedeTecnica[0]);
+            sData.LIVELLO2 = (SedeTecnica[1] === undefined ? "" : SedeTecnica[1]);
+            sData.LIVELLO3 = (SedeTecnica[2] === undefined ? "" : SedeTecnica[2]);
+            sData.LIVELLO4 = (SedeTecnica[3] === undefined ? "" : SedeTecnica[3]);
+            sData.LIVELLO5 = (SedeTecnica[4] === undefined ? "" : SedeTecnica[4]);
+            sData.LIVELLO6 = (SedeTecnica[5] === undefined ? "" : SedeTecnica[5]);
+            delete sData.SEDE_TECNICA_P;
+            return sData;
+
         },
         IndexModel: function (sValue) {
+            var sData = {},
+                vValue = "";
+            var aColumn = this._oTPC._oPersonalizations.aColumns;
+            for (var i = 0; i < aColumn.length; i++) {
+                if (aColumn[i].group === undefined) {
+                    vValue = aColumn[i].text.replaceAll(" ", "_");
+                    sData[aColumn[i].field] = (sValue[vValue] === undefined) ? "" : sValue[vValue].toString();
+                }
+            }
+            sData.PRIORITA = (sData.PRIORITA === null ? null : Number(sData.PRIORITA));
+            sData.FREQ_TEMPO = (sData.FREQ_TEMPO === null ? null : Number(sData.FREQ_TEMPO));
+            sData.FREQ_CICLO = (sData.FREQ_CICLO === null ? null : Number(sData.FREQ_CICLO));
+
+            return sData;
+
+        },
+        formatFromExcel: function (sValue) {
+
             var oResource = this.getResourceBundle();
-            var rValue = {
-                INDEX: (sValue[oResource.getText("INDEX")] === undefined) ? undefined : sValue[oResource.getText("INDEX")].toString(),
-                ID_STRATEGIA: (sValue[oResource.getText("ID_STRATEGIA")] === undefined) ? undefined : sValue[oResource.getText("ID_STRATEGIA")].toString(),
-                STRATEGIA: (sValue[oResource.getText("STRATEGIA")] === undefined) ? undefined : sValue[oResource.getText("STRATEGIA")].toString(),
-                STRATEGIA_DESC: (sValue[oResource.getText("STRATEGIA_DESC")] === undefined) ? undefined : sValue[oResource.getText("STRATEGIA_DESC")].toString(),
-                DIVISIONEC: (sValue[oResource.getText("DIVISIONEC")] === undefined) ? undefined : sValue[oResource.getText("DIVISIONEC")].toString(),
-                CENTRO_LAVORO: (sValue[oResource.getText("CENTRO_LAVORO")] === undefined) ? undefined : sValue[oResource.getText("CENTRO_LAVORO")].toString(),
-                TIPO_GESTIONE: (sValue[oResource.getText("TIPO_GESTIONE")] === undefined) ? undefined : sValue[oResource.getText("TIPO_GESTIONE")].toString(),
-                TIPO_GESTIONE_1: (sValue[oResource.getText("TIPO_GESTIONE_1")] === undefined) ? undefined : sValue[oResource.getText("TIPO_GESTIONE_1")].toString(),
-                TIPO_GESTIONE_2: (sValue[oResource.getText("TIPO_GESTIONE_2")] === undefined) ? undefined : sValue[oResource.getText("TIPO_GESTIONE_2")].toString(),
-                PRIORITA: (sValue[oResource.getText("PRIORITA")] === undefined) ? undefined : sValue[oResource.getText("PRIORITA")].toString(),
-                TIPO_ATTIVITA: (sValue[oResource.getText("TIPO_ATTIVITA")] === undefined) ? undefined : sValue[oResource.getText("TIPO_ATTIVITA")].toString(),
-                DESC_BREVE: (sValue[oResource.getText("DESC_BREVE")] === undefined) ? undefined : sValue[oResource.getText("DESC_BREVE")].toString(),
-                TESTO_ESTESO: (sValue[oResource.getText("TESTO_ESTESO")] === undefined) ? undefined : sValue[oResource.getText("TESTO_ESTESO")].toString(),
-                INDISPONIBILITA: (sValue[oResource.getText("INDISPONIBILITA")] === undefined) ? undefined : sValue[oResource.getText("INDISPONIBILITA")].toString(),
-                TIPO_ORDINE: (sValue[oResource.getText("TIPO_ORDINE")] === undefined) ? undefined : sValue[oResource.getText("TIPO_ORDINE")].toString(),
-                LSTAR: (sValue[oResource.getText("LSTAR")] === undefined) ? undefined : sValue[oResource.getText("LSTAR")].toString(),
-                STEUS: (sValue[oResource.getText("STEUS")] === undefined) ? undefined : sValue[oResource.getText("STEUS")].toString(),
-                NUM: (sValue[oResource.getText("NUM")] === undefined) ? undefined : sValue[oResource.getText("NUM")].toString(),
-                LSTAR_1: (sValue[oResource.getText("LSTAR_1")] === undefined) ? undefined : sValue[oResource.getText("LSTAR_1")].toString(),
-                STEUS_1: (sValue[oResource.getText("STEUS_1")] === undefined) ? undefined : sValue[oResource.getText("STEUS_1")].toString(),
-                NUM_1: (sValue[oResource.getText("NUM_1")] === undefined) ? undefined : sValue[oResource.getText("NUM_1")].toString(),
-                LSTAR_2: (sValue[oResource.getText("LSTAR_2")] === undefined) ? undefined : sValue[oResource.getText("LSTAR_2")].toString(),
-                STEUS_2: (sValue[oResource.getText("STEUS_2")] === undefined) ? undefined : sValue[oResource.getText("STEUS_2")].toString(),
-                NUM_2: (sValue[oResource.getText("NUM_2")] === undefined) ? undefined : sValue[oResource.getText("NUM_2")].toString(),
-                LSTAR_3: (sValue[oResource.getText("LSTAR_3")] === undefined) ? undefined : sValue[oResource.getText("LSTAR_3")].toString(),
-                STEUS_3: (sValue[oResource.getText("STEUS_3")] === undefined) ? undefined : sValue[oResource.getText("STEUS_3")].toString(),
-                NUM_3: (sValue[oResource.getText("NUM_3")] === undefined) ? undefined : sValue[oResource.getText("NUM_3")].toString(),
-                LSTAR_4: (sValue[oResource.getText("LSTAR_4")] === undefined) ? undefined : sValue[oResource.getText("LSTAR_4")].toString(),
-                STEUS_4: (sValue[oResource.getText("STEUS_4")] === undefined) ? undefined : sValue[oResource.getText("STEUS_4")].toString(),
-                NUM_4: (sValue[oResource.getText("NUM_4")] === undefined) ? undefined : sValue[oResource.getText("NUM_4")].toString(),
-                LSTAR_5: (sValue[oResource.getText("LSTAR_5")] === undefined) ? undefined : sValue[oResource.getText("LSTAR_5")].toString(),
-                STEUS_5: (sValue[oResource.getText("STEUS_5")] === undefined) ? undefined : sValue[oResource.getText("STEUS_5")].toString(),
-                NUM_5: (sValue[oResource.getText("NUM_5")] === undefined) ? undefined : sValue[oResource.getText("NUM_5")].toString(),
-                RISK: (sValue[oResource.getText("RISK")] === undefined) ? undefined : sValue[oResource.getText("RISK")].toString(),
-                TIPOFREQUENZA: (sValue[oResource.getText("TIPOFREQUENZA")] === undefined) ? undefined : sValue[oResource.getText("TIPOFREQUENZA")].toString(),
-                FREQ_TEMPO: (sValue[oResource.getText("FREQ_TEMPO")] === undefined) ? undefined : sValue[oResource.getText("FREQ_TEMPO")].toString(),
-                UNITA_TEMPO: (sValue[oResource.getText("UNITA_TEMPO")] === undefined) ? undefined : sValue[oResource.getText("UNITA_TEMPO")].toString(),
-                FREQ_CICLO: (sValue[oResource.getText("FREQ_CICLO")] === undefined) ? undefined : sValue[oResource.getText("FREQ_CICLO")].toString(),
-                UNITA_CICLO: (sValue[oResource.getText("UNITA_CICLO")] === undefined) ? undefined : sValue[oResource.getText("UNITA_CICLO")].toString(),
-                LIMITE: (sValue[oResource.getText("LIMITE")] === undefined) ? undefined : sValue[oResource.getText("LIMITE")].toString(),
-                POINT: (sValue[oResource.getText("POINT")] === undefined) ? undefined : sValue[oResource.getText("POINT")].toString(),
-                MPTYP: (sValue[oResource.getText("MPTYP")] === undefined) ? undefined : sValue[oResource.getText("MPTYP")].toString()
-            };
-            return rValue;
+            var vValue = oResource.getText(sValue);
+            vValue = vValue.replaceAll(" ", "_");
+            return vValue;
+
         },
         formatDate: function (sValue) {
             if (sValue === "" || sValue === undefined || sValue === null) {
@@ -745,19 +826,180 @@ sap.ui.define([
                 return oDateFormat.format(new Date(sValue), true);
             }
         },
-        onDataExport: function () {
+        onDataExport: async function () {
+            var oResource = this.getResourceBundle();
             var items = this.getView().byId("tbPiani").getSelectedItems(),
-                pianiTableSel = [];
+                aIndex = [],
+                aContatore = [],
+                aMateriali = [],
+                aServizi = [],
+                aIndexControl = [];
+
             if (items.length !== 0) {
                 for (var i = 0; i < items.length; i++) {
                     var line = items[i].getBindingContext("allIndex").getObject();
-                    pianiTableSel.push(line);
+                    if (! aIndexControl.includes(line.INDEX)) {
+                        aIndexControl.push(line.INDEX);
+                        aIndex.push(this.rowIndex(line));
+                    }
+                    aContatore.push(this.rowContatore(line));
+
+                    var aFilter = [];
+                    aFilter.push(new Filter("INDEX", FilterOperator.EQ, line.INDEX));
+                    aFilter.push(new Filter("CONTATORE", FilterOperator.EQ, line.CONTATORE));
+
+                    line.Material = await this._getTable("/AzioniMateriali", aFilter);
+                    line.Servizi = await this._getTable("/AzioniServizi", aFilter);
+
+                    aMateriali = aMateriali.concat(this.rowMateriali(line.Material));
+
+                    aServizi = aServizi.concat(this.rowServizi(line.Servizi));
                 }
-                // this.getModel("allIndex").getData()
-                UtilExcel.ExcelDownload(this._createColumnConfig(this.byId("tbPiani")), "Prototipi", pianiTableSel, "Prototipi");
+
+                let wb = XLSX.utils.book_new();
+                let ws = XLSX.utils.json_to_sheet(aIndex, {
+                    header: this.ColumnIndex(),
+                    skipHeader: false
+                });
+                XLSX.utils.book_append_sheet(wb, ws, oResource.getText("IndiciExcel"));
+                ws = XLSX.utils.json_to_sheet(aContatore, {
+                    header: this.ColumnContatore(),
+                    skipHeader: false
+                });
+                XLSX.utils.book_append_sheet(wb, ws, oResource.getText("AzioniExcel"));
+                ws = XLSX.utils.json_to_sheet(aMateriali, {
+                    header: this.ColumnMateriali(),
+                    skipHeader: false
+                });
+                XLSX.utils.book_append_sheet(wb, ws, oResource.getText("MaterialiExcel"));
+                ws = XLSX.utils.json_to_sheet(aServizi, {
+                    header: this.ColumnServizi(),
+                    skipHeader: false
+                });
+                XLSX.utils.book_append_sheet(wb, ws, oResource.getText("ServiziExcel"));
+                XLSX.writeFile(wb, "Prototipi.xlsx");
+
+                // UtilExcel.ExcelDownload(this._createColumnConfig(this.byId("tbPiani")), "Prototipi", aIndex, "Prototipi");
             } else {
                 MessageToast.show("Seleziona almeno una riga");
             }
+        },
+        ColumnMateriali: function () {
+            var oResource = this.getResourceBundle();
+            var sData = [];
+            var vValue = oResource.getText("CONTATORE").replaceAll(" ", "_");
+            sData.push(vValue);
+            vValue = oResource.getText("MATNR").replaceAll(" ", "_");
+            sData.push(vValue);
+            vValue = oResource.getText("MENGE").replaceAll(" ", "_");
+            sData.push(vValue);
+            vValue = oResource.getText("MEINS").replaceAll(" ", "_");
+            sData.push(vValue);
+            return sData;
+        },
+        rowMateriali: function (sTable) {
+            if (sTable !== undefined) {
+                var oResource = this.getResourceBundle();
+                var sData = [];
+                for (var i = 0; i < sTable.length; i++) {
+                    sData.push({
+                        [oResource.getText("CONTATORE").replaceAll(" ", "_")]: sTable[i].CONTATORE,
+                        [oResource.getText("MATNR").replaceAll(" ", "_")]: sTable[i].MATNR,
+                        [oResource.getText("MENGE").replaceAll(" ", "_")]: sTable[i].MENGE,
+                        [oResource.getText("MEINS").replaceAll(" ", "_")]: sTable[i].MEINS
+                    });
+                }
+
+                return sData;
+            } else {
+                return [];
+            }
+        },
+        ColumnServizi: function () {
+            var oResource = this.getResourceBundle();
+            var sData = [];
+            var vValue = oResource.getText("CONTATORE").replaceAll(" ", "_");
+            sData.push(vValue);
+            vValue = oResource.getText("ASNUM").replaceAll(" ", "_");
+            sData.push(vValue);
+            vValue = oResource.getText("MENGE").replaceAll(" ", "_");
+            sData.push(vValue);
+            vValue = oResource.getText("MEINS").replaceAll(" ", "_");
+            sData.push(vValue);
+            return sData;
+        },
+        rowServizi: function (sTable) {
+            if (sTable !== undefined) {
+                var oResource = this.getResourceBundle();
+                var sData = [];
+                for (var i = 0; i < sTable.length; i++) {
+                    sData.push({
+                        [oResource.getText("CONTATORE").replaceAll(" ", "_")]: sTable[i].CONTATORE,
+                        [oResource.getText("ASNUM").replaceAll(" ", "_")]: sTable[i].ASNUM,
+                        [oResource.getText("MENGE").replaceAll(" ", "_")]: sTable[i].MENGE,
+                        [oResource.getText("MEINS").replaceAll(" ", "_")]: sTable[i].MEINS
+                    });
+                }
+
+                return sData;
+            } else {
+                return [];
+            }
+        },
+        ColumnContatore: function () {
+            var sData = [];
+            var aColumn = this._oTPC._oPersonalizations.aColumns;
+            sData.push(this.formatFromExcel("INDEX"));
+            for (var i = 0; i < aColumn.length; i++) {
+                if (aColumn[i].group === "Azione") {
+                    var vValue = aColumn[i].text.replaceAll(" ", "_");
+                    sData.push(vValue);
+                }
+            }
+            return sData;
+        },
+        rowContatore: function (sline) {
+            var sData = {},
+                vValue = "";
+            var aColumn = this._oTPC._oPersonalizations.aColumns;
+            for (var i = 0; i < aColumn.length; i++) {
+                if (aColumn[i].group === "Azione") {
+                    vValue = aColumn[i].text.replaceAll(" ", "_");
+                    sData[vValue] = sline[aColumn[i].field];
+                    if (sData[vValue] === true) {
+                        sData[vValue] = "X";
+                    }
+                    if (sData[vValue] === false) {
+                        sData[vValue] = "";
+                    }
+                } else if (aColumn[i].field === "INDEX") {
+                    vValue = aColumn[i].text.replaceAll(" ", "_");
+                    sData[vValue] = sline[aColumn[i].field];
+                }
+            }
+            return sData;
+        },
+        ColumnIndex: function () {
+            var sData = [];
+            var aColumn = this._oTPC._oPersonalizations.aColumns;
+            for (var i = 0; i < aColumn.length; i++) {
+                if (aColumn[i].group === undefined) {
+                    var vValue = aColumn[i].text.replaceAll(" ", "_");
+                    sData.push(vValue);
+                }
+            }
+            return sData;
+        },
+        rowIndex: function (sline) {
+            var sData = {};
+            var aColumn = this._oTPC._oPersonalizations.aColumns;
+            for (var i = 0; i < aColumn.length; i++) {
+                if (aColumn[i].group === undefined) {
+                    var vValue = aColumn[i].text.replaceAll(" ", "_");
+                    sData[vValue] = sline[aColumn[i].field];
+                }
+            }
+            return sData;
         },
         onModify: function (oEvent) {
             var items = this.getView().byId("tbPiani").getSelectedItems();
@@ -1120,6 +1362,39 @@ sap.ui.define([
                 }
             }
             this.getModel("allIndex").refresh();
+        },
+        HandleMaterialView: async function (oEvent) {
+            var line = oEvent.getSource().getBindingContext("allIndex").getObject();
+
+            var aFilter = [];
+            aFilter.push(new Filter("INDEX", FilterOperator.EQ, line.INDEX));
+            aFilter.push(new Filter("CONTATORE", FilterOperator.EQ, line.CONTATORE));
+            var aMaterial = await this._getTable("/AzioniMateriali", aFilter);
+
+            var oModel = new sap.ui.model.json.JSONModel();
+            oModel.setData(aMaterial);
+            this.setModel(oModel, "aMaterial");
+
+            this.byId("popMaterialiView").open();
+        },
+        HandleServiziView: async function (oEvent) {
+            var line = oEvent.getSource().getBindingContext("allIndex").getObject();
+
+            var aFilter = [];
+            aFilter.push(new Filter("INDEX", FilterOperator.EQ, line.INDEX));
+            aFilter.push(new Filter("CONTATORE", FilterOperator.EQ, line.CONTATORE));
+            var aServizi = await this._getTable("/AzioniServizi", aFilter);
+
+            var oModel = new sap.ui.model.json.JSONModel();
+            oModel.setData(aServizi);
+            this.setModel(oModel, "aServizi");
+            this.byId("popServiziView").open();
+        },
+        onCloseMatnrView: function () {
+            this.byId("popMaterialiView").close();
+        },
+        onCloseServiziView: function () {
+            this.byId("popServiziView").close();
         }
 
     });

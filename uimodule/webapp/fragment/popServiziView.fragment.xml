@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="popServiziView" title="{i18n>Servizi}" showHeader="false" contentHeight="40%" contentWidth="40%">
+    <content>
+     <Table id="tServiziView" items="{ path: 'aServizi>/' }" sticky="ColumnHeaders" showNoData="false" mode="None">
+          <columns>
+              <Column width="60%"><Text text="{i18n>ASNUM}"/></Column>
+              <Column width="20%"><Text text="{i18n>MENGE}"/></Column>
+              <Column width="20%"><Text text="{i18n>MEINS}"/></Column>
+             <!--<Column width="16em"><Text text="{i18n>DESC_SERVIZI}"/></Column>
+              <Column width="6em"><Text text="{i18n>TBTWR}"/></Column>
+              <Column width="6em"><Text text="{i18n>EKGRP}"/></Column>
+              <Column width="6em"><Text text="{i18n>EKORG}"/></Column>-->
+          </columns>
+          <items>
+              <ColumnListItem vAlign="Middle">
+                  <cells>
+                      <Text text="{aServizi>ASNUM}" />
+                      <Text text="{aServizi>MENGE}" />
+                      <Text text="{aServizi>MEINS}" />
+                     <!--<Text text="{aServizi>DESC_BREVE}" /> 
+                       <Text text="{aServizi>TBTWR}" />
+                      <Text text="{aServizi>EKGRP}" />
+                      <Text text="{aServizi>EKORG}" />-->
+                  </cells>
+              </ColumnListItem>
+          </items>
+      </Table>                        
+    </content>
+    <beginButton>
+			<Button text="{i18n>Ok}" type="Emphasized" press="onCloseServiziView"/>
+		</beginButton>
+    <endButton>
+      <!--<Button text="{i18n>Annulla}" type="Emphasized" press="onCloseServizi"/>-->
+    </endButton>
+	</Dialog>
+</core:FragmentDefinition>
+

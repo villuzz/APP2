@@ -8,19 +8,21 @@ sap.ui.define([
     "PM030/APP2/util/LocalFormatter",
     'sap/ui/model/Filter',
     'sap/ui/model/FilterOperator',
-    'sap/ui/core/Fragment'
+    'sap/ui/core/Fragment',
+    "PM030/APP2/util/underscore-min",
 ],
 /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.core.routing.History} History
      * @param {typeof sap.ui.core.UIComponent} UIComponent
      */
-    function (Controller, History, UIComponent, formatter, MessageBox, Sorter, LocalFormatter, Filter, FilterOperator, Fragment) {
+    function (Controller, History, UIComponent, formatter, MessageBox, Sorter, LocalFormatter, Filter, FilterOperator, Fragment, underscore) {
     "use strict";
 
     return Controller.extend("PM030.APP2.controller.BaseController", {
         formatter: formatter,
         LocalFormatter: LocalFormatter,
+        underscore: underscore,
         /**
              * Convenience method for getting the view model by name in every controller of the application.
              * @public
@@ -80,8 +82,8 @@ sap.ui.define([
             var sSedeTecnica = this.getView().getModel("sSedeTecnica").getData();
 
             var aFilter = [],
-             oFilter = {},
-              sData = [];
+                oFilter = {},
+                sData = [];
 
             aFilter.push(new Filter("LANGUAGE", FilterOperator.EQ, "IT")); // fisso IT - todo
             if (sSedeTecnica.SEDE_TECNICA != "" && sSedeTecnica.SEDE_TECNICA != null) {
@@ -140,7 +142,7 @@ sap.ui.define([
             sData = await this._getTableDistinct("/SedeDistinct", aFilter, "LIVELLO6");
             oModel6.setData(sData);
             this.getView().setModel(oModel6, "Livello6");
-            
+
             var oBinding = this.byId("tSedeTecnica").getBinding("items");
             oBinding.filter(aFilter);
 
@@ -323,74 +325,107 @@ sap.ui.define([
         },
         ControlAzione: async function (sData, sIndex) {
 
-          if (sIndex.TIPO_ORDINE !== "M5" && sIndex.TIPO_ORDINE !== "M8" && sIndex.TIPO_ORDINE !== "M9"){
-            if ((sData.ZBAU === "" || sData.ZBAU === undefined) && (sData.SEDE_TECNICA === "" || sData.SEDE_TECNICA === undefined)) {
-              return "Inserire o lo ZBAU o la Sede Tecnica";
+            if (sIndex.TIPO_ORDINE !== "M5" && sIndex.TIPO_ORDINE !== "M8" && sIndex.TIPO_ORDINE !== "M9") {
+                if ((sData.ZBAU === "" || sData.ZBAU === undefined) && (sData.SEDE_TECNICA === "" || sData.SEDE_TECNICA === undefined)) {
+                    return "Inserire o lo ZBAU o la Sede Tecnica";
+                }
             }
-          }
-          if ((sData.ZBAU !== "" && sData.ZBAU !== undefined) && ((sData.SEDE_TECNICA !== "" && sData.SEDE_TECNICA !== undefined ) || (sData.SEDE_TECNICA_P !== "" && sData.SEDE_TECNICA_P !== undefined))) {
-            return "Inserire o lo ZBAU o la Sede Tecnica";
-          }
-          var checkSede = true;
-          if (sData.SEDE_TECNICA !== "" && sData.SEDE_TECNICA !== undefined) {
-            checkSede = await this.checkSede(sData);
-            if (!checkSede){
-              return "Sede Tecnica non valida";
+            if ((sData.ZBAU !== "" && sData.ZBAU !== undefined) && ((sData.SEDE_TECNICA !== "" && sData.SEDE_TECNICA !== undefined) || (sData.SEDE_TECNICA_P !== "" && sData.SEDE_TECNICA_P !== undefined))) {
+                return "Inserire o lo ZBAU o la Sede Tecnica";
             }
-          }
-          if (sData.SISTEMA === "" || sData.SISTEMA === undefined) {
-            return "Inserire Sistema";
-          }
-          if (sData.PROGRES === null || sData.PROGRES === undefined || sData.PROGRES === 0) {
-            return "Inserire Progressivo";
-          }
-          if (sData.CLASSE === "" || sData.CLASSE === undefined) {
-            return "Inserire Classe";
-          }
+            var checkSede = true;
+            if (sData.SEDE_TECNICA !== "" && sData.SEDE_TECNICA !== undefined) {
+                checkSede = await this.checkSede(sData);
+                if (! checkSede) {
+                    return "Sede Tecnica non valida";
+                }
+            }
+            if (sData.SISTEMA === "" || sData.SISTEMA === undefined) {
+                return "Inserire Sistema";
+            }
+            if (sData.PROGRES === null || sData.PROGRES === undefined || sData.PROGRES === 0) {
+                return "Inserire Progressivo";
+            }
+            if (sData.CLASSE === "" || sData.CLASSE === undefined) {
+                return "Inserire Classe";
+            }
 
-          return "";
+            var aFilter = [];
+            aFilter.push(new Filter("Progres", FilterOperator.EQ, sData.PROGRES));
+            aFilter.push(new Filter("Sistema", FilterOperator.EQ, sData.SISTEMA));
+            var result = await this._getLinenoError("/T_ACT_PROG", aFilter);
+            if (! result) {
+                return "Inserire Progressivo correttamente";
+            } else {
+              this.DESC_PROG = result.Txt;
+            }
+            return "";
+
+        },
+        ControlServizi: async function (sData) {
+            var aFilter = [];
+            aFilter.push(new Filter("ASNUM", FilterOperator.EQ, sData.ASNUM));
+            var result = await this._getLinenoError("/Servizi", aFilter);
+            if (!result || result.length === 0) {
+                return "Inserire Servizio correttamente";
+            }
+            return "";
+        },
+        ControlMateriali: async function (sData) {
+            var aFilter = [];
+            aFilter.push(new Filter("MATNR", FilterOperator.EQ, sData.MATNR));
+            var result = await this._getLinenoError("/Materiali", aFilter);
+            if (!result || result.length === 0) {
+                return "Inserire Materiale correttamente";
+            }
+            return "";
         },
         ControlIndex: function (sData) {
 
-          if (sData.TIPOFREQUENZA === ""  || sData.TIPOFREQUENZA === undefined || sData.TIPOFREQUENZA === null) {
-            return "Inserire Tipologia Frequenza";
-          }
-          if (sData.TIPOFREQUENZA === "C") {
+            if (sData.TIPOFREQUENZA === "" || sData.TIPOFREQUENZA === undefined || sData.TIPOFREQUENZA === null) {
+                return "Inserire Tipologia Frequenza";
+            }
+            if (sData.TIPOFREQUENZA === "C") {
+                if (sData.MPTYP === "" || sData.MPTYP === undefined) {
+                    return "Inserire Punto di Misura";
+                }
+                if (sData.POINT === "" || sData.POINT === undefined) {
+                    return "Inserire Tipologia punto di misura";
+                }
+                if (sData.FREQ_CICLO === "" || sData.FREQ_CICLO === undefined) {
+                    return "Inserire Frequenza Contatore";
+                }
+                if (sData.UNITA_CICLO === "" || sData.UNITA_CICLO === undefined) {
+                    return "Inserire UdM Contatore";
+                }
+                if (sData.LIMITE === "" || sData.LIMITE === undefined) {
+                    return "Inserire Valore limite";
+                }
+            } else if (sData.TIPOFREQUENZA === "T") {
 
-            if (sData.FREQ_CICLO === "" || sData.FREQ_CICLO === undefined) {
-              return "Frequenza Contatore";
+                if (sData.FREQ_TEMPO === "" || sData.FREQ_TEMPO === undefined) {
+                    return "Inserire Frequenza Tempo";
+                }
+                if (sData.UNITA_TEMPO === "" || sData.UNITA_TEMPO === undefined) {
+                    return "Inserire UdM Tempo";
+                }
             }
-            if (sData.UNITA_CICLO === "" || sData.UNITA_CICLO === undefined) {
-              return "UdM Contatore";
+            if (sData.LSTAR === "" || sData.LSTAR === undefined) {
+                return "Inserire Tipo Attività (1)";
             }
-            if (sData.LIMITE === "" || sData.LIMITE === undefined) {
-              return "Valore limite";
+            if (sData.STEUS === "" || sData.STEUS === undefined) {
+                return "Inserire Chiave di Controllo (1)";
             }
-          } else if (sData.TIPOFREQUENZA === "T"){
-
-            if (sData.FREQ_TEMPO === "" || sData.FREQ_TEMPO === undefined) {
-              return "Inserire Frequenza Tempo";
+            if (sData.NUM === "" || sData.NUM === undefined) {
+                return "Inserire Exec factor (1)";
             }
-            if (sData.UNITA_TEMPO === "" || sData.UNITA_TEMPO === undefined) {
-              return "Inserire UdM Tempo";
+            if (sData.STRATEGIA === "" || sData.STRATEGIA === undefined) {
+                return "Inserire Strategia";
             }
-          }
-          if (sData.LSTAR === "" || sData.LSTAR === undefined) {
-            return "Inserire Tipo Attività (1)";
-          }
-          if (sData.STEUS === "" || sData.STEUS === undefined) {
-            return "Inserire Chiave di Controllo (1)";
-          }
-          if (sData.NUM === "" || sData.NUM === undefined) {
-            return "Inserire Exec factor (1)";
-          }
-          if (sData.STRATEGIA === "" || sData.STRATEGIA === undefined) {
-            return "Inserire Strategia";
-          }
-          if (sData.PRIORITA === "" || sData.PRIORITA === undefined || sData.PRIORITA === null) {
-            return "Inserire Priorità";
-          }
-          /*if (sData.TIPO_ORDINE === "M5" || sData.TIPO_ORDINE === "M8" || sData.TIPO_ORDINE === "M9"){
+            if (sData.PRIORITA === "" || sData.PRIORITA === undefined || sData.PRIORITA === null) {
+                return "Inserire Priorità";
+            }
+            /*if (sData.TIPO_ORDINE === "M5" || sData.TIPO_ORDINE === "M8" || sData.TIPO_ORDINE === "M9"){
             if (sData.DIVISIONEC === "" || sData.DIVISIONEC === undefined) {
               return "Inserire Divisione Centro di lavoro";
             }
@@ -398,42 +433,38 @@ sap.ui.define([
               return "Inserire Centro di lavoro";
             }
           } */
-          if (sData.TIPO_GESTIONE === "" || sData.TIPO_GESTIONE === undefined) {
-            return "Inserire Tipo Gestione";
-          }
-          if (sData.TIPO_GESTIONE_1 === "" || sData.TIPO_GESTIONE_1 === undefined) {
-            return "Inserire Finalità";
-          }
-          if (sData.TIPO_GESTIONE_2 === "" || sData.TIPO_GESTIONE_2 === undefined) {
-            return "Inserire Gruppo Controlli";
-          }
-          if (sData.INDISPONIBILITA === "" || sData.TIPO_GESTIONE_2 === undefined) {
-            return "Inserire Indisponibilità";
-          }
-          
-          return "";
+            if (sData.TIPO_GESTIONE === "" || sData.TIPO_GESTIONE === undefined) {
+                return "Inserire Tipo Gestione";
+            }
+            if (sData.TIPO_GESTIONE_1 === "" || sData.TIPO_GESTIONE_1 === undefined) {
+                return "Inserire Finalità";
+            }
+            if (sData.TIPO_GESTIONE_2 === "" || sData.TIPO_GESTIONE_2 === undefined) {
+                return "Inserire Gruppo Controlli";
+            }
+            if (sData.INDISPONIBILITA === "" || sData.TIPO_GESTIONE_2 === undefined) {
+                return "Inserire Indisponibilità";
+            }
+
+            return "";
         },
         handlePopoverPress: function (oEvent) {
-          var oButton = oEvent.getSource(),
-				  oView = this.getView();
-         // this.byId("").openBy(oButton);Fragment
+            var oButton = oEvent.getSource(),
+                oView = this.getView();
+            // this.byId("").openBy(oButton);Fragment
 
             // create popover
             if (!this._pPopover) {
-              this._pPopover = Fragment.load({
-                id: oView.getId(),
-                name: "PM030.APP2.fragment.popInfoSede",
-                controller: this
-              }).then(function(oPopover) {
-                oView.addDependent(oPopover);
-                return oPopover;
-              });
+                this._pPopover = Fragment.load({id: oView.getId(), name: "PM030.APP2.fragment.popInfoSede", controller: this}).then(function (oPopover) {
+                    oView.addDependent(oPopover);
+                    return oPopover;
+                });
             }
-            this._pPopover.then(function(oPopover) {
-              oPopover.openBy(oButton);
+            this._pPopover.then(function (oPopover) {
+                oPopover.openBy(oButton);
             });
 
-          
+
         },
         _saveHana: function (URL, sData) {
             var xsoDataModelReport = this.getView().getModel();
@@ -554,6 +585,29 @@ sap.ui.define([
                 });
             });
         },
+        _getLinenoError: function (Entity, Filters) {
+            var xsoDataModelReport = this.getView().getModel();
+            return new Promise(function (resolve) {
+                xsoDataModelReport.read(Entity, {
+                    filters: Filters,
+                    urlParameters: {
+                        "$top": 1
+                    },
+                    success: function (oDataIn) {
+                        if (oDataIn.results[0] !== undefined) {
+                            resolve(oDataIn.results[0]);
+                        } else if (oDataIn.results !== undefined) {
+                            resolve(oDataIn.results);
+                        } else {
+                            resolve(oDataIn);
+                        }
+                    },
+                    error: function () {
+                        resolve(undefined);
+                    }
+                });
+            });
+        },
         _getTable: function (Entity, Filters) {
             var xsoDataModelReport = this.getView().getModel();
             return new Promise(function (resolve, reject) {
@@ -573,46 +627,67 @@ sap.ui.define([
                 });
             });
         },
-        _getTableIndexAzioni: function (Entity, Filters) {
-          var xsoDataModelReport = this.getView().getModel();
-          return new Promise(function (resolve, reject) {
-              xsoDataModelReport.read(Entity, {
-                  filters: Filters,
-                  sorters: [new Sorter("INDEX", true), new Sorter("CONTATORE", true)],
-                  success: function (oDataIn) {
-                      if (oDataIn.results !== undefined) {
-                          resolve(oDataIn.results);
-                      } else {
-                          resolve(oDataIn);
-                      }
-                  },
-                  error: function (err) {
-                      var responseObject = JSON.parse(err.responseText);
-                      reject(MessageBox.error(responseObject.error.message.value))
-                  }
-              });
-          });
-      },
-      _getTableIndex: function (Entity, Filters) {
-        var xsoDataModelReport = this.getView().getModel();
-        return new Promise(function (resolve, reject) {
-            xsoDataModelReport.read(Entity, {
-                filters: Filters,
-                sorters: [new Sorter("INDEX", true)],
-                success: function (oDataIn) {
-                    if (oDataIn.results !== undefined) {
-                        resolve(oDataIn.results);
-                    } else {
-                        resolve(oDataIn);
+        _getTableNoError: function (Entity, Filters) {
+            var xsoDataModelReport = this.getView().getModel();
+            return new Promise(function (resolve, reject) {
+                xsoDataModelReport.read(Entity, {
+                    filters: Filters,
+                    success: function (oDataIn) {
+                        if (oDataIn.results !== undefined) {
+                            resolve(oDataIn.results);
+                        } else {
+                            resolve(oDataIn);
+                        }
+                    },
+                    error: function (err) {
+                        resolve([]);
                     }
-                },
-                error: function (err) {
-                    var responseObject = JSON.parse(err.responseText);
-                    reject(MessageBox.error(responseObject.error.message.value))
-                }
+                });
             });
-        });
-    },
+        },
+        _getTableIndexAzioni: function (Entity, Filters) {
+            var xsoDataModelReport = this.getView().getModel();
+            return new Promise(function (resolve, reject) {
+                xsoDataModelReport.read(Entity, {
+                    filters: Filters,
+                    sorters: [
+                        new Sorter("INDEX", true),
+                        new Sorter("CONTATORE", true)
+                    ],
+                    success: function (oDataIn) {
+                        if (oDataIn.results !== undefined) {
+                            resolve(oDataIn.results);
+                        } else {
+                            resolve(oDataIn);
+                        }
+                    },
+                    error: function (err) {
+                        var responseObject = JSON.parse(err.responseText);
+                        reject(MessageBox.error(responseObject.error.message.value))
+                    }
+                });
+            });
+        },
+        _getTableIndex: function (Entity, Filters) {
+            var xsoDataModelReport = this.getView().getModel();
+            return new Promise(function (resolve, reject) {
+                xsoDataModelReport.read(Entity, {
+                    filters: Filters,
+                    sorters: [new Sorter("INDEX", true)],
+                    success: function (oDataIn) {
+                        if (oDataIn.results !== undefined) {
+                            resolve(oDataIn.results);
+                        } else {
+                            resolve(oDataIn);
+                        }
+                    },
+                    error: function (err) {
+                        var responseObject = JSON.parse(err.responseText);
+                        reject(MessageBox.error(responseObject.error.message.value))
+                    }
+                });
+            });
+        },
         _getTableDistinct: function (Entity, Filters, Columns) {
             var xsoDataModelReport = this.getView().getModel();
             return new Promise(function (resolve) {

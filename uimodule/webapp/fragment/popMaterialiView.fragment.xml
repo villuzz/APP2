@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="popMaterialiView" title="{i18n>Materiali}"  showHeader="false" contentHeight="40%" contentWidth="40%">
+    <content>
+     <Table id="tMaterialView" items="{ path: 'aMaterial>/' }" sticky="ColumnHeaders" showNoData="false" mode="None">
+          <columns>
+              <Column width="60%"><Text text="{i18n>MATNR}"/></Column>
+              <Column width="20%"> <Text text="{i18n>MENGE}"/></Column>
+              <Column width="20%"> <Text text="{i18n>MEINS}"/></Column>
+             <!--<Column width="16em"><Text text="{i18n>MAKTX}"/></Column>
+              <Column width="6em"> <Text text="{i18n>WERKS}"/></Column>
+              <Column width="6em"> <Text text="{i18n>LGORT}"/></Column>
+                <Column width="6em"> <Text text="{i18n>TBTWR}"/></Column>-->
+          </columns>
+          <items>
+              <ColumnListItem vAlign="Middle">
+                  <cells>
+                      <Text text="{aMaterial>MATNR}" />
+                      <Text text="{aMaterial>MENGE}" />
+                      <Text text="{aMaterial>MEINS}"/>
+                      <!--<Text text="{aMaterial>MAKTX}"/>
+                      <Text text="{aMaterial>WERKS}"/>
+                      <Text text="{aMaterial>LGORT}"/>
+                      <Text text="{aMaterial>TBTWR}"/>-->
+                  </cells>
+              </ColumnListItem>
+          </items>
+      </Table>                        
+    </content>
+    <beginButton>
+			<Button text="{i18n>Ok}" type="Emphasized" press="onCloseMatnrView"/>
+		</beginButton>
+    <endButton>
+      <!--<Button text="{i18n>Annulla}" type="Emphasized" press="onCloseMatnr"/>-->
+    </endButton>
+	</Dialog>
+</core:FragmentDefinition>
+

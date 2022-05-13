@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="popServizi" title="{i18n>Servizi}" showHeader="false" contentHeight="40%" contentWidth="40%">
+    <content>
+     <Table id="tServizi" items="{ path: 'aServizi>/' }" sticky="ColumnHeaders" showNoData="false" mode="None">
+          <columns>
+              <Column width="50%"><Text text="{i18n>ASNUM}"/></Column>
+              
+              <Column width="20%"><Text text="{i18n>MENGE}"/></Column>
+              <Column width="20%"><Text text="{i18n>MEINS}"/></Column>
+             <!-- <Column width="16em"><Text text="{i18n>DESC_SERVIZI}"/></Column>
+               <Column width="6em"><Text text="{i18n>TBTWR}"/></Column>
+              <Column width="6em"><Text text="{i18n>EKGRP}"/></Column>
+              <Column width="6em"><Text text="{i18n>EKORG}"/></Column>-->
+              <Column width="10%"><Button icon="sap-icon://add" type="Transparent" press="onAddServizi"/></Column>
+          </columns>
+          <items>
+              <ColumnListItem vAlign="Middle">
+                  <cells>
+                    <ComboBox width="100%" change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>ASNUM}" showSecondaryValues= "true" items="{/Servizi}" value="{aServizi>ASNUM}">
+                      <core:ListItem key="{ASNUM}" text="{ASNUM}" additionalText="{ASKTX}"/>
+                    </ComboBox>
+                    <Input value="{aServizi>MENGE}" maxLength="10" type="Number"/>
+                    <Input value="{aServizi>MEINS}" maxLength="4"/>
+                    <!--<Input value="{aServizi>DESC_BREVE}" maxLength="50"/>
+                      <Input value="{aServizi>TBTWR}" maxLength="10"/>
+                    <Input value="{aServizi>EKGRP}" maxLength="10"/>
+                    <Input value="{aServizi>EKORG}" maxLength="10"/>-->
+                    <Button icon="sap-icon://delete" type="Transparent" press="onCancelServizi"/>
+                  </cells>
+              </ColumnListItem>
+          </items>
+      </Table>                        
+    </content>
+    <beginButton>
+			<Button text="{i18n>Ok}" type="Emphasized" press="onConfirmServizi"/>
+		</beginButton>
+    <endButton>
+      <!--<Button text="{i18n>Annulla}" type="Emphasized" press="onCloseServizi"/>-->
+    </endButton>
+	</Dialog>
+</core:FragmentDefinition>
+

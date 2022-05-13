@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="ProgressHelp"
+		title="{i18n>PROGRES}"
+		items="{sProgress>/}"
+		search=".ProgressSearch"
+		confirm=".ProgressClose"
+		cancel=".ProgressClose">
+		<StandardListItem title="{sProgress>Progres}" description="{sProgress>Txt}" />
+	</SelectDialog>
+</core:FragmentDefinition>

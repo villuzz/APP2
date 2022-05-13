@@ -17,15 +17,17 @@ sap.ui.define(['jquery.sap.global'],   function (jQuery) {
               {id: "Azioni-tAzioni-dCol20", order: 8, text: oResource.getText("SEDE_TECNICA"), visible: true},
               {id: "Azioni-tAzioni-dCol20", order: 9, text: oResource.getText("SEDE_TECNICA_P"), visible: true},
               {id: "Azioni-tAzioni-dCol36", order: 10, text: oResource.getText("DESC_SEDE"), visible: true},
-              {id: "Azioni-tAzioni-dCol29", order: 11, text: oResource.getText("TESTO_ESTESO_P"), visible: true},
-              {id: "Azioni-tAzioni-dCol28", order: 12, text: oResource.getText("EQUIPMENT"), visible: false},
-              {id: "Azioni-tAzioni-dCol9", order: 13, text: oResource.getText("DES_COMPONENTE"), visible: false},
-              {id: "Azioni-tAzioni-dCol30", order: 14, text: oResource.getText("CLASSE_SEDE"), visible: false},
-              {id: "Azioni-tAzioni-dCol31", order: 15, text: oResource.getText("CARATT_SEDE"), visible: false},
-              {id: "Azioni-tAzioni-dCol32", order: 16, text: oResource.getText("OGGETTO_TECNICO"), visible: false},
-              {id: "Azioni-tAzioni-dCol33", order: 17, text: oResource.getText("PROFILO"), visible: false},
-              {id: "Azioni-tAzioni-dCol34", order: 18, text: oResource.getText("ZBAU"), visible: false},
-              {id: "Azioni-tAzioni-dCol35", order: 19, text: oResource.getText("VALORE"), visible: false}
+              {id: "Azioni-tAzioni-dCol38", order: 11, text: oResource.getText("MATNR"), visible: true},
+              {id: "Azioni-tAzioni-dCol39", order: 12, text: oResource.getText("ASNUM"), visible: true},
+              {id: "Azioni-tAzioni-dCol29", order: 13, text: oResource.getText("TESTO_ESTESO_P"), visible: true},
+              {id: "Azioni-tAzioni-dCol28", order: 14, text: oResource.getText("EQUIPMENT"), visible: false},
+              {id: "Azioni-tAzioni-dCol9", order: 15, text: oResource.getText("DES_COMPONENTE"), visible: false},
+              {id: "Azioni-tAzioni-dCol30", order: 16, text: oResource.getText("CLASSE_SEDE"), visible: false},
+              {id: "Azioni-tAzioni-dCol31", order: 17, text: oResource.getText("CARATT_SEDE"), visible: false},
+              {id: "Azioni-tAzioni-dCol32", order: 18, text: oResource.getText("OGGETTO_TECNICO"), visible: false},
+              {id: "Azioni-tAzioni-dCol33", order: 19, text: oResource.getText("PROFILO"), visible: false},
+              {id: "Azioni-tAzioni-dCol34", order: 20, text: oResource.getText("ZBAU"), visible: false},
+              {id: "Azioni-tAzioni-dCol35", order: 21, text: oResource.getText("VALORE"), visible: false}
             ]
         },
 
