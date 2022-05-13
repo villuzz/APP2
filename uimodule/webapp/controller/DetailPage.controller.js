@@ -115,12 +115,12 @@ sap.ui.define([
             sData.STEUS = await this.Shpl("T430", "CH");
             sData.POINT = await this.Shpl("T370P", "CH");
             sData.LSTAR = await this.Shpl("LARTN", "SH");
-            sData.TIPO_ATTIVITA = await this.Shpl("T350I", "CH");
+            //sData.TIPO_ATTIVITA = await this.Shpl("T350I", "CH");
             sData.SEDE_TECNICA = await this._getTableDistinct("/SedeDistinct", [], "SEDE_TECNICA");
             sData.TIPO_GESTIONE = await this._getTableNoError("/T_TP_MAN");
             sData.TIPO_GESTIONE_1 = await this._getTableNoError("/T_TP_MAN1");
             sData.TIPO_GESTIONE_2 = await this._getTableNoError("/T_TP_MAN2");
-            sData.CENTRO_LAVORO = await this._getTable("/T_DEST");
+            sData.CENTRO_LAVORO = await this._getTableNoError("/T_DEST");
             sData.TIPO_ATTIVITA = await this.Shpl("T353I", "CH");
             sData.SISTEMA = await this._getTableNoError("/T_ACT_SYST");
             // sData.PROGRES = await this._getTableNoError("/T_ACT_PROG");

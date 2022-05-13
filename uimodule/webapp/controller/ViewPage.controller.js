@@ -608,7 +608,7 @@ sap.ui.define([
                                 sAzione.DESC_SEDE = this.DESC_SEDE;
                             }
                             if (sAzione.DESC_PROG === "") {
-                              sAzione.DESC_PROG = this.DESC_PROG;
+                                sAzione.DESC_PROG = this.DESC_PROG;
                             }
 
                             // Append Material Servizi
@@ -627,20 +627,25 @@ sap.ui.define([
                                     }
                                 }
                             }
-                            for (k = 0; k < aServiziTemp.length; k++) {
-                                sServizi = this.ServiziModel(aServiziTemp[k]);
-                                if (sServizi.CONTATORE === sAzione.CONTATORE) {
-                                    sServizi.INDEX = sAzione.INDEX;
-                                    aServizi.push(sServizi);
-                                    msg = await this.ControlServizi(sServizi);
-                                    if (msg !== "") {
-                                        msg = msg + ", Servizi riga n° Excel " + (
-                                            k + 2
-                                        );
-                                        break;
+                            if (msg === "") {
+                                for (k = 0; k < aServiziTemp.length; k++) {
+                                    sServizi = this.ServiziModel(aServiziTemp[k]);
+                                    if (sServizi.CONTATORE === sAzione.CONTATORE) {
+                                        sServizi.INDEX = sAzione.INDEX;
+                                        aServizi.push(sServizi);
+                                        msg = await this.ControlServizi(sServizi);
+                                        if (msg !== "") {
+                                            msg = msg + ", Servizi riga n° Excel " + (
+                                                k + 2
+                                            );
+                                            break;
+                                        }
                                     }
                                 }
                             }
+                        }
+                        if (msg !== "") {
+                            break;
                         }
                     }
                     if (msg !== "") {
@@ -696,7 +701,7 @@ sap.ui.define([
                                 // Posizione Nuova
                                 if (sAzione.CONTATORE.startsWith("C-")) {
                                     sAzione.CONTATORE = await this._getLastItemData("/Azioni", "", "CONTATORE");
-                                    sAzione.CONTATORE++;
+                                    sAzione.CONTATORE ++;
                                     await this._saveHana("/Azioni", sAzione);
                                 } else { // Posizione Modifica
                                     sAzione.CONTATORE = Number(sAzione.CONTATORE);
@@ -794,7 +799,7 @@ sap.ui.define([
                 vValue = "";
             var aColumn = this._oTPC._oPersonalizations.aColumns;
             for (var i = 0; i < aColumn.length; i++) {
-                if (aColumn[i].group === undefined) {
+                if (aColumn[i].group === undefined || aColumn[i].group === null) {
                     vValue = aColumn[i].text.replaceAll(" ", "_");
                     sData[aColumn[i].field] = (sValue[vValue] === undefined) ? "" : sValue[vValue].toString();
                 }
@@ -983,7 +988,7 @@ sap.ui.define([
             var sData = [];
             var aColumn = this._oTPC._oPersonalizations.aColumns;
             for (var i = 0; i < aColumn.length; i++) {
-                if (aColumn[i].group === undefined) {
+                if (aColumn[i].group === undefined || aColumn[i].group === null) {
                     var vValue = aColumn[i].text.replaceAll(" ", "_");
                     sData.push(vValue);
                 }
@@ -994,7 +999,7 @@ sap.ui.define([
             var sData = {};
             var aColumn = this._oTPC._oPersonalizations.aColumns;
             for (var i = 0; i < aColumn.length; i++) {
-                if (aColumn[i].group === undefined) {
+                if (aColumn[i].group === undefined || aColumn[i].group === null) {
                     var vValue = aColumn[i].text.replaceAll(" ", "_");
                     sData[vValue] = sline[aColumn[i].field];
                 }

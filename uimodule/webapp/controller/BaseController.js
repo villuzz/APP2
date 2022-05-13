@@ -373,11 +373,15 @@ sap.ui.define([
         },
         ControlMateriali: async function (sData) {
             var aFilter = [];
-            aFilter.push(new Filter("MATNR", FilterOperator.EQ, sData.MATNR));
+            if (sData.MATNR.length <= 18){
+            aFilter.push(new Filter("MATNR", FilterOperator.EQ, sData.MATNR.padStart(18, "0")));
             var result = await this._getLinenoError("/Materiali", aFilter);
             if (!result || result.length === 0) {
                 return "Inserire Materiale correttamente";
             }
+          } else {
+            return "Inserire Materiale correttamente";
+          }
             return "";
         },
         ControlIndex: function (sData) {

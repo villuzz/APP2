@@ -55,7 +55,7 @@
                                             <Input value="{sSelect>CONTATORE}" maxLength="10" editable="false"/>
                                             <Switch type="AcceptReject" state="{sSelect>ATTIVO}" customTextOn="Attivo" customTextOff="Disattivo"></Switch>
                                             <!--selectionChange="onFilterHelp"-->
-                                            <ComboBox change="onFilterHelp" valueStateText="{i18n>valueState} {i18n>SISTEMA}" showSecondaryValues= "true" items="{ path: 'sHelp>/SISTEMA', length:2000 }" selectedKey="{sSelect>SISTEMA}">
+                                            <ComboBox valueStateText="{i18n>valueState} {i18n>SISTEMA}" showSecondaryValues= "true" items="{ path: 'sHelp>/SISTEMA', length:2000 }" selectedKey="{sSelect>SISTEMA}">
                                     <core:ListItem key="{sHelp>Sistema}" text="{sHelp>Sistema}" additionalText="{sHelp>Txt}"/>
                                       </ComboBox>
                                             
