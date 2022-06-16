@@ -164,20 +164,26 @@
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR}"  >
                                               <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR}">
+                                                <ComboBox change="handleChangeCb" required="true" valueStateText="{i18n>valueState} {i18n>LSTAR}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR}">
                                                   <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
                                                 </ComboBox>
                                               </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STEUS}">
                                               <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS}" showSecondaryValues= "true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS}">
+                                                <ComboBox change="handleChangeCb" required="true" valueStateText="{i18n>valueState} {i18n>STEUS}" showSecondaryValues= "true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS}">
                                                   <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
                                                 </ComboBox>
                                               </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM}">
-                                                <form:fields><Input value="{sSelect>/NUM}" required="true" maxLength="3"/></form:fields>
+                                                <form:fields><Input value="{sSelect>/NUM}" type="Number" required="true" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>PERSONE}">
+                                                <form:fields><Input value="{sSelect>/PERSONE}" type="Number" required="true" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>HPER}">
+                                                <form:fields><Input value="{sSelect>/HPER}" type="Number" required="true" maxLength="5"/></form:fields>
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
@@ -198,7 +204,13 @@
                                               </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM_1}">
-                                                <form:fields><Input value="{sSelect>/NUM_1}" maxLength="3"/></form:fields>
+                                                <form:fields><Input value="{sSelect>/NUM_1}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>PERSONE_1}">
+                                                <form:fields><Input value="{sSelect>/PERSONE_1}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>HPER_1}">
+                                                <form:fields><Input value="{sSelect>/HPER_1}" type="Number" maxLength="5"/></form:fields>
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
@@ -219,7 +231,13 @@
                                               </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM_2}">
-                                                <form:fields><Input value="{sSelect>/NUM_2}" maxLength="3"/></form:fields>
+                                                <form:fields><Input value="{sSelect>/NUM_2}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>PERSONE_2}">
+                                                <form:fields><Input value="{sSelect>/PERSONE_2}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>HPER_2}">
+                                                <form:fields><Input value="{sSelect>/HPER_2}" type="Number" maxLength="5"/></form:fields>
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
@@ -239,8 +257,14 @@
                                                 </ComboBox>
                                               </form:fields>
                                             </form:FormElement>
-                                            <form:FormElement label="{i18n>NUM_3}">
-                                                <form:fields><Input value="{sSelect>/NUM_3}" maxLength="3"/></form:fields>
+                                            <form:FormElement label="{i18n>NUM_3}"> 
+                                                <form:fields><Input value="{sSelect>/NUM_3}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>PERSONE_3}">
+                                                <form:fields><Input value="{sSelect>/PERSONE_3}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>HPER_3}">
+                                                <form:fields><Input value="{sSelect>/HPER_3}" type="Number" maxLength="5"/></form:fields>
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
@@ -261,7 +285,13 @@
                                               </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM_4}">
-                                                <form:fields><Input value="{sSelect>/NUM_4}" maxLength="3"/></form:fields>
+                                                <form:fields><Input value="{sSelect>/NUM_4}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>PERSONE_4}">
+                                                <form:fields><Input value="{sSelect>/PERSONE_4}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>HPER_4}">
+                                                <form:fields><Input value="{sSelect>/HPER_4}" type="Number" maxLength="5"/></form:fields>
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
@@ -282,7 +312,13 @@
                                               </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM_5}">
-                                                <form:fields><Input value="{sSelect>/NUM_5}" maxLength="3"/></form:fields>
+                                                <form:fields><Input value="{sSelect>/NUM_5}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>PERSONE_5}">
+                                                <form:fields><Input value="{sSelect>/PERSONE_5}" type="Number" maxLength="3"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>HPER_5}">
+                                                <form:fields><Input value="{sSelect>/HPER_5}" type="Number" maxLength="5"/></form:fields>
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
@@ -374,6 +410,14 @@
                                                   </Input>-->
                                                 </form:fields>
                                             </form:FormElement>
+                                             <form:FormElement label="{i18n>DESTINATARIO}">
+                                                <form:fields>
+                                                   <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DESTINATARIO}" showSecondaryValues= "true" items="{ path: 'sHelp>/CENTRO_LAVORO', length:2500 }" selectedKey="{sSelect>/DESTINATARIO}">
+                                              <core:ListItem key="{sHelp>Destinatario}" text="{sHelp>Destinatario}" additionalText="{sHelp>Werks} - {sHelp>Arbpl}"/>
+                                            </ComboBox>
+                                                  
+                                                </form:fields>
+                                            </form:FormElement>
                                             <form:FormElement label="{i18n>PRIORITA}">
                                                 <form:fields>
                                                   <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>PRIORITA}" showSecondaryValues= "true" required="true" items="{ path: 'sHelp>/PRIORITA' }" selectedKey="{sSelect>/PRIORITA}">
@@ -416,7 +460,7 @@
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>DESC_BREVE}">
                                                 <form:fields>
-                                                    <TextArea value="{sSelect>/DESC_BREVE}" showExceededText="true" maxLength="40" height="7em" valueState="{= ${/value}.length > 40 ? 'Warning' : 'None' }"/>
+                                                    <TextArea value="{sSelect>/DESC_BREVE}" showExceededText="true" maxLength="40" height="12em" valueState="{= ${/value}.length > 40 ? 'Warning' : 'None' }"/>
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STRATEGIA}">
@@ -431,9 +475,28 @@
                                             <form:FormElement label="{i18n>STRATEGIA_DESC}">
                                                 <form:fields><Input value="{sSelect>/STRATEGIA_DESC}" maxLength="50" editable="false"/></form:fields>
                                             </form:FormElement>
+                                            <form:FormElement label="{i18n>AZIONE}">
+                                                <form:fields><Input value="{sSelect>/AZIONE}" maxLength="10" type="Number" editable="true"/></form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="{i18n>RIFERIMENTO}">
+                                                <form:fields>
+                                                    <Select xmlns="sap.m" selectedKey="{sSelect>/RIFERIMENTO}">
+                                                            <items>
+                                                                <core:ListItem xmlns:core="sap.ui.core" key="" text=""/>
+                                                                <core:ListItem xmlns:core="sap.ui.core" key="1" text="1"/>
+                                                                <core:ListItem xmlns:core="sap.ui.core" key="2" text="2"/>
+                                                                <core:ListItem xmlns:core="sap.ui.core" key="3" text="3"/>
+                                                                <core:ListItem xmlns:core="sap.ui.core" key="4" text="4"/>
+                                                                <core:ListItem xmlns:core="sap.ui.core" key="5" text="5"/>
+                                                                <core:ListItem xmlns:core="sap.ui.core" key="6" text="6"/>
+                                                            </items>
+                                                    </Select>
+                                                </form:fields>
+                                            </form:FormElement>
+
                                             <form:FormElement label="{i18n>TESTO_ESTESO}">
                                                 <form:fields>
-                                                    <TextArea value="{sSelect>/TESTO_ESTESO}" showExceededText="true" maxLength="255" height="13em" valueState="{= ${/value}.length > 255 ? 'Warning' : 'None' }"/>
+                                                    <TextArea value="{sSelect>/TESTO_ESTESO}" showExceededText="true" maxLength="255" height="12em" valueState="{= ${/value}.length > 255 ? 'Warning' : 'None' }"/>
                                                 </form:fields>
                                             </form:FormElement>
                                         </form:formElements>

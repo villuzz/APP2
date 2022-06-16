@@ -227,24 +227,7 @@ sap.ui.define([
             var descProgress = oEvent.getSource().getSelectedItem().getBindingContext("sHelp").getObject().Txt;
             oEvent.getSource().getBindingContext("sSelect").getObject().DESC_PROG = descProgress;
         },
-        Shpl: async function (ShplName, ShplType) {
-            var aFilter = [];
-            aFilter.push(new Filter("ShplName", FilterOperator.EQ, ShplName));
-            aFilter.push(new Filter("ShplType", FilterOperator.EQ, ShplType));
-
-            var result = await this._getTableNoError("/dySearch", aFilter);
-            if (result[0] !== undefined) {
-                if (result[0].ReturnFieldValueSet) {
-                    result = result[0].ReturnFieldValueSet.results;
-                    result.splice(0, 1);
-                } else {
-                    result = [];
-                }
-            } else {
-                result = [];
-            }
-            return result;
-        },
+        
         onPersoButtonPressed: function () {
             this._oTPCDetail.openDialog();
         },
@@ -616,6 +599,8 @@ sap.ui.define([
             sData.PRIORITA = (sData.PRIORITA === null ? null : Number(sData.PRIORITA));
             sData.FREQ_TEMPO = (sData.FREQ_TEMPO === null ? null : Number(sData.FREQ_TEMPO));
             sData.FREQ_CICLO = (sData.FREQ_CICLO === null ? null : Number(sData.FREQ_CICLO));
+            sData.AZIONE = (sData.AZIONE === null ? null : Number(sData.AZIONE));
+            sData.RIFERIMENTO = (sData.RIFERIMENTO === null ? null : Number(sData.RIFERIMENTO));
             // sData.INDISPONIBILITA = (sData.INDISPONIBILITA === null ? "X" : "");
 
             return sData;

@@ -32,7 +32,25 @@ sap.ui.define([
         getModel: function (sName) {
             return this.getView().getModel(sName);
         },
+        Shpl: async function (ShplName, ShplType, aFilter) {
 
+          var sFilter = {
+              "ReturnFieldValueSet": [{}]
+          };
+          sFilter.ShplType = ShplType;
+          sFilter.ShplName = ShplName;
+          sFilter.IFilterDataSet = aFilter;
+          // Shlpname Shlpfield Sign Option Low
+
+          var result = await this._saveHana("/dySearch", sFilter);
+          if (result.ReturnFieldValueSet !== undefined) {
+              result = result.ReturnFieldValueSet.results;
+          } else {
+              result = [];
+          }
+
+          return result;
+      },
         /**
              * Convenience method for setting the view model in every controller of the application.
              * @public
@@ -357,7 +375,7 @@ sap.ui.define([
             if (! result) {
                 return "Inserire Progressivo correttamente";
             } else {
-              this.DESC_PROG = result.Txt;
+                this.DESC_PROG = result.Txt;
             }
             return "";
 
@@ -366,22 +384,22 @@ sap.ui.define([
             var aFilter = [];
             aFilter.push(new Filter("ASNUM", FilterOperator.EQ, sData.ASNUM));
             var result = await this._getLinenoError("/Servizi", aFilter);
-            if (!result || result.length === 0) {
+            if (! result || result.length === 0) {
                 return "Inserire Servizio correttamente";
             }
             return "";
         },
         ControlMateriali: async function (sData) {
             var aFilter = [];
-            if (sData.MATNR.length <= 18){
-            aFilter.push(new Filter("MATNR", FilterOperator.EQ, sData.MATNR.padStart(18, "0")));
-            var result = await this._getLinenoError("/Materiali", aFilter);
-            if (!result || result.length === 0) {
+            if (sData.MATNR.length <= 18) {
+                aFilter.push(new Filter("MATNR", FilterOperator.EQ, sData.MATNR.padStart(18, "0")));
+                var result = await this._getLinenoError("/Materiali", aFilter);
+                if (! result || result.length === 0) {
+                    return "Inserire Materiale correttamente";
+                }
+            } else {
                 return "Inserire Materiale correttamente";
             }
-          } else {
-            return "Inserire Materiale correttamente";
-          }
             return "";
         },
         ControlIndex: function (sData) {
@@ -422,6 +440,12 @@ sap.ui.define([
             }
             if (sData.NUM === "" || sData.NUM === undefined) {
                 return "Inserire Exec factor (1)";
+            }
+            if (sData.PERSONE === "" || sData.PERSONE === undefined) {
+                return "Inserire Quantità Risorse (1)";
+            }
+            if (sData.HPER === "" || sData.HPER === undefined) {
+                return "Inserire Durata (1)";
             }
             if (sData.STRATEGIA === "" || sData.STRATEGIA === undefined) {
                 return "Inserire Strategia";

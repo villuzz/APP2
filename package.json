@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "deployment": "^0.2.3",
+    "pip": "0.0.1",
     "underscore": "^1.13.3",
     "xlsx": "^0.18.0"
   }

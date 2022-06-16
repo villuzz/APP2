@@ -46,21 +46,33 @@ sap.ui.define(['jquery.sap.global'],   function (jQuery) {
               {id: "Piani-tbPiani-col59", order: 62, text: oResource.getText("LSTAR"), field: "LSTAR", visible: false},
               {id: "Piani-tbPiani-col60", order: 63, text: oResource.getText("STEUS"), field: "STEUS", visible: false},
               {id: "Piani-tbPiani-col70", order: 64, text: oResource.getText("NUM"), field: "NUM", visible: false},
-              {id: "Piani-tbPiani-col71", order: 65, text: oResource.getText("LSTAR_1"), field: "LSTAR_1", visible: false},
-              {id: "Piani-tbPiani-col72", order: 65, text: oResource.getText("STEUS_1"), field: "STEUS_1", visible: false},
-              {id: "Piani-tbPiani-col73", order: 73, text: oResource.getText("NUM_1"), field: "NUM_1", visible: false},
-              {id: "Piani-tbPiani-col74", order: 74, text: oResource.getText("LSTAR_2"), field: "LSTAR_2", visible: false},
-              {id: "Piani-tbPiani-col75", order: 75, text: oResource.getText("STEUS_2"), field: "STEUS_2", visible: false},
-              {id: "Piani-tbPiani-col76", order: 76, text: oResource.getText("NUM_2"), field: "NUM_2", visible: false},
+              {id: "Piani-tbPiani-col110", order: 65, text: oResource.getText("PERSONE"), field: "PERSONE", visible: false},
+              {id: "Piani-tbPiani-col111", order: 66, text: oResource.getText("HPER"), field: "HPER", visible: false},
+              {id: "Piani-tbPiani-col71", order: 67, text: oResource.getText("LSTAR_1"), field: "LSTAR_1", visible: false},
+              {id: "Piani-tbPiani-col72", order: 68, text: oResource.getText("STEUS_1"), field: "STEUS_1", visible: false},
+              {id: "Piani-tbPiani-col73", order: 69, text: oResource.getText("NUM_1"), field: "NUM_1", visible: false},
+              {id: "Piani-tbPiani-col112", order: 70, text: oResource.getText("PERSONE_1"), field: "PERSONE_1", visible: false},
+              {id: "Piani-tbPiani-col113", order: 71, text: oResource.getText("HPER_1"), field: "HPER_1", visible: false},
+              {id: "Piani-tbPiani-col74", order: 72, text: oResource.getText("LSTAR_2"), field: "LSTAR_2", visible: false},
+              {id: "Piani-tbPiani-col75", order: 73, text: oResource.getText("STEUS_2"), field: "STEUS_2", visible: false},
+              {id: "Piani-tbPiani-col76", order: 74, text: oResource.getText("NUM_2"), field: "NUM_2", visible: false},
+              {id: "Piani-tbPiani-col114", order: 75, text: oResource.getText("PERSONE_2"), field: "PERSONE_2", visible: false},
+              {id: "Piani-tbPiani-col115", order: 76, text: oResource.getText("HPER_2"), field: "HPER_2", visible: false},
               {id: "Piani-tbPiani-col77", order: 77, text: oResource.getText("LSTAR_3"), field: "LSTAR_3", visible: false},
               {id: "Piani-tbPiani-col78", order: 78, text: oResource.getText("STEUS_3"), field: "STEUS_3", visible: false},
               {id: "Piani-tbPiani-col79", order: 79, text: oResource.getText("NUM_3"), field: "NUM_3", visible: false},
-              {id: "Piani-tbPiani-col80", order: 80, text: oResource.getText("LSTAR_4"), field: "LSTAR_4", visible: false},
-              {id: "Piani-tbPiani-col90", order: 90, text: oResource.getText("STEUS_4"), field: "STEUS_4", visible: false},
-              {id: "Piani-tbPiani-col91", order: 91, text: oResource.getText("NUM_4"), field: "NUM_4", visible: false},
-              {id: "Piani-tbPiani-col92", order: 92, text: oResource.getText("LSTAR_5"), field: "LSTAR_5", visible: false},
-              {id: "Piani-tbPiani-col93", order: 93, text: oResource.getText("STEUS_5"), field: "STEUS_5", visible: false},
-              {id: "Piani-tbPiani-col94", order: 94, text: oResource.getText("NUM_5"), field: "NUM_5", visible: false},
+              {id: "Piani-tbPiani-col116", order: 80, text: oResource.getText("PERSONE_3"), field: "PERSONE_3", visible: false},
+              {id: "Piani-tbPiani-col117", order: 81, text: oResource.getText("HPER_3"), field: "HPER_3", visible: false},
+              {id: "Piani-tbPiani-col80", order: 82, text: oResource.getText("LSTAR_4"), field: "LSTAR_4", visible: false},
+              {id: "Piani-tbPiani-col90", order: 83, text: oResource.getText("STEUS_4"), field: "STEUS_4", visible: false},
+              {id: "Piani-tbPiani-col91", order: 84, text: oResource.getText("NUM_4"), field: "NUM_4", visible: false},
+              {id: "Piani-tbPiani-col118", order: 85, text: oResource.getText("PERSONE_4"), field: "PERSONE_4", visible: false},
+              {id: "Piani-tbPiani-col119", order: 86, text: oResource.getText("HPER_4"), field: "HPER_4", visible: false},
+              {id: "Piani-tbPiani-col92", order: 87, text: oResource.getText("LSTAR_5"), field: "LSTAR_5", visible: false},
+              {id: "Piani-tbPiani-col93", order: 88, text: oResource.getText("STEUS_5"), field: "STEUS_5", visible: false},
+              {id: "Piani-tbPiani-col94", order: 89, text: oResource.getText("NUM_5"), field: "NUM_5", visible: false},
+              {id: "Piani-tbPiani-col120", order: 90, text: oResource.getText("PERSONE_5"), field: "PERSONE_5", visible: false},
+              {id: "Piani-tbPiani-col121", order: 91, text: oResource.getText("HPER_5"), field: "HPER_5", visible: false},
               {id: "Piani-tbPiani-col95", order: 95, text: oResource.getText("RISK"), field: "RISK", visible: false},
               {id: "Piani-tbPiani-col96", order: 96, text: oResource.getText("LIMITE"), field: "LIMITE", visible: false},
               {id: "Piani-tbPiani-col103", order: 97, text: oResource.getText("TIPOFREQUENZA"), field: "TIPOFREQUENZA", visible: false},
@@ -70,6 +82,9 @@ sap.ui.define(['jquery.sap.global'],   function (jQuery) {
               {id: "Piani-tbPiani-col100", order: 101, text: oResource.getText("UNITA_CICLO"), field: "UNITA_CICLO", visible: false},
               {id: "Piani-tbPiani-col101", order: 102, text: oResource.getText("POINT"), field: "POINT", visible: false},
               {id: "Piani-tbPiani-col102", order: 103, text: oResource.getText("MPTYP"), field: "MPTYP", visible: false},
+              {id: "Piani-tbPiani-col122", order: 104, text: oResource.getText("AZIONE"), field: "AZIONE", visible: false},
+              {id: "Piani-tbPiani-col123", order: 105, text: oResource.getText("RIFERIMENTO"), field: "RIFERIMENTO", visible: false},
+              {id: "Piani-tbPiani-col124", order: 106, text: oResource.getText("DESTINATARIO"), field: "DESTINATARIO", visible: false}
 
             ]
         },
@@ -82,8 +97,7 @@ sap.ui.define(['jquery.sap.global'],   function (jQuery) {
             var oBundle = this._oBundle;
             oDeferred.resolve(oBundle);
             return oDeferred.promise();
-        }, 
-
+        },
         setPersData: function (oBundle) {
             var oDeferred = new jQuery.Deferred();
             this._oBundle = oBundle;

@@ -157,24 +157,43 @@
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col56"><Text text="{i18n>TESTO_ESTESO}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col57"><Text text="{i18n>INDISPONIBILITA}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col58"><Text text="{i18n>TIPO_ORDINE}"/></Column>
+
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col59"><Text text="{i18n>LSTAR}"/></Column>
             <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col60"><Text text="{i18n>STEUS}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col70"><Text text="{i18n>NUM}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col110"><Text text="{i18n>PERSONE}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col111"><Text text="{i18n>HPER}"/></Column>
+
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col71"><Text text="{i18n>LSTAR_1}"/></Column>
             <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col72"><Text text="{i18n>STEUS_1}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col73"><Text text="{i18n>NUM_1}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col112"><Text text="{i18n>PERSONE_1}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col113"><Text text="{i18n>HPER_1}"/></Column>
+
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col74"><Text text="{i18n>LSTAR_2}"/></Column>
             <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col75"><Text text="{i18n>STEUS_2}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col76"><Text text="{i18n>NUM_2}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col114"><Text text="{i18n>PERSONE_2}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col115"><Text text="{i18n>HPER_2}"/></Column>
+
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col77"><Text text="{i18n>LSTAR_3}"/></Column>
             <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col78"><Text text="{i18n>STEUS_3}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col79"><Text text="{i18n>NUM_3}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col116"><Text text="{i18n>PERSONE_3}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col117"><Text text="{i18n>HPER_3}"/></Column>
+            
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col80"><Text text="{i18n>LSTAR_4}"/></Column>
             <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col90"><Text text="{i18n>STEUS_4}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col91"><Text text="{i18n>NUM_4}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col118"><Text text="{i18n>PERSONE_4}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col119"><Text text="{i18n>HPER_4}"/></Column>
+    
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col92"><Text text="{i18n>LSTAR_5}"/></Column>
             <Column width="12em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col93"><Text text="{i18n>STEUS_5}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col94"><Text text="{i18n>NUM_5}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col120"><Text text="{i18n>PERSONE_5}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col121"><Text text="{i18n>HPER_5}"/></Column>
+            
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col95"><Text text="{i18n>RISK}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col96"><Text text="{i18n>LIMITE}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col97"><Text text="{i18n>FREQ_TEMPO}"/></Column>
@@ -184,6 +203,9 @@
             <Column width="14em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col101"><Text text="{i18n>POINT}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col102"><Text text="{i18n>MPTYP}"/></Column>
             <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col103"><Text text="{i18n>TIPOFREQUENZA}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col122"><Text text="{i18n>AZIONE}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col123"><Text text="{i18n>RIFERIMENTO}"/></Column>
+            <Column width="10em" mergeDuplicates="true" mergeFunctionName="data#mergeKey" id="col124"><Text text="{i18n>DESTINATARIO}"/></Column>
 
           </columns>
           <items>
@@ -237,21 +259,33 @@
                 <Text text="{allIndex>LSTAR}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>STEUS}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>NUM}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>PERSONE}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>HPER}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>LSTAR_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>STEUS_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>NUM_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>PERSONE_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>HPER_1}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>LSTAR_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>STEUS_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>NUM_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>PERSONE_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>HPER_2}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>LSTAR_3}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>STEUS_3}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>NUM_3}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>PERSONE_3}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>HPER_3}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>LSTAR_4}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>STEUS_4}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>NUM_4}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>PERSONE_4}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>HPER_4}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>LSTAR_5}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>STEUS_5}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>NUM_5}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>PERSONE_5}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>HPER_5}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>RISK}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>LIMITE}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>FREQ_TEMPO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
@@ -261,6 +295,9 @@
                 <Text text="{allIndex>POINT}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>MPTYP}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>TIPOFREQUENZA}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>AZIONE}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>RIFERIMENTO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
+                <Text text="{allIndex>DESTINATARIO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
 
               </cells>
             </ColumnListItem>
