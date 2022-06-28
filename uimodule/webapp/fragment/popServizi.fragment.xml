@@ -7,7 +7,7 @@
               
               <Column width="20%"><Text text="{i18n>MENGE}"/></Column>
               <Column width="20%"><Text text="{i18n>MEINS}"/></Column>
-             <!-- <Column width="16em"><Text text="{i18n>DESC_SERVIZI}"/></Column>
+             <!-- <Column width="16em"><Text text="{i18n>ASKTX}"/></Column>
                <Column width="6em"><Text text="{i18n>TBTWR}"/></Column>
               <Column width="6em"><Text text="{i18n>EKGRP}"/></Column>
               <Column width="6em"><Text text="{i18n>EKORG}"/></Column>-->
@@ -21,7 +21,7 @@
                     </ComboBox>
                     <Input value="{aServizi>MENGE}" maxLength="10" type="Number"/>
                     <Input value="{aServizi>MEINS}" maxLength="4"/>
-                    <!--<Input value="{aServizi>DESC_BREVE}" maxLength="50"/>
+                    <!--<Input value="{aServizi>ASKTX}" maxLength="50"/>
                       <Input value="{aServizi>TBTWR}" maxLength="10"/>
                     <Input value="{aServizi>EKGRP}" maxLength="10"/>
                     <Input value="{aServizi>EKORG}" maxLength="10"/>-->

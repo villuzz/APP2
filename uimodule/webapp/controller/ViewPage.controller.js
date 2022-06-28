@@ -669,7 +669,7 @@ sap.ui.define([
                         var CurrentIndex = sIndex.INDEX.toString();
                         // ID Strategia
                         var selStrategia = await this.checkStrategia(sIndex);
-                        sIndex.ID_STRATEGIA = selStrategia.ID_STRATEGIA;
+                        //sIndex.ID_STRATEGIA = selStrategia.ID_STRATEGIA;
                         sIndex.STRATEGIA_DESC = selStrategia.STRATEGIA_DESC;
 
                         // Testata Nuova

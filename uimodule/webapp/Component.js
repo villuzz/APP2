@@ -17,6 +17,7 @@ sap.ui.define([
              * @override
              */
             init: function () {
+
                 // call the base component's init function
                 UIComponent.prototype.init.apply(this, arguments);
 
@@ -25,6 +26,20 @@ sap.ui.define([
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
+
+                $.ajax({
+                  url: "/getuserinfo",
+                  type: "GET",
+                  dataType: "json",
+                  contentType: "application/json",
+                  success: function (data) {
+                    debugger;
+                      //that's all fine yay
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                  }
+              });
             }
         });
     }

@@ -5,7 +5,7 @@
     "node": "12.X"
   },
   "scripts": {
-    "start": "node node_modules/@sap/approuter/approuter.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "@sap/approuter": "^9.0.0"

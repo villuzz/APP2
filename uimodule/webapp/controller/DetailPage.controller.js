@@ -347,7 +347,7 @@ sap.ui.define([
 
             var sSelect = this.getView().getModel("sSelect").getData();
             sSelect.STRATEGIA_DESC = oEvent.getSource().getSelectedItem().getBindingContext().getObject().STRATEGIA_DESC;
-            sSelect.ID_STRATEGIA = oEvent.getSource().getSelectedItem().getBindingContext().getObject().ID;
+            //sSelect.ID_STRATEGIA = oEvent.getSource().getSelectedItem().getBindingContext().getObject().ID;
             this.getView().getModel("sSelect").refresh();
         },
         handleSavePress: async function () {
@@ -581,7 +581,7 @@ sap.ui.define([
         },
         AzioniModel: function (sData) {
 
-            sData.PROGRES = (sData.PROGRES === null ? null : Number(sData.PROGRES));
+            //sData.PROGRES = (sData.PROGRES === null ? null : Number(sData.PROGRES));
             sData.CARATT_SEDE = (sData.CARATT_SEDE === null ? null : sData.CARATT_SEDE);
             if (sData.SEDE_TECNICA_P !== undefined) {
                 var aSede = sData.SEDE_TECNICA_P.split("-");
@@ -612,7 +612,7 @@ sap.ui.define([
                 CONTATORE: "New",
                 ATTIVO: true,
                 SISTEMA: "",
-                PROGRES: null,
+                PROGRES: "",
                 DESC_PROG: "",
                 CLASSE: "",
                 DES_COMPONENTE: "",
@@ -640,7 +640,7 @@ sap.ui.define([
         initModel: function () {
             var sData = {
                 ID: "New",
-                ID_STRATEGIA: null,
+                //ID_STRATEGIA: null,
                 STRATEGIA: "",
                 STRATEGIA_DESC: "",
                 DIVISIONEC: "",
@@ -686,7 +686,7 @@ sap.ui.define([
                         CONTATORE: "New",
                         ATTIVO: true,
                         SISTEMA: "",
-                        PROGRES: null,
+                        PROGRES: "",
                         DESC_PROG: "",
                         CLASSE: "",
                         DES_COMPONENTE: "",
