@@ -6,15 +6,17 @@
         <f:content>
       
            <HBox height="100%" alignItems="Center" alignContent="Center" justifyContent="Center">
-                        <Title text="{i18n>PrototipiPiani}"/>
-                    </HBox>
+              <Title level="H1" text="{i18n>PrototipiPiani}" />
+            </HBox>
         </f:content>
+          
         <f:actions></f:actions>
         <f:navigationActions>
-          <Button text="Nuovo"  icon="sap-icon://document" press="handleNuovo" class="sapUiTinyMarginBegin"/>
-          <Button text="Modifica" icon="sap-icon://edit" press="onModify" class="sapUiTinyMarginBegin"/>
-          <Button text="Copia"  icon="sap-icon://copy" press="onCopy" class="sapUiTinyMarginBegin"/>
-          <Button text="Cancella" icon="sap-icon://delete" press="handleDelete" class="sapUiTinyMarginBegin"/>
+        <Link href="file/elabeling-inventory-report.html" target="_blank" text="{i18n>accessibility}" class="sapUiMediumMarginEnd" />
+          <Button text="Nuovo" icon="sap-icon://document" press="handleNuovo" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>NewButton}" tooltip="{i18n>NewButton}"/>
+          <Button text="Modifica" icon="sap-icon://edit" press="onModify" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>ModifyButton}" tooltip="{i18n>ModifyButton}"/>
+          <Button text="Copia"  icon="sap-icon://copy" press="onCopy" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>CopyButton}" tooltip="{i18n>CopyButton}"/>
+          <Button text="Cancella" icon="sap-icon://delete" press="handleDelete" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>CancelButton}" tooltip="{i18n>CancelButton}"/>
         </f:navigationActions>
       </f:DynamicPageTitle>
     </f:title>
@@ -53,22 +55,22 @@
               </fb:FilterGroupItem>
               <fb:FilterGroupItem id="FISedeTecnica" visible="true" groupName="__$INTERNAL$" name="SedeTecnica" label="{i18n>SedeTecnica}" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
-                <HBox>
-                  <Input id="iSedeTecnica" value="{sFilter>/SEDE_TECNICA}" class="sapUiSmallMarginBottom" type="Text" showValueHelp="true" valueHelpRequest="handleSedeTecnica"/>
-                  
-                 </HBox>
+               <VBox>
+                <Label text="Sede Tecnica Tipo" labelFor="iSedeTecnica" visible="false"/>
+                <Input id="iSedeTecnica" value="{sFilter>/SEDE_TECNICA}" ariaLabelledBy="iSedeTecnica" class="sapUiSmallMarginBottom" type="Text" showValueHelp="true" valueHelpRequest="handleSedeTecnica"/>
+                </VBox>
+                 
                 </fb:control>
               </fb:FilterGroupItem>
               <fb:FilterGroupItem id="FISedeTecnicaMassive" visible="true" groupName="__$INTERNAL$" name="SedeTecnicaMassive" label="{i18n>IncludiSotto}"   partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
-               
-                  <Switch type="AcceptReject" state="{sFilter>/INCLUDI}" ></Switch>
+                  <Switch customTextOn="Attivo" customTextOff="Disattivo" tooltip="{i18n>SwitchIncludi}" type="AcceptReject" state="{sFilter>/INCLUDI}" ></Switch>
                   
                 </fb:control>
               </fb:FilterGroupItem>
               <fb:FilterGroupItem id="FIStrategia" visible="true" groupName="__$INTERNAL$" name="Strategia" label="{i18n>Strategia}" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
-                  <MultiComboBox id="cbSTRATEGIA" selectedKeys="{sFilter>/STRATEGIA}"  items="{ path: '/Strategia', filters: [{ path: 'ID', operator: 'NE', value1: 0 }]}" showSecondaryValues="true">
+                  <MultiComboBox id="cbSTRATEGIA" selectedKeys="{sFilter>/STRATEGIA}"  items="{ path: '/Strategia'}" showSecondaryValues="true">
                     <core:ListItem key="{STRATEGIA}" text="{STRATEGIA}" additionalText="{STRATEGIA_DESC}"/>
                   </MultiComboBox>
                 </fb:control>
@@ -103,18 +105,19 @@
             </fb:filterGroupItems>
           </fb:FilterBar>
           <OverflowToolbar style="Clear">
-          <Button type="Default" tooltip="List" text="{i18n>ListVar}" icon="sap-icon://activity-items" press="onListVariant"/>
-					<Button type="Default" tooltip="Save" text="{i18n>SalvaVar}" icon="sap-icon://save" press="onPressVariant"/>
+          <Button type="Default" tooltip="{i18n>ListVar}" ariaLabelledBy="{i18n>ListVar}" text="{i18n>ListVar}" icon="sap-icon://activity-items" press="onListVariant"/>
+					<Button type="Default" tooltip="{i18n>SalvaVar}" ariaLabelledBy="{i18n>SalvaVar}" text="{i18n>SalvaVar}" icon="sap-icon://save" press="onPressVariant"/>
             <ToolbarSpacer/>
 
-          <Button text="Scarica" icon="sap-icon://download" press="onDataExport" class="sapUiTinyMarginBegin"/>
-          <Button text="Carica"  icon="sap-icon://upload" press="handleUploadPiani" class="sapUiTinyMarginBegin"/>
-          <Button text="Colonne" icon="sap-icon://action-settings" press="onPersoButtonPressed" class="sapUiTinyMarginBegin"/>
+          <Button text="Scarica" icon="sap-icon://download" tooltip="{i18n>Download}" ariaLabelledBy="{i18n>Download}" press="onDataExport" class="sapUiTinyMarginBegin"/>
+          <Button text="Carica"  icon="sap-icon://upload" tooltip="{i18n>Upload}" ariaLabelledBy="{i18n>Upload}" press="handleUploadPiani" class="sapUiTinyMarginBegin"/>
+          <Button text="Colonne" icon="sap-icon://action-settings" tooltip="{i18n>Colonne}" ariaLabelledBy="{i18n>Colonne}" press="onPersoButtonPressed" class="sapUiTinyMarginBegin"/>
           </OverflowToolbar>
         </f:content>
       </f:DynamicPageHeader>
     </f:header>
     <f:content>
+    <Panel width="100%" height="100%" class="block">
       <ScrollContainer width="100%" height="100%" vertical="true" horizontal="true">
 
         <Table id="tbPiani" items="{ path: 'allIndex>/' }" class="backClass sapUiSizeCompact stipAdmin" showNoData="false" mode="MultiSelect" sticky="HeaderToolbar,ColumnHeaders">
@@ -223,7 +226,7 @@
                   <customData> <core:CustomData key="mergeKey" value="{allIndex>ID}"/> </customData>
                 </Text>
                 <Text text="{allIndex>CONTATORE} " />
-                <Switch type="AcceptReject" state="{allIndex>ATTIVO}" customTextOn="Attivo" customTextOff="Disattivo" change="onChangeAttivo" ></Switch>
+                <Switch type="AcceptReject" state="{allIndex>ATTIVO}" customTextOn="Attivo" customTextOff="Disattivo" tooltip="{i18n>Switch}" change="onChangeAttivo" ></Switch>
                 <Text text="{allIndex>SISTEMA} " />
                 <Text text="{allIndex>PROGRES} " />
                 <Text text="{allIndex>DESC_PROG} " />
@@ -234,15 +237,15 @@
                 <Text text="{allIndex>SEDE_TECNICA_P} " />
                 <Text text="{allIndex>DESC_SEDE} " />
                 <Text text="{allIndex>EQUIPMENT} " />
-                <Button icon="sap-icon://document-text" tooltip="{allIndex>TESTO_ESTESO_P}" type="Transparent" press="handleTesto" />
+                <Button icon="sap-icon://document-text" tooltip="{allIndex>TESTO_ESTESO_P}" ariaLabelledBy="" type="Transparent" press="handleTesto" />
                 <Text text="{allIndex>CLASSE_SEDE} " />
                 <Text text="{allIndex>CARATT_SEDE} " />
                 <Text text="{allIndex>OGGETTO_TECNICO} " />
                 <Text text="{allIndex>PROFILO} " />
                 <Text text="{allIndex>ZBAU} " />
                 <Text text="{allIndex>VALORE} " />
-                <Button icon="sap-icon://activity-2" type="Transparent" press="HandleMaterialView"/>
-                <Button icon="sap-icon://crm-service-manager" type="Transparent" press="HandleServiziView"/>
+                <Button icon="sap-icon://activity-2" tooltip="{i18n>Materiali}" ariaLabelledBy="{i18n>Materiali}" type="Transparent" press="HandleMaterialView"/>
+                <Button icon="sap-icon://crm-service-manager" tooltip="{i18n>Servizi}" ariaLabelledBy="{i18n>Servizi}" type="Transparent" press="HandleServiziView"/>
                 <Text text="{allIndex>STRATEGIA}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>STRATEGIA_DESC}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>DIVISIONEC}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
@@ -298,12 +301,12 @@
                 <Text text="{allIndex>AZIONE}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>RIFERIMENTO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
                 <Text text="{allIndex>DESTINATARIO}"> <customData> <core:CustomData key="mergeKey" value="{allIndex>ID} " /> </customData></Text>
-
               </cells>
             </ColumnListItem>
           </items>
         </Table>
       </ScrollContainer>
+      </Panel>
     </f:content>
     <f:footer>
       <OverflowToolbar>

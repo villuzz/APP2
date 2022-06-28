@@ -184,6 +184,7 @@ sap.ui.define([
             this.lineSelected.PROGRES = oSelectedItem.getTitle();
             this.lineSelected.DESC_PROG = oSelectedItem.getDescription();
             this.getView().getModel("sSelect").refresh();
+            that.createInvisibleMessage(that.getResourceBundle().getText("storageLocationRetrieved"));
         },
         onValueHelpProgress: async function (oEvent) { // var sFilter = oEvent.getSource().getBindingContext("sSelect").getObject();
             this.lineSelected = oEvent.getSource().getBindingContext("sSelect").getObject();
