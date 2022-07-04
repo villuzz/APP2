@@ -12,14 +12,17 @@ sap.ui.define([
     "PM030/APP2/util/underscore-min",
     'sap/m/MessageToast',
     'sap/ui/core/InvisibleMessage',
+    'sap/ui/core/library',
 ],
 /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.core.routing.History} History
      * @param {typeof sap.ui.core.UIComponent} UIComponent
      */
-    function (Controller, History, UIComponent, formatter, MessageBox, Sorter, LocalFormatter, Filter, FilterOperator, Fragment, underscore, MessageToast, InvisibleMessage) {
+    function (Controller, History, UIComponent, formatter, MessageBox, Sorter, LocalFormatter, Filter, FilterOperator, Fragment, underscore, MessageToast, InvisibleMessage, library) {
     "use strict";
+
+    var InvisibleMessageMode = library.InvisibleMessageMode;
 
     return Controller.extend("PM030.APP2.controller.BaseController", {
         formatter: formatter,
@@ -746,6 +749,7 @@ sap.ui.define([
   
         createInvisibleMessage: function (sText) {
           //this.getResourceBundle().getText("busyDialogText")
+          debugger;
           this.getInvisibleMessage().announce(sText, InvisibleMessageMode.Assertive);
         }
     });

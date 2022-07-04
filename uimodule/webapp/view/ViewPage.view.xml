@@ -1,19 +1,16 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table" xmlns:f="sap.f" controllerName="PM030.APP2.controller.ViewPage">
 
   <f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true" showFooter="false" fitContent="true" class="sapUiContentPadding">
-    
         <f:landmarkInfo>
             <f:DynamicPageAccessibleLandmarkInfo rootRole="Region" contentRole="Main" headerRole="Banner" rootLabel="{i18n>Overview_rootLabel}" contentLabel="{i18n>Overview_contentLabel}" headerLabel="{i18n>Overview_headerLabel}"/>
           </f:landmarkInfo>
     <f:title>
       <f:DynamicPageTitle>
         <f:content>
-      
            <HBox height="100%" alignItems="Center" alignContent="Center" justifyContent="Center">
               <Title level="H1" text="{i18n>PrototipiPiani}" />
             </HBox>
         </f:content>
-          
         <f:actions></f:actions>
         <f:navigationActions>
         <Link href="file/elabeling-inventory-report.html" target="_blank" text="{i18n>accessibility}" class="sapUiMediumMarginEnd" />

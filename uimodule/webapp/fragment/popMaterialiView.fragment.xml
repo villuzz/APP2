@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
   <Dialog id="popMaterialiView" title="{i18n>Materiali}"  showHeader="false" contentHeight="40%" contentWidth="40%">
     <content>
-     <Table id="tMaterialView" items="{ path: 'aMaterial>/' }" sticky="ColumnHeaders" showNoData="false" mode="None">
+     <Table id="tMaterialView" items="{ path: 'aMaterial>/' }" sticky="ColumnHeaders" mode="None">
           <columns>
               <Column width="60%"><Text text="{i18n>MATNR}"/></Column>
               <Column width="20%"> <Text text="{i18n>MENGE}"/></Column>

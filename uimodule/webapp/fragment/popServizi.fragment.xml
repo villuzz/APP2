@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
   <Dialog id="popServizi" title="{i18n>Servizi}" showHeader="false" contentHeight="40%" contentWidth="40%">
     <content>
-     <Table id="tServizi" items="{ path: 'aServizi>/' }" sticky="ColumnHeaders" showNoData="false" mode="None">
+     <Table id="tServizi" items="{ path: 'aServizi>/' }" sticky="ColumnHeaders" mode="None">
           <columns>
               <Column width="50%"><Text text="{i18n>ASNUM}"/></Column>
               
