@@ -1,5 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table" xmlns:f="sap.f" controllerName="PM030.APP2.controller.DetailPage">
     <f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true" showFooter="false" fitContent="true" class="sapUiNoContentPadding" stickySubheaderProvider="iconTabBar">
+      
       <f:title>
             <f:DynamicPageTitle>
                 <f:content>

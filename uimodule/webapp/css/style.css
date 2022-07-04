@@ -88,3 +88,11 @@ tr[data-mydata="G"] {
 left: -99999px;
 visibility: hidden;
 }
+
+
+.sapMDialogScroll{
+  height: 100% !important;
+  }
+/
+
+  

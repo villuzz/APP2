@@ -1,6 +1,12 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Dialog id="DialogVariantList" afterClose="onAfterClose" contentWidth="10%" contentHeight="40%" class="sapUiSizeCozy" showHeader="false">
-		<Page title="{i18n>Variant}">
+     <customHeader>
+        <Bar>
+            <contentLeft>
+                <Title text="{i18n>Variant}" />
+            </contentLeft>
+        </Bar>
+    </customHeader>
 			<content>
 				<HBox alignItems="Center" alignContent="Center" justifyContent="Center" height="100%" width="100%">
 					<ScrollContainer height="100%" width="100%" class="sapUiNoContentPadding" vertical="true">
@@ -21,12 +27,8 @@
 					</ScrollContainer>
 				</HBox>
 			</content>
-			<footer>
-				<Toolbar>
-					<ToolbarSpacer/>
-					<Button icon="sap-icon://decline" text="{i18n>Chiudi}" press="onCloseVariantList"/>
-				</Toolbar>
-			</footer>
-		</Page>
+       <buttons>
+          	<Button icon="sap-icon://decline" text="{i18n>Chiudi}" press="onCloseVariantList"/>
+        </buttons>
 	</Dialog>
 </core:FragmentDefinition>
