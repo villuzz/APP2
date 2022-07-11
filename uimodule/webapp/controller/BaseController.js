@@ -10,15 +10,19 @@ sap.ui.define([
     'sap/ui/model/FilterOperator',
     'sap/ui/core/Fragment',
     "PM030/APP2/util/underscore-min",
-    'sap/m/MessageToast'
+    'sap/m/MessageToast',
+    'sap/ui/core/InvisibleMessage',
+    'sap/ui/core/library',
 ],
 /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.core.routing.History} History
      * @param {typeof sap.ui.core.UIComponent} UIComponent
      */
-    function (Controller, History, UIComponent, formatter, MessageBox, Sorter, LocalFormatter, Filter, FilterOperator, Fragment, underscore, MessageToast) {
+    function (Controller, History, UIComponent, formatter, MessageBox, Sorter, LocalFormatter, Filter, FilterOperator, Fragment, underscore, MessageToast, InvisibleMessage, library) {
     "use strict";
+
+    var InvisibleMessageMode = library.InvisibleMessageMode;
 
     return Controller.extend("PM030.APP2.controller.BaseController", {
         formatter: formatter,
@@ -752,6 +756,19 @@ sap.ui.define([
                     }
                 });
             });
+        },
+        getInvisibleMessage: function () {
+          debugger
+          if (!this.oInvisibleMessage) {
+            this.oInvisibleMessage = InvisibleMessage.getInstance();
+          }
+          return this.oInvisibleMessage;
+        },
+  
+        createInvisibleMessage: function (sText) {
+          //this.getResourceBundle().getText("busyDialogText")
+          debugger;
+          this.getInvisibleMessage().announce(sText, InvisibleMessageMode.Assertive);
         }
     });
 });

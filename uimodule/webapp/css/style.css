@@ -14,3 +14,104 @@ tr[data-mydata="G"] {
 }
 
 
+
+/* Intestazioni colonne */
+.sapMLabel, .sapMLabelTextWrapper {
+  text-overflow: inherit !important;
+  overflow: visible !important;
+}
+
+.sapUiAFLayoutItem, .sapUiAFLayoutEnd {
+  overflow: visible !important;
+}
+
+
+/* Button */
+.sapMTB {
+  overflow: visible !important;
+}
+
+.sapMBtnContent {
+  overflow: visible !important;
+}
+
+
+/* Title */
+.sapMTitle {
+  overflow: visible !important;
+}
+.sapMBarContainer {
+  overflow: visible !important;
+  text-overflow: inherit !important;
+}
+
+.sapMPanel {
+  overflow: visible !important;
+}
+
+.sapMNav {
+  overflow: visible !important;
+}
+
+.sapMPage>section.sapMPageEnableScrolling {
+  overflow: visible !important;
+}
+
+.sapMPage>section {
+  overflow: visible !important;
+}
+
+/* Object Header */
+.sapMOHR .sapMOHRAttr .sapMObjectAttributeTitle, .sapMOHR .sapMOHRAttr .sapMObjectAttributeText {
+  overflow: visible !important;
+}
+
+.sapMOHR .sapMOHRAttr .sapMObjectAttributeDiv {
+  overflow: visible !important; */
+}
+
+/* Rimuovere per tornare a versione precedente */
+
+.sapMPanelHdr { 
+  height: 0px !important;
+}
+.showTitle > .sapMPanelHdr {
+  height: 2.75rem !important;
+}
+
+.block{
+  display: block;
+}
+
+.nuovo{
+  position: absolute;
+left: -99999px;
+visibility: hidden;
+}
+
+
+.sapMDialogScroll{
+  height: 100% !important;
+  }
+
+  
+.linkRef{
+  margin-left: auto !important;
+}
+.toolbarHeader{
+flex-wrap: wrap !important;
+height: auto !important;
+}
+.titleText{
+  font-size: medium !important;
+}
+
+.sapFDynamicPageTitle .sapFDynamicPageTitleMain{
+  flex-wrap: wrap !important;
+}
+.titleText{
+  font-size: medium !important;
+}
+html.sap-desktop .sapFDynamicPage.sapFDynamicPageWithScroll .sapFDynamicPageTitleWrapper{
+  height: auto !important;
+}

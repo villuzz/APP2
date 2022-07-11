@@ -1,9 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Dialog contentHeight="500px" id="DialogSede" resizable="true" draggable="true" title="{i18n>SelezionaSedeTecnica}">
+    <Dialog contentHeight="500px" id="DialogSede" draggable="true" title="{i18n>SelezionaSedeTecnica}" ariaDescribedBy="SedeDialog" ariaLabelledBy="Dialog" >
      <customHeader>
         <Bar>
             <contentLeft>
-                
             </contentLeft>
             <contentMiddle>
                 <Title text="{i18n>SelezionaSedeTecnica}" />
@@ -17,43 +16,43 @@
         <content>
             <HBox width="100%" height="5em" alignContent="Center" alignItems="Center" >
                 <VBox width="12.5%" class="sapUiTinyMarginBegin">
-                    <Text text="{i18n>SEDE_TECNICA}"/>
+                    <Label text="{i18n>SEDE_TECNICA}" labelFor="selSede"/>
                     <ComboBox id="selSede" items="{SedeTecnica>/}" value="{sSedeTecnica>/SEDE_TECNICA}" change="onFilterSedeTecnica" width="90%" >
                       <core:Item key="{SEDE_TECNICA}" text="{SedeTecnica>SEDE_TECNICA}"/>
                     </ComboBox>
                 </VBox>
                 <VBox width="12.5%" class="sapUiTinyMarginBegin">
-                    <Text text="{i18n>LIVELLO1}"/>
+                    <Label text="{i18n>LIVELLO1}" labelFor="selLvl1"/>
                     <ComboBox id="selLvl1" items="{Livello1>/}" value="{sSedeTecnica>/LIVELLO1}" change="onFilterSedeTecnica" width="90%" >
                       <core:Item key="{LIVELLO1}" text="{Livello1>LIVELLO1}"/>
                     </ComboBox>
                 </VBox>
                 <VBox width="12.5%">
-                    <Text text="{i18n>LIVELLO2}"/>
+                    <Label text="{i18n>LIVELLO2}" labelFor="selLvl2"/>
                     <ComboBox id="selLvl2" items="{Livello2>/}" value="{sSedeTecnica>/LIVELLO2}" change="onFilterSedeTecnica" width="90%" >
                       <core:Item key="{LIVELLO2}" text="{Livello2>LIVELLO2}"/>
                     </ComboBox>
                 </VBox>
                 <VBox width="12.5%">
-                    <Text text="{i18n>LIVELLO3}"/>
+                    <Label text="{i18n>LIVELLO3}" labelFor="selLvl3"/>
                     <ComboBox id="selLvl3" items="{Livello3>/}" value="{sSedeTecnica>/LIVELLO3}" change="onFilterSedeTecnica" width="90%" >
                       <core:Item key="{LIVELLO3}" text="{Livello3>LIVELLO3}"/>
                     </ComboBox>
                 </VBox>
                 <VBox width="12.5%">
-                    <Text text="{i18n>LIVELLO4}"/>
+                    <Label text="{i18n>LIVELLO4}" labelFor="selLvl4"/>
                     <ComboBox id="selLvl4" items="{Livello4>/}" value="{sSedeTecnica>/LIVELLO4}" change="onFilterSedeTecnica" width="90%" >
                       <core:Item key="{LIVELLO4}" text="{Livello4>LIVELLO4}"/>
                     </ComboBox>
                 </VBox>
                 <VBox width="12.5%">
-                    <Text text="{i18n>LIVELLO5}"/>
+                    <Label text="{i18n>LIVELLO5}" labelFor="selLvl5"/>
                     <ComboBox id="selLvl5" items="{Livello5>/}" value="{sSedeTecnica>/LIVELLO5}" change="onFilterSedeTecnica" width="90%" >
                       <core:Item key="{LIVELLO5}" text="{Livello5>LIVELLO5}"/>
                     </ComboBox>
                 </VBox>
                 <VBox width="12.5%">
-                    <Text text="{i18n>LIVELLO6}"/>
+                    <Label text="{i18n>LIVELLO6}" labelFor="selLvl6"/>
                     <ComboBox id="selLvl6" items="{Livello6>/}" value="{sSedeTecnica>/LIVELLO6}" change="onFilterSedeTecnica" width="90%" >
                       <core:Item key="{LIVELLO6}" text="{Livello6>LIVELLO6}"/>
                     </ComboBox>

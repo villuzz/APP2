@@ -1,15 +1,19 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table" xmlns:f="sap.f" controllerName="PM030.APP2.controller.DetailPage">
+<mvc:View xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table" xmlns:f="sap.f" controllerName="PM030.APP2.controller.DetailPage">
     <f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true" showFooter="false" fitContent="true" class="sapUiNoContentPadding" stickySubheaderProvider="iconTabBar">
-        <f:title>
+        <f:landmarkInfo>
+            <f:DynamicPageAccessibleLandmarkInfo rootRole="Region" contentRole="Main" headerRole="Banner" rootLabel="{i18n>Overview_rootLabel}" contentLabel="{i18n>Overview_contentLabel}" headerLabel="{i18n>Overview_headerLabel}"/>
+          </f:landmarkInfo>
+      <f:title>
             <f:DynamicPageTitle>
                 <f:content>
                     <HBox height="100%" alignItems="Center" alignContent="Center" justifyContent="Center">
-                        <Button type="Transparent" icon="sap-icon://nav-back" press="onBack" class="sapUiTinyMarginEnd"></Button>
-                        <Title text="{i18n>CreazionePiano}" class="sapUiTinyMarginTop"/>
+                        <Button type="Transparent" icon="sap-icon://nav-back" press="onBack" class="sapUiTinyMarginEnd" tooltip="{i18n>NavBack}" ariaLabelledBy="navBack"></Button>
+                        <Title level="H1" text="{i18n>CreazionePiano}" class="sapUiTinyMarginTop"/>
                     </HBox>
                 </f:content>
                 <f:navigationActions>
-                    <Button id="save" text="{i18n>Save}" type="Emphasized" press="handleSavePress"/>
+                  <Link href="https://www.w3.org/WAI/eval/report-tool/" target="_blank" text="{i18n>accessibility}" class="sapUiMediumSmallEnd"></Link>
+                  <Button id="save" text="{i18n>Save}" type="Emphasized" press="handleSavePress" tooltip="{i18n>Save}" ariaDescribedBy="SaveAction" ariaLabelledBy="SaveButton"/>
                 </f:navigationActions>
             </f:DynamicPageTitle>
         </f:title>
@@ -18,12 +22,13 @@
                 <items>
                     <IconTabFilter text="Azioni Elementari Prototipo">
                         <OverflowToolbar width="100%" height="3em">
-                            <Button icon="sap-icon://add" text="Aggiungi" type="Emphasized" press="onAddAE"/>
-                            <Button text="Copia" icon="sap-icon://copy" type="Emphasized" press="onCopy" class="sapUiTinyMarginBegin"/>
-                            <Button text="Cancella" type="Emphasized" icon="sap-icon://delete" press="onCancelAE" class="sapUiTinyMarginBegin"/>
+                            <Button icon="sap-icon://add" text="Aggiungi" type="Emphasized" press="onAddAE" tooltip="{i18n>Add}" ariaLabelledBy="{i18n>Add}"/>
+                            <Button text="Copia" icon="sap-icon://copy" type="Emphasized" press="onCopy" class="sapUiTinyMarginBegin" tooltip="{i18n>CopyButton}" ariaLabelledBy="{i18n>CopyButton}"/>
+                            <Button text="Cancella" type="Emphasized" icon="sap-icon://delete" press="onCancelAE" class="sapUiTinyMarginBegin" tooltip="{i18n>CancelButton}" ariaLabelledBy="{i18n>CancelButton}"/>
                             <ToolbarSpacer/>
-                            <Button text="Colonne" icon="sap-icon://action-settings" press="onPersoButtonPressed" class="sapUiTinyMarginBegin"/>
+                            <Button text="Colonne" icon="sap-icon://action-settings" press="onPersoButtonPressed" class="sapUiTinyMarginBegin" tooltip="{i18n>Colonne}" ariaLabelledBy="{i18n>Colonne}"/>
                         </OverflowToolbar>
+                       <Panel width="100%" height="100%" class="block">
                         <ScrollContainer width="100%" height="100%" vertical="true" horizontal="true">
                             <Table id="tAzioni" items="{ path: 'sSelect>/AZIONI' }" sticky="ColumnHeaders" mode="MultiSelect">
                                 <columns>
@@ -55,32 +60,25 @@
                                             <Input value="{sSelect>CONTATORE}" maxLength="10" editable="false"/>
                                             <Switch type="AcceptReject" state="{sSelect>ATTIVO}" customTextOn="Attivo" customTextOff="Disattivo"></Switch>
                                             <!--selectionChange="onFilterHelp"-->
-                                            <ComboBox valueStateText="{i18n>valueState} {i18n>SISTEMA}" showSecondaryValues="true" items="{ path: 'sHelp>/SISTEMA', length:2000 }" selectedKey="{sSelect>SISTEMA}">
-                                                <core:ListItem key="{sHelp>Sistema}" text="{sHelp>Sistema}" additionalText="{sHelp>Txt}"/>
-                                            </ComboBox>
-
-                                            <!--     <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>PROGRES}" selectionChange="onChangeProgress" showSecondaryValues= "true" items="{ path: 'sHelp>/PROGRES', length:2000 }" selectedKey="{sSelect>PROGRES}">
-                                                                                <core:ListItem key="{sHelp>Progres}" text="{sHelp>Progres}" additionalText="{sHelp>Txt}"/>
-                                                                              </ComboBox>-->
-                                            <Input value="{sSelect>PROGRES}" maxLength="5" showValueHelp="false"/>
-
+                                            <ComboBox valueStateText="{i18n>valueState} {i18n>SISTEMA}" showSecondaryValues= "true" items="{ path: 'sHelp>/SISTEMA', length:2000 }" selectedKey="{sSelect>SISTEMA}">
+                                    <core:ListItem key="{sHelp>Sistema}" text="{sHelp>Sistema}" additionalText="{sHelp>Txt}"/>
+                                      </ComboBox>
+                                      
+                                       <!--     <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>PROGRES}" selectionChange="onChangeProgress" showSecondaryValues= "true" items="{ path: 'sHelp>/PROGRES', length:2000 }" selectedKey="{sSelect>PROGRES}">
+                                    <core:ListItem key="{sHelp>Progres}" text="{sHelp>Progres}" additionalText="{sHelp>Txt}"/>
+                                  </ComboBox>-->
+                                            <Input id="CreateProgress" value="{sSelect>PROGRES}" maxLength="5" showValueHelp="true" valueHelpRequest=".onValueHelpProgress"/>
                                             <Input value="{sSelect>DESC_PROG}" maxLength="40" editable="false"/>
-
-                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>CLASSE}" showSecondaryValues="true" items="{ path: 'sHelp>/CLASSE', length:2000 }" selectedKey="{sSelect>CLASSE}">
-                                                <core:ListItem key="{sHelp>Classe}" text="{sHelp>Classe}" additionalText="{sHelp>Txt}"/>
+                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>CLASSE}" showSecondaryValues= "true" items="{ path: 'sHelp>/CLASSE', length:2000 }" selectedKey="{sSelect>CLASSE}">
+                                             <core:ListItem key="{sHelp>Classe}" text="{sHelp>Classe}" additionalText="{sHelp>Txt}"/>
                                             </ComboBox>
-
                                             <Input value="{sSelect>DES_COMPONENTE}" maxLength="18"/>
-
-                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DIVISIONE}" showSecondaryValues="true" items="{ path: 'sHelp>/DIVISIONE', length:2500 }" selectedKey="{sSelect>DIVISIONE}">
-                                                <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DIVISIONE}" showSecondaryValues= "true" items="{ path: 'sHelp>/DIVISIONE', length:2500 }" selectedKey="{sSelect>DIVISIONE}">
+                                              <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
                                             </ComboBox>
-
-                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>SEDE_TECNICA}" showSecondaryValues="true" items="{ path: 'sHelp>/SEDE_TECNICA', length:2000 }" selectedKey="{sSelect>SEDE_TECNICA}">
-                                                <core:ListItem key="{sHelp>SEDE_TECNICA}" text="{sHelp>SEDE_TECNICA}"/>
+                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>SEDE_TECNICA}" showSecondaryValues= "true" items="{ path: 'sHelp>/SEDE_TECNICA', length:2000 }" selectedKey="{sSelect>SEDE_TECNICA}">
+                                              <core:ListItem key="{sHelp>SEDE_TECNICA}" text="{sHelp>SEDE_TECNICA}"/>
                                             </ComboBox>
-
-
                                             <Input value="{sSelect>SEDE_TECNICA_P}" maxLength="40" type="Text" showValueHelp="true" valueHelpRequest="handleSedeTecnica"/>
                                             <Text text="{sSelect>DESC_SEDE}"/>
                                             <Input value="{sSelect>EQUIPMENT}" maxLength="30"/>
@@ -98,6 +96,7 @@
                                 </items>
                             </Table>
                         </ScrollContainer>
+                      </Panel>
                     </IconTabFilter>
                     <IconTabFilter text="Frequenze">
                         <VBox class="sapUiSmallMargin">
@@ -154,19 +153,22 @@
 
                     <IconTabFilter text="Pianificazione">
                         <VBox class="sapUiSmallMargin">
-                            <form:Form editable="true">
+                            <form:Form editable="true" >
                                 <form:layout>
-                                    <form:ColumnLayout columnsM="2" columnsL="3" columnsXL="6"/>
+                                    <form:ColumnLayout columnsM="2" columnsL="3" columnsXL="6" />
                                 </form:layout>
                                 <form:formContainers>
-                                    <form:FormContainer title="Attività 1">
+                                    <form:FormContainer>
+                                    <form:title>
+                                      <core:Title text="Attività 1" level="H1"/>
+                                    </form:title>
                                         <form:formElements>
-                                            <form:FormElement label="{i18n>LSTAR}">
-                                                <form:fields>
-                                                    <ComboBox change="handleChangeCb" required="true" valueStateText="{i18n>valueState} {i18n>LSTAR}" showSecondaryValues="true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR}">
-                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                    </ComboBox>
-                                                </form:fields>
+                                            <form:FormElement label="{i18n>LSTAR}" >
+                                              <form:fields>
+                                                <ComboBox change="handleChangeCb" required="true" valueStateText="{i18n>valueState} {i18n>LSTAR}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR}">
+                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                </ComboBox>
+                                              </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STEUS}">
                                                 <form:fields>
@@ -186,7 +188,10 @@
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
-                                    <form:FormContainer title="Attività 2">
+                                    <form:FormContainer>
+                                    <form:title>
+                                      <core:Title text="Attività 2" level="H1"/>
+                                    </form:title>
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_1}">
                                                 <form:fields>
@@ -213,7 +218,10 @@
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
-                                    <form:FormContainer title="Attività 3">
+                                    <form:FormContainer>
+                                    <form:title>
+                                      <core:Title text="Attività 3" level="H1"/>
+                                    </form:title>
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_2}">
                                                 <form:fields>
@@ -240,7 +248,10 @@
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
-                                    <form:FormContainer title="Attività 4">
+                                    <form:FormContainer>
+                                    <form:title>
+                                      <core:Title text="Attività 4" level="H1"/>
+                                    </form:title>
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_3}">
                                                 <form:fields>
@@ -267,7 +278,10 @@
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
-                                    <form:FormContainer title="Attività 5">
+                                    <form:FormContainer>
+                                    <form:title>
+                                      <core:Title text="Attività 5" level="H1"/>
+                                    </form:title>
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_4}">
                                                 <form:fields>
@@ -294,7 +308,10 @@
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
-                                    <form:FormContainer title="Attività 6">
+                                    <form:FormContainer>
+                                    <form:title>
+                                      <core:Title text="Attività 6" />
+                                    </form:title>
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_5}">
                                                 <form:fields>

@@ -1,7 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
   <Dialog id="popMateriali" title="{i18n>Materiali}"  showHeader="false" contentHeight="40%" contentWidth="50%">
     <content>
-     <Table id="tMaterial" items="{ path: 'aMaterial>/' }" sticky="ColumnHeaders" showNoData="false" mode="None">
+    <Panel width="100%" height="100%" class="block">
+     <Table id="tMaterial" items="{ path: 'aMaterial>/' }" sticky="ColumnHeaders" mode="None" ariaLabelledBy="TabellaMateriali">
           <columns>
               <Column width="40%"><Text text="{i18n>MATNR}"/></Column>
             <Column width="60%"><Text text="{i18n>MAKTX}"/></Column>
@@ -16,7 +17,7 @@
           <items>
               <ColumnListItem vAlign="Middle">
                   <cells>
-                  <ComboBox width="100%" change="onSuggestMatnrSelect" valueStateText="{i18n>valueState} {i18n>MATNR}" showSecondaryValues= "true" items="{/Materiali}" value="{aMaterial>MATNR}">
+                  <ComboBox ariaLabelledBy="cMateriali" width="100%" change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>MATNR}" showSecondaryValues= "true" items="{/Materiali}" value="{aMaterial>MATNR}">
                     <core:ListItem key="{MATNR}" text="{MATNR}" additionalText="{MAKTX}"/>
                   </ComboBox>
                   <Input value="{aMaterial>MAKTX}" maxLength="50"/>
@@ -30,7 +31,8 @@
                   </cells>
               </ColumnListItem>
           </items>
-      </Table>                        
+      </Table> 
+    </Panel>                       
     </content>
     <beginButton>
 			<Button text="{i18n>Ok}" type="Emphasized" press="onConfirmMatnr"/>
