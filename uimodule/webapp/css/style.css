@@ -93,6 +93,16 @@ visibility: hidden;
 .sapMDialogScroll{
   height: 100% !important;
   }
-/
+
 
   
+.linkRef{
+  margin-left: auto !important;
+}
+.toolbarHeader{
+flex-wrap: wrap !important;
+height: auto !important;
+}
+.titleText{
+  font-size: medium !important;
+}
