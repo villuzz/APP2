@@ -68,7 +68,7 @@
               </fb:FilterGroupItem>
               <fb:FilterGroupItem id="FIStrategia" visible="true" groupName="__$INTERNAL$" name="Strategia" label="{i18n>Strategia}" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
-                  <MultiComboBox id="cbSTRATEGIA" selectedKeys="{sFilter>/STRATEGIA}"  items="{ path: '/Strategia', filters: [{ path: 'ID', operator: 'NE', value1: 0 }]}" showSecondaryValues="true">
+                  <MultiComboBox id="cbSTRATEGIA" selectedKeys="{sFilter>/STRATEGIA}"  items="{ path: '/Strategia' }" showSecondaryValues="true">
                     <core:ListItem key="{STRATEGIA}" text="{STRATEGIA}" additionalText="{STRATEGIA_DESC}"/>
                   </MultiComboBox>
                 </fb:control>
@@ -134,7 +134,7 @@
             <Column width="10em" styleClass="columnPosizioni" id="col20"><Text text="{i18n>SEDE_TECNICA}"/></Column>
             <Column width="15em" styleClass="columnPosizioni" id="col21"><Text text="{i18n>SEDE_TECNICA_P}"/></Column>
             <Column width="18em" styleClass="columnPosizioni" id="col27"><Text text="{i18n>DESC_SEDE}"/></Column>
-            <Column width="10em" styleClass="columnPosizioni" id="col28"><Text text="{i18n>EQUIPMENT}"/></Column>
+            <Column width="15em" styleClass="columnPosizioni" id="col28"><Text text="{i18n>EQUIPMENT}"/></Column>
             <Column width="10em" styleClass="columnPosizioni" id="col29"><Text text="{i18n>TESTO_ESTESO_P}"/></Column>
             <Column width="16em" styleClass="columnPosizioni" id="col30"><Text text="{i18n>CLASSE_SEDE}"/></Column>
             <Column width="16em" styleClass="columnPosizioni" id="col31"><Text text="{i18n>CARATT_SEDE}"/></Column>

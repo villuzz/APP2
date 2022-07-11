@@ -781,7 +781,7 @@ sap.ui.define([
                     sData[aColumn[i].field] = (sValue[vValue] === undefined) ? "" : sValue[vValue].toString();
                 }
             }
-            sData.PROGRES = (sData.PROGRES === null ? null : Number(sData.PROGRES));
+            sData.PROGRES = (sData.PROGRES === null ? null : sData.PROGRES.padStart(5, "0"));
             sData.CARATT_SEDE = (sData.CARATT_SEDE === null ? null : sData.CARATT_SEDE);
             var SedeTecnica = sData.SEDE_TECNICA_P;
             if (SedeTecnica !== undefined) {

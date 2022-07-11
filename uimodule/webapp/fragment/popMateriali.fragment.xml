@@ -1,13 +1,13 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-  <Dialog id="popMateriali" title="{i18n>Materiali}"  showHeader="false" contentHeight="40%" contentWidth="40%">
+  <Dialog id="popMateriali" title="{i18n>Materiali}"  showHeader="false" contentHeight="40%" contentWidth="50%">
     <content>
      <Table id="tMaterial" items="{ path: 'aMaterial>/' }" sticky="ColumnHeaders" showNoData="false" mode="None">
           <columns>
-              <Column width="50%"><Text text="{i18n>MATNR}"/></Column>
-            
+              <Column width="40%"><Text text="{i18n>MATNR}"/></Column>
+            <Column width="60%"><Text text="{i18n>MAKTX}"/></Column>
               <Column width="20%"> <Text text="{i18n>MENGE}"/></Column>
               <Column width="20%"> <Text text="{i18n>MEINS}"/></Column>
-              <!--  <Column width="16em"><Text text="{i18n>MAKTX}"/></Column>
+              <!--  
               <Column width="6em"> <Text text="{i18n>WERKS}"/></Column>
               <Column width="6em"> <Text text="{i18n>LGORT}"/></Column>
               <Column width="6em"> <Text text="{i18n>TBTWR}"/></Column>-->
@@ -16,12 +16,13 @@
           <items>
               <ColumnListItem vAlign="Middle">
                   <cells>
-                  <ComboBox width="100%" change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>MATNR}" showSecondaryValues= "true" items="{/Materiali}" value="{aMaterial>MATNR}">
+                  <ComboBox width="100%" change="onSuggestMatnrSelect" valueStateText="{i18n>valueState} {i18n>MATNR}" showSecondaryValues= "true" items="{/Materiali}" value="{aMaterial>MATNR}">
                     <core:ListItem key="{MATNR}" text="{MATNR}" additionalText="{MAKTX}"/>
                   </ComboBox>
+                  <Input value="{aMaterial>MAKTX}" maxLength="50"/>
                       <Input value="{aMaterial>MENGE}" maxLength="5" type="Number"/>
                       <Input value="{aMaterial>MEINS}" maxLength="3"/>
-                      <!--  <Input value="{aMaterial>MAKTX}" maxLength="50"/>
+                      <!--  
                       <Input value="{aMaterial>WERKS}" maxLength="4"/>
                       <Input value="{aMaterial>LGORT}" maxLength="10"/>
                       <Input value="{aMaterial>TBTWR}" type="Number" maxLength="10"/>-->

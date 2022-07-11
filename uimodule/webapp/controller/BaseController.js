@@ -346,24 +346,27 @@ sap.ui.define([
         ControlAzione: async function (sData, sIndex) {
 
             if (sIndex.TIPO_ORDINE !== "M5" && sIndex.TIPO_ORDINE !== "M8" && sIndex.TIPO_ORDINE !== "M9") {
-                if ((sData.ZBAU === "" || sData.ZBAU === undefined) && (sData.SEDE_TECNICA === "" || sData.SEDE_TECNICA === undefined)) {
-                    return "Inserire o lo ZBAU o la Sede Tecnica";
+                if ((sData.EQUIPMENT === "" || sData.EQUIPMENT === undefined) && (sData.LIVELLO1 === "" || sData.LIVELLO1 === undefined)) {
+                    return "Inserire o l'Equipment o la Sede Tecnica";
                 }
             }
-            if ((sData.ZBAU !== "" && sData.ZBAU !== undefined) && ((sData.SEDE_TECNICA !== "" && sData.SEDE_TECNICA !== undefined) || (sData.SEDE_TECNICA_P !== "" && sData.SEDE_TECNICA_P !== undefined))) {
-                return "Inserire o lo ZBAU o la Sede Tecnica";
+            if ((sData.EQUIPMENT === "" || sData.EQUIPMENT === undefined) && (sData.SEDE_TECNICA_P === "" || sData.SEDE_TECNICA_P === undefined)) {
+                return "Inserire o l'Equipment o la Sede Tecnica";
             }
             var checkSede = true;
-            if (sData.SEDE_TECNICA !== "" && sData.SEDE_TECNICA !== undefined) {
+            if (sData.LIVELLO1 !== "" && sData.LIVELLO1 !== undefined) {
                 checkSede = await this.checkSede(sData);
                 if (! checkSede) {
                     return "Sede Tecnica non valida";
                 }
             }
+            if (sData.SEDE_TECNICA === "" || sData.SEDE_TECNICA === undefined) {
+              return "Inserire Tecnologia";
+            }
             if (sData.SISTEMA === "" || sData.SISTEMA === undefined) {
                 return "Inserire Sistema";
             }
-            if (sData.PROGRES === null || sData.PROGRES === undefined || sData.PROGRES === 0) {
+            if (sData.PROGRES === null || sData.PROGRES === undefined || sData.PROGRES === "") {
                 return "Inserire Progressivo";
             }
             if (sData.CLASSE === "" || sData.CLASSE === undefined) {
@@ -374,10 +377,25 @@ sap.ui.define([
             aFilter.push(new Filter("Progres", FilterOperator.EQ, sData.PROGRES));
             aFilter.push(new Filter("Sistema", FilterOperator.EQ, sData.SISTEMA));
             var result = await this._getLinenoError("/T_ACT_PROG", aFilter);
-            if (! result) {
+            if (!result) {
                 return "Inserire Progressivo correttamente";
             } else {
                 this.DESC_PROG = result.Txt;
+            }
+
+            aFilter = [];
+            aFilter.push(new Filter("Progres", FilterOperator.EQ, sData.PROGRES));
+            aFilter.push(new Filter("Sistema", FilterOperator.EQ, sData.SISTEMA));
+            aFilter.push(new Filter("Classe", FilterOperator.EQ, sData.CLASSE));
+            aFilter.push(new Filter("FlagAttivo", FilterOperator.EQ, "X"));
+            result = await this._getLinenoError("/T_ACT_TYPE", aFilter);
+            debugger
+            if (!result) {
+                return "Combinazione Classe Sistema Progressivo non Valida";
+            } else {
+              if (result.FineVal < new Date()){
+                return "Combinazione Classe Sistema Progressivo non Attiva";
+              }
             }
             return "";
 

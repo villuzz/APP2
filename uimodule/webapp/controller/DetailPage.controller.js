@@ -155,9 +155,9 @@ sap.ui.define([
             if (aFilterSystem !== []) {
                 sHelp.SISTEMA = await this._getTableNoError("/T_ACT_SYST", aFilterSystem);
             }
-            if (aFilterProgress !== []) {
+            /*if (aFilterProgress !== []) {
                 sHelp.PROGRES = await this._getTableNoError("/T_ACT_PROG", aFilterProgress);
-            }
+            }*/
             if (aFiltersClass !== []) {
                 sHelp.CLASSE = await this._getTableNoError("/T_ACT_CL", aFiltersClass);
             }
@@ -535,6 +535,11 @@ sap.ui.define([
             sap.ui.core.BusyIndicator.hide(0);
 
         },
+        onSuggestMatnrSelect: function (oEvent) {
+          var sSelect = oEvent.getSource().getBindingContext("aMaterial").getObject();
+          sSelect.MAKTX = oEvent.getSource().getSelectedItem().getBindingContext().getObject().MAKTX;
+          this.getView().getModel("aMaterial").refresh();        
+        },
         formatDate: function (sValue) {
             if (sValue === "" || sValue === undefined || sValue === null) {
                 return "";
@@ -582,6 +587,7 @@ sap.ui.define([
         AzioniModel: function (sData) {
 
             //sData.PROGRES = (sData.PROGRES === null ? null : Number(sData.PROGRES));
+            sData.PROGRES = sData.PROGRES.padStart(5, "0");
             sData.CARATT_SEDE = (sData.CARATT_SEDE === null ? null : sData.CARATT_SEDE);
             if (sData.SEDE_TECNICA_P !== undefined) {
                 var aSede = sData.SEDE_TECNICA_P.split("-");

@@ -16,9 +16,9 @@
         <f:content>
             <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
                 <items>
-                      <IconTabFilter text="Azioni Elementari Prototipo">
+                    <IconTabFilter text="Azioni Elementari Prototipo">
                         <OverflowToolbar width="100%" height="3em">
-                        <Button icon="sap-icon://add" text="Aggiungi" type="Emphasized" press="onAddAE"/>
+                            <Button icon="sap-icon://add" text="Aggiungi" type="Emphasized" press="onAddAE"/>
                             <Button text="Copia" icon="sap-icon://copy" type="Emphasized" press="onCopy" class="sapUiTinyMarginBegin"/>
                             <Button text="Cancella" type="Emphasized" icon="sap-icon://delete" press="onCancelAE" class="sapUiTinyMarginBegin"/>
                             <ToolbarSpacer/>
@@ -38,13 +38,13 @@
                                     <Column width="7em" id="dCol37"><Label required="true" text="{i18n>SEDE_TECNICA}"/></Column>
                                     <Column width="16em" id="dCol20"><Label required="true" text="{i18n>SEDE_TECNICA_P}"/></Column>
                                     <Column width="16em" id="dCol36"><Text text="{i18n>DESC_SEDE}"/></Column>
-                                    <Column width="10em" id="dCol28"><Text text="{i18n>EQUIPMENT}"/></Column>
+                                    <Column width="10em" id="dCol28"><Label required="true" text="{i18n>EQUIPMENT}"/></Column>
                                     <Column width="5em" id="dCol29"><Text text="{i18n>TESTO_ESTESO_P2}"/></Column>
                                     <Column width="16em" id="dCol30"><Text text="{i18n>CLASSE_SEDE}"/></Column>
                                     <Column width="16em" id="dCol31"><Text text="{i18n>CARATT_SEDE}"/></Column>
                                     <Column width="16em" id="dCol32"><Text text="{i18n>OGGETTO_TECNICO}"/></Column>
                                     <Column width="10em" id="dCol33"><Text text="{i18n>PROFILO}"/></Column>
-                                    <Column width="10em" id="dCol34"><Label required="true" text="{i18n>ZBAU}"/></Column>
+                                    <Column width="10em" id="dCol34"><Label text="{i18n>ZBAU}"/></Column>
                                     <Column width="10em" id="dCol35"><Text text="{i18n>VALORE}"/></Column>
                                     <Column width="7em" id="dCol38"><Text text="{i18n>MATNR}"/></Column>
                                     <Column width="7em" id="dCol39"><Text text="{i18n>ASNUM}"/></Column>
@@ -55,42 +55,41 @@
                                             <Input value="{sSelect>CONTATORE}" maxLength="10" editable="false"/>
                                             <Switch type="AcceptReject" state="{sSelect>ATTIVO}" customTextOn="Attivo" customTextOff="Disattivo"></Switch>
                                             <!--selectionChange="onFilterHelp"-->
-                                            <ComboBox valueStateText="{i18n>valueState} {i18n>SISTEMA}" showSecondaryValues= "true" items="{ path: 'sHelp>/SISTEMA', length:2000 }" selectedKey="{sSelect>SISTEMA}">
-                                    <core:ListItem key="{sHelp>Sistema}" text="{sHelp>Sistema}" additionalText="{sHelp>Txt}"/>
-                                      </ComboBox>
-                                            
-                                       <!--     <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>PROGRES}" selectionChange="onChangeProgress" showSecondaryValues= "true" items="{ path: 'sHelp>/PROGRES', length:2000 }" selectedKey="{sSelect>PROGRES}">
-                                    <core:ListItem key="{sHelp>Progres}" text="{sHelp>Progres}" additionalText="{sHelp>Txt}"/>
-                                  </ComboBox>-->
-	                                    <Input value="{sSelect>PROGRES}" maxLength="5" showValueHelp="true" valueHelpRequest=".onValueHelpProgress"/>
-                                  
-                                        
+                                            <ComboBox valueStateText="{i18n>valueState} {i18n>SISTEMA}" showSecondaryValues="true" items="{ path: 'sHelp>/SISTEMA', length:2000 }" selectedKey="{sSelect>SISTEMA}">
+                                                <core:ListItem key="{sHelp>Sistema}" text="{sHelp>Sistema}" additionalText="{sHelp>Txt}"/>
+                                            </ComboBox>
+
+                                            <!--     <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>PROGRES}" selectionChange="onChangeProgress" showSecondaryValues= "true" items="{ path: 'sHelp>/PROGRES', length:2000 }" selectedKey="{sSelect>PROGRES}">
+                                                                                <core:ListItem key="{sHelp>Progres}" text="{sHelp>Progres}" additionalText="{sHelp>Txt}"/>
+                                                                              </ComboBox>-->
+                                            <Input value="{sSelect>PROGRES}" maxLength="5" showValueHelp="false"/>
+
                                             <Input value="{sSelect>DESC_PROG}" maxLength="40" editable="false"/>
-                                            
-                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>CLASSE}" showSecondaryValues= "true" items="{ path: 'sHelp>/CLASSE', length:2000 }" selectedKey="{sSelect>CLASSE}">
-                                            <core:ListItem key="{sHelp>Classe}" text="{sHelp>Classe}" additionalText="{sHelp>Txt}"/>
-                                          </ComboBox>
+
+                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>CLASSE}" showSecondaryValues="true" items="{ path: 'sHelp>/CLASSE', length:2000 }" selectedKey="{sSelect>CLASSE}">
+                                                <core:ListItem key="{sHelp>Classe}" text="{sHelp>Classe}" additionalText="{sHelp>Txt}"/>
+                                            </ComboBox>
 
                                             <Input value="{sSelect>DES_COMPONENTE}" maxLength="18"/>
-                                            
-                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DIVISIONE}" showSecondaryValues= "true" items="{ path: 'sHelp>/DIVISIONE', length:2500 }" selectedKey="{sSelect>DIVISIONE}">
-                                              <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+
+                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DIVISIONE}" showSecondaryValues="true" items="{ path: 'sHelp>/DIVISIONE', length:2500 }" selectedKey="{sSelect>DIVISIONE}">
+                                                <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
                                             </ComboBox>
 
-                                              <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>SEDE_TECNICA}" showSecondaryValues= "true" items="{ path: 'sHelp>/SEDE_TECNICA', length:2000 }" selectedKey="{sSelect>SEDE_TECNICA}">
-                                              <core:ListItem key="{sHelp>SEDE_TECNICA}" text="{sHelp>SEDE_TECNICA}"/>
+                                            <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>SEDE_TECNICA}" showSecondaryValues="true" items="{ path: 'sHelp>/SEDE_TECNICA', length:2000 }" selectedKey="{sSelect>SEDE_TECNICA}">
+                                                <core:ListItem key="{sHelp>SEDE_TECNICA}" text="{sHelp>SEDE_TECNICA}"/>
                                             </ComboBox>
 
-                                            
+
                                             <Input value="{sSelect>SEDE_TECNICA_P}" maxLength="40" type="Text" showValueHelp="true" valueHelpRequest="handleSedeTecnica"/>
-                                            <Text text="{sSelect>DESC_SEDE}" />
+                                            <Text text="{sSelect>DESC_SEDE}"/>
                                             <Input value="{sSelect>EQUIPMENT}" maxLength="30"/>
                                             <Button icon="sap-icon://document-text" tooltip="{sSelect>TESTO_ESTESO_P}" type="Transparent" press="handleTesto"/>
                                             <Input value="{sSelect>CLASSE_SEDE}" maxLength="30"/>
                                             <Input value="{sSelect>CARATT_SEDE}" maxLength="30"/>
                                             <Input value="{sSelect>OGGETTO_TECNICO}" maxLength="10"/>
                                             <Input value="{sSelect>PROFILO}" maxLength="9"/>
-                                            <Input value="{sSelect>ZBAU}" maxLength="10" />
+                                            <Input value="{sSelect>ZBAU}" maxLength="10"/>
                                             <Input value="{sSelect>VALORE}" maxLength="30"/>
                                             <Button icon="sap-icon://activity-2" type="Transparent" press="handleMaterial"/>
                                             <Button icon="sap-icon://crm-service-manager" type="Transparent" press="handleServizi"/>
@@ -125,9 +124,9 @@
                                             </form:FormElement>
                                         </form:formElements>
                                     </form:FormContainer>
-                                    <form:FormContainer id="VIS_FREQ_TEMPO" >
+                                    <form:FormContainer id="VIS_FREQ_TEMPO">
                                         <form:formElements>
-                                            <form:FormElement label="{i18n>FREQ_TEMPO}" >
+                                            <form:FormElement label="{i18n>FREQ_TEMPO}">
                                                 <form:fields><Input value="{sSelect>/FREQ_TEMPO}" required="true" type="Number" maxLength="4"/></form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>UNITA_TEMPO}">
@@ -160,21 +159,21 @@
                                     <form:ColumnLayout columnsM="2" columnsL="3" columnsXL="6"/>
                                 </form:layout>
                                 <form:formContainers>
-                                    <form:FormContainer title="Attività 1" >
+                                    <form:FormContainer title="Attività 1">
                                         <form:formElements>
-                                            <form:FormElement label="{i18n>LSTAR}"  >
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" required="true" valueStateText="{i18n>valueState} {i18n>LSTAR}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                            <form:FormElement label="{i18n>LSTAR}">
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" required="true" valueStateText="{i18n>valueState} {i18n>LSTAR}" showSecondaryValues="true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STEUS}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" required="true" valueStateText="{i18n>valueState} {i18n>STEUS}" showSecondaryValues= "true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" required="true" valueStateText="{i18n>valueState} {i18n>STEUS}" showSecondaryValues="true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM}">
                                                 <form:fields><Input value="{sSelect>/NUM}" type="Number" required="true" maxLength="3"/></form:fields>
@@ -190,18 +189,18 @@
                                     <form:FormContainer title="Attività 2">
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_1}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_1}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_1}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_1}" showSecondaryValues="true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_1}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STEUS_1}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_1}" showSecondaryValues= "true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_1}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_1}" showSecondaryValues="true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_1}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM_1}">
                                                 <form:fields><Input value="{sSelect>/NUM_1}" type="Number" maxLength="3"/></form:fields>
@@ -217,18 +216,18 @@
                                     <form:FormContainer title="Attività 3">
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_2}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_2}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_2}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_2}" showSecondaryValues="true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_2}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STEUS_2}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_2}" showSecondaryValues= "true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_2}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_2}" showSecondaryValues="true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_2}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM_2}">
                                                 <form:fields><Input value="{sSelect>/NUM_2}" type="Number" maxLength="3"/></form:fields>
@@ -244,20 +243,20 @@
                                     <form:FormContainer title="Attività 4">
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_3}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_3}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_3}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_3}" showSecondaryValues="true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_3}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STEUS_3}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_3}" showSecondaryValues= "true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_3}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_3}" showSecondaryValues="true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_3}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
-                                            <form:FormElement label="{i18n>NUM_3}"> 
+                                            <form:FormElement label="{i18n>NUM_3}">
                                                 <form:fields><Input value="{sSelect>/NUM_3}" type="Number" maxLength="3"/></form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>PERSONE_3}">
@@ -271,18 +270,18 @@
                                     <form:FormContainer title="Attività 5">
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_4}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_4}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_4}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_4}" showSecondaryValues="true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_4}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STEUS_4}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_4}" showSecondaryValues= "true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_4}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_4}" showSecondaryValues="true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_4}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM_4}">
                                                 <form:fields><Input value="{sSelect>/NUM_4}" type="Number" maxLength="3"/></form:fields>
@@ -298,18 +297,18 @@
                                     <form:FormContainer title="Attività 6">
                                         <form:formElements>
                                             <form:FormElement label="{i18n>LSTAR_5}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_5}" showSecondaryValues= "true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_5}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>LSTAR_5}" showSecondaryValues="true" items="{ path: 'sHelp>/LSTAR', length:2000 }" selectedKey="{sSelect>/LSTAR_5}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>STEUS_5}">
-                                              <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_5}" showSecondaryValues= "true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_5}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                </ComboBox>
-                                              </form:fields>
+                                                <form:fields>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>STEUS_5}" showSecondaryValues="true" items="{ path: 'sHelp>/STEUS', length:2000 }" selectedKey="{sSelect>/STEUS_5}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
+                                                </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>NUM_5}">
                                                 <form:fields><Input value="{sSelect>/NUM_5}" type="Number" maxLength="3"/></form:fields>
@@ -326,8 +325,8 @@
                             </form:Form>
                         </VBox>
                     </IconTabFilter>
-                 
-                     <IconTabFilter id="first" text="Index Prototipo">
+
+                    <IconTabFilter id="first" text="Index Prototipo">
                         <VBox class="sapUiSmallMargin">
                             <form:Form editable="true">
                                 <form:layout>
@@ -341,121 +340,121 @@
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>TIPO_GESTIONE}">
                                                 <form:fields>
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_GESTIONE}" showSecondaryValues= "true" required="true" items="{ path: 'sHelp>/TIPO_GESTIONE' }" selectedKey="{sSelect>/TIPO_GESTIONE}">
-                                                    <core:ListItem key="{sHelp>TipoGestione}" text="{sHelp>TipoGestione}" additionalText="{sHelp>Divisione} - {sHelp>DesTipoGest}"/>
-                                                </ComboBox>
-                                                <!--<Input value="{sSelect>/TIPO_GESTIONE}" required="true" maxLength="3"/>-->
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_GESTIONE}" showSecondaryValues="true" required="true" items="{ path: 'sHelp>/TIPO_GESTIONE', length:2500 }" selectedKey="{sSelect>/TIPO_GESTIONE}">
+                                                        <core:ListItem key="{sHelp>TipoGestione}" text="{sHelp>TipoGestione}" additionalText="{sHelp>Divisione} - {sHelp>DesTipoGest}"/>
+                                                    </ComboBox>
+                                                    <!--<Input value="{sSelect>/TIPO_GESTIONE}" required="true" maxLength="3"/>-->
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>TIPO_GESTIONE_1}">
                                                 <form:fields>
-                                                  <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_GESTIONE_1}" showSecondaryValues= "true" required="true" items="{ path: 'sHelp>/TIPO_GESTIONE_1' }" selectedKey="{sSelect>/TIPO_GESTIONE_1}">
-                                                      <core:ListItem key="{sHelp>TipoGestione1}" text="{sHelp>TipoGestione1}" additionalText="{sHelp>Divisione} - {sHelp>DesTipoGest1}"/>
-                                                  </ComboBox>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_GESTIONE_1}" showSecondaryValues="true" required="true" items="{ path: 'sHelp>/TIPO_GESTIONE_1', length:2500 }" selectedKey="{sSelect>/TIPO_GESTIONE_1}">
+                                                        <core:ListItem key="{sHelp>TipoGestione1}" text="{sHelp>TipoGestione1}" additionalText="{sHelp>Divisione} - {sHelp>DesTipoGest1}"/>
+                                                    </ComboBox>
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>TIPO_GESTIONE_2}">
                                                 <form:fields>
-                                                  <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_GESTIONE_2}" showSecondaryValues= "true" required="true" items="{ path: 'sHelp>/TIPO_GESTIONE_2' }" selectedKey="{sSelect>/TIPO_GESTIONE_2}">
-                                                    <core:ListItem key="{sHelp>TipoGestione2}" text="{sHelp>TipoGestione2}" additionalText="{sHelp>Divisione} - {sHelp>DesTipoGest2}"/>
-                                                  </ComboBox>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_GESTIONE_2}" showSecondaryValues="true" required="true" items="{ path: 'sHelp>/TIPO_GESTIONE_2', length:2500 }" selectedKey="{sSelect>/TIPO_GESTIONE_2}">
+                                                        <core:ListItem key="{sHelp>TipoGestione2}" text="{sHelp>TipoGestione2}" additionalText="{sHelp>Divisione} - {sHelp>DesTipoGest2}"/>
+                                                    </ComboBox>
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>DIVISIONEC}" icon="">
-                                                <form:fields> 
-                                                  <!--<ComboBox id="cbDivisioneC" showSecondaryValues= "true" items="{ path: 'sHelp>/DIVISIONEC', length:5000 }" selectedKey="{sSelect>/DIVISIONEC}" selectionChange="onDivisioneC">
-                                                    <core:ListItem key="{sHelp>Werks}" text="{sHelp>Werks}" additionalText="{sHelp>Arbpl} {sHelp>Destinatario} {sHelp>Txt} {sHelp>Raggruppamento}"/>
-                                                  </ComboBox>-->
+                                                <form:fields>
+                                                    <!--<ComboBox id="cbDivisioneC" showSecondaryValues= "true" items="{ path: 'sHelp>/DIVISIONEC', length:5000 }" selectedKey="{sSelect>/DIVISIONEC}" selectionChange="onDivisioneC">
+                                                                                                        <core:ListItem key="{sHelp>Werks}" text="{sHelp>Werks}" additionalText="{sHelp>Arbpl} {sHelp>Destinatario} {sHelp>Txt} {sHelp>Raggruppamento}"/>
+                                                                                                      </ComboBox>-->
 
-                                                  <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DIVISIONEC}" showSecondaryValues= "true" items="{ path: 'sHelp>/DIVISIONE', length:2500 }" selectedKey="{sSelect>/DIVISIONEC}">
-                                              <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                            </ComboBox>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DIVISIONEC}" showSecondaryValues="true" items="{ path: 'sHelp>/DIVISIONE', length:2500 }" selectedKey="{sSelect>/DIVISIONEC}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
 
-                                                <!--<Input id="cbDivisioneC" change="handleChangeIn" valueStateText="{i18n>valueState} {i18n>DIVISIONEC}" value="{sSelect>/DIVISIONEC}" placeholder="Inserisci Divisione" showSuggestion="true" showTableSuggestionValueHelp="false" suggestionRows="{sHelp>/DIVISIONE}">
-                                                    <suggestionColumns>
-                                                      <Column	hAlign="Begin"><Label text="{i18n>Werks}" /></Column>
-                                                      <Column	hAlign="Center"><Label text="{i18n>Descrizione}" /></Column>
-                                                    </suggestionColumns>
-                                                    <suggestionRows>
-                                                      <ColumnListItem>
-                                                        <Label text="{sHelp>Fieldname1}" />
-                                                        <Label text="{sHelp>Fieldname2}" />
-                                                      </ColumnListItem>
-                                                    </suggestionRows>
-                                                  </Input>-->
+                                                    <!--<Input id="cbDivisioneC" change="handleChangeIn" valueStateText="{i18n>valueState} {i18n>DIVISIONEC}" value="{sSelect>/DIVISIONEC}" placeholder="Inserisci Divisione" showSuggestion="true" showTableSuggestionValueHelp="false" suggestionRows="{sHelp>/DIVISIONE}">
+                                                                                                        <suggestionColumns>
+                                                                                                          <Column	hAlign="Begin"><Label text="{i18n>Werks}" /></Column>
+                                                                                                          <Column	hAlign="Center"><Label text="{i18n>Descrizione}" /></Column>
+                                                                                                        </suggestionColumns>
+                                                                                                        <suggestionRows>
+                                                                                                          <ColumnListItem>
+                                                                                                            <Label text="{sHelp>Fieldname1}" />
+                                                                                                            <Label text="{sHelp>Fieldname2}" />
+                                                                                                          </ColumnListItem>
+                                                                                                        </suggestionRows>
+                                                                                                      </Input>-->
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>CENTRO_LAVORO}">
                                                 <form:fields>
-                                                <!--<ComboBox showSecondaryValues= "true" items="{ path: 'sHelp>/CENTRO_LAVORO', length:2500  }" selectedKey="{sSelect>/CENTRO_LAVORO}">
-                                                    <core:ListItem key="{sHelp>Arbpl}" text="{sHelp>Arbpl}" additionalText="{sHelp>Werks} {sHelp>Destinatario} {sHelp>Txt} {sHelp>Raggruppamento}"/>
-                                                  </ComboBox>-->
+                                                    <!--<ComboBox showSecondaryValues= "true" items="{ path: 'sHelp>/CENTRO_LAVORO', length:2500  }" selectedKey="{sSelect>/CENTRO_LAVORO}">
+                                                                                                        <core:ListItem key="{sHelp>Arbpl}" text="{sHelp>Arbpl}" additionalText="{sHelp>Werks} {sHelp>Destinatario} {sHelp>Txt} {sHelp>Raggruppamento}"/>
+                                                                                                      </ComboBox>-->
 
-                                                   <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>CENTRO_LAVORO}" showSecondaryValues= "true" items="{ path: 'sHelp>/CENTRO_LAVORO', length:2500 }" selectedKey="{sSelect>/CENTRO_LAVORO}">
-                                              <core:ListItem key="{sHelp>Arbpl}" text="{sHelp>Arbpl}" additionalText="{sHelp>Werks} - {sHelp>Destinatario}"/>
-                                            </ComboBox>
-                                                   <!--<Input value="{sSelect>/CENTRO_LAVORO}" change="handleChangeIn" valueStateText="{i18n>valueState} {i18n>CENTRO_LAVORO}" placeholder="Inserisci Centro di Lavoro" showSuggestion="true" showTableSuggestionValueHelp="false" suggestionRows="{sHelp>/CENTRO_LAVORO}">
-                                                    <suggestionColumns>
-                                                      <Column	hAlign="Begin"><Label text="{i18n>Arbpl}" /></Column>
-                                                      <Column	hAlign="Center"><Label text="{i18n>Werks}" /></Column>
-                                                      <Column	hAlign="End"><Label text="{i18n>Destinatario}" /></Column>
-                                                    </suggestionColumns>
-                                                    <suggestionRows>
-                                                      <ColumnListItem>
-                                                        <Label text="{sHelp>Arbpl}" />
-                                                        <Label text="{sHelp>Werks}" />
-                                                        <Label text="{sHelp>Destinatario}" />
-                                                      </ColumnListItem>
-                                                    </suggestionRows>
-                                                  </Input>-->
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>CENTRO_LAVORO}" showSecondaryValues="true" items="{ path: 'sHelp>/CENTRO_LAVORO', length:2500 }" selectedKey="{sSelect>/CENTRO_LAVORO}">
+                                                        <core:ListItem key="{sHelp>Arbpl}" text="{sHelp>Arbpl}" additionalText="{sHelp>Werks} - {sHelp>Destinatario}"/>
+                                                    </ComboBox>
+                                                    <!--<Input value="{sSelect>/CENTRO_LAVORO}" change="handleChangeIn" valueStateText="{i18n>valueState} {i18n>CENTRO_LAVORO}" placeholder="Inserisci Centro di Lavoro" showSuggestion="true" showTableSuggestionValueHelp="false" suggestionRows="{sHelp>/CENTRO_LAVORO}">
+                                                                                                        <suggestionColumns>
+                                                                                                          <Column	hAlign="Begin"><Label text="{i18n>Arbpl}" /></Column>
+                                                                                                          <Column	hAlign="Center"><Label text="{i18n>Werks}" /></Column>
+                                                                                                          <Column	hAlign="End"><Label text="{i18n>Destinatario}" /></Column>
+                                                                                                        </suggestionColumns>
+                                                                                                        <suggestionRows>
+                                                                                                          <ColumnListItem>
+                                                                                                            <Label text="{sHelp>Arbpl}" />
+                                                                                                            <Label text="{sHelp>Werks}" />
+                                                                                                            <Label text="{sHelp>Destinatario}" />
+                                                                                                          </ColumnListItem>
+                                                                                                        </suggestionRows>
+                                                                                                      </Input>-->
                                                 </form:fields>
                                             </form:FormElement>
-                                             <form:FormElement label="{i18n>DESTINATARIO}">
+                                            <form:FormElement label="{i18n>DESTINATARIO}">
                                                 <form:fields>
-                                                   <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DESTINATARIO}" showSecondaryValues= "true" items="{ path: 'sHelp>/CENTRO_LAVORO', length:2500 }" selectedKey="{sSelect>/DESTINATARIO}">
-                                              <core:ListItem key="{sHelp>Destinatario}" text="{sHelp>Destinatario}" additionalText="{sHelp>Werks} - {sHelp>Arbpl}"/>
-                                            </ComboBox>
-                                                  
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>DESTINATARIO}" showSecondaryValues="true" items="{ path: 'sHelp>/CENTRO_LAVORO', length:2500 }" selectedKey="{sSelect>/DESTINATARIO}">
+                                                        <core:ListItem key="{sHelp>Destinatario}" text="{sHelp>Destinatario}" additionalText="{sHelp>Werks} - {sHelp>Arbpl}"/>
+                                                    </ComboBox>
+
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>PRIORITA}">
                                                 <form:fields>
-                                                  <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>PRIORITA}" showSecondaryValues= "true" required="true" items="{ path: 'sHelp>/PRIORITA' }" selectedKey="{sSelect>/PRIORITA}">
-                                                    <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                  </ComboBox>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>PRIORITA}" showSecondaryValues="true" required="true" items="{ path: 'sHelp>/PRIORITA' }" selectedKey="{sSelect>/PRIORITA}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>POINT}">
                                                 <form:fields>
-                                                  <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>POINT}" showSecondaryValues= "true" required="true" items="{ path: 'sHelp>/POINT' }" selectedKey="{sSelect>/POINT}">
-                                                    <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
-                                                  </ComboBox>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>POINT}" showSecondaryValues="true" required="true" items="{ path: 'sHelp>/POINT' }" selectedKey="{sSelect>/POINT}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                    </ComboBox>
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>MPTYP}">
                                                 <form:fields><Input value="{sSelect>/MPTYP}" required="true" maxLength="1"/></form:fields>
                                             </form:FormElement>
-                                            <form:FormElement label="{i18n>INDISPONIBILITA}" >
+                                            <form:FormElement label="{i18n>INDISPONIBILITA}">
                                                 <form:fields>
-                                                  <Select xmlns="sap.m" id="onlyActive"  required="true" selectedKey="{sSelect>/INDISPONIBILITA}">
-                                                    <items>
-                                                    <core:ListItem xmlns:core="sap.ui.core" key="" text="" />
-                                                    <core:ListItem xmlns:core="sap.ui.core" key="0" icon="sap-icon://decline" text="0" />
-                                                    <core:ListItem xmlns:core="sap.ui.core" key="1" icon="sap-icon://accept" text="1"/>
-                                                    </items>
-                                                  </Select>
+                                                    <Select xmlns="sap.m" id="onlyActive" required="true" selectedKey="{sSelect>/INDISPONIBILITA}">
+                                                        <items>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="" text=""/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="0" icon="sap-icon://decline" text="0"/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="1" icon="sap-icon://accept" text="1"/>
+                                                        </items>
+                                                    </Select>
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>TIPO_ATTIVITA}">
-                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_ATTIVITA}" showSecondaryValues= "true" items="{ path: 'sHelp>/TIPO_ATTIVITA', length:2000 }" selectedKey="{sSelect>/TIPO_ATTIVITA}">
-                                                  <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
+                                                <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_ATTIVITA}" showSecondaryValues="true" items="{ path: 'sHelp>/TIPO_ATTIVITA', length:2000 }" selectedKey="{sSelect>/TIPO_ATTIVITA}">
+                                                    <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2}"/>
                                                 </ComboBox>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>TIPO_ORDINE}">
                                                 <form:fields>
-                                                 <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_ORDINE}" showSecondaryValues= "true" items="{ path: 'sHelp>/TIPO_ORDINE' }" selectedKey="{sSelect>/TIPO_ORDINE}">
-                                                    <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2} - {sHelp>Fieldname3}"/>
-                                                  </ComboBox>
+                                                    <ComboBox change="handleChangeCb" valueStateText="{i18n>valueState} {i18n>TIPO_ORDINE}" showSecondaryValues="true" items="{ path: 'sHelp>/TIPO_ORDINE' }" selectedKey="{sSelect>/TIPO_ORDINE}">
+                                                        <core:ListItem key="{sHelp>Fieldname1}" text="{sHelp>Fieldname1}" additionalText="{sHelp>Fieldname2} - {sHelp>Fieldname3}"/>
+                                                    </ComboBox>
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="{i18n>DESC_BREVE}">
@@ -481,15 +480,15 @@
                                             <form:FormElement label="{i18n>RIFERIMENTO}">
                                                 <form:fields>
                                                     <Select xmlns="sap.m" selectedKey="{sSelect>/RIFERIMENTO}">
-                                                            <items>
-                                                                <core:ListItem xmlns:core="sap.ui.core" key="" text=""/>
-                                                                <core:ListItem xmlns:core="sap.ui.core" key="1" text="1"/>
-                                                                <core:ListItem xmlns:core="sap.ui.core" key="2" text="2"/>
-                                                                <core:ListItem xmlns:core="sap.ui.core" key="3" text="3"/>
-                                                                <core:ListItem xmlns:core="sap.ui.core" key="4" text="4"/>
-                                                                <core:ListItem xmlns:core="sap.ui.core" key="5" text="5"/>
-                                                                <core:ListItem xmlns:core="sap.ui.core" key="6" text="6"/>
-                                                            </items>
+                                                        <items>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="" text=""/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="1" text="1"/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="2" text="2"/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="3" text="3"/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="4" text="4"/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="5" text="5"/>
+                                                            <core:ListItem xmlns:core="sap.ui.core" key="6" text="6"/>
+                                                        </items>
                                                     </Select>
                                                 </form:fields>
                                             </form:FormElement>
@@ -504,11 +503,11 @@
                                 </form:formContainers>
                             </form:Form>
                         </VBox>
-                        
+
                     </IconTabFilter>
                 </items>
             </IconTabBar>
-            
+
         </f:content>
         <f:footer>
             <OverflowToolbar>

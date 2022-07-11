@@ -26,18 +26,21 @@ sap.ui.define([
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
-
+                var that = this;
+                
                 $.ajax({
                   url: "/getuserinfo",
                   type: "GET",
                   dataType: "json",
                   contentType: "application/json",
                   success: function (data) {
-                    debugger;
-                      //that's all fine yay
+                    var oModel = new sap.ui.model.json.JSONModel();
+                    oModel.setData(data);
+                    that.setModel(oModel, "UserInfo");
+
                   },
                   error: function (jqXHR, textStatus, errorThrown) {
-                    debugger;
+
                   }
               });
             }

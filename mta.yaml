@@ -16,28 +16,11 @@ modules:
       - name: APP2_html5_repo_runtime
       - name: APP2_uaa
       - name: APP2_connectivity
-  - name: webapp_deployer
-    type: com.sap.application.content
-    path: deployer
-    requires:
-      - name: APP2_html5_repo_host
-        parameters:
-          content-target: true
-    build-parameters:
-      build-result: resources
-      requires:
-        - name: uimodule
-          artifacts:
-            - dist/uimodule.zip
-          target-path: resources/
-  - name: uimodule
-    type: html5
-    path: uimodule
     build-parameters:
       builder: custom
       commands:
-        - npm run build:uimodule --prefix ..
-      supported-platforms: []
+        - npm install
+        - npm run build:ui --prefix ..
 resources:
   - name: ins-gds-gpgdh-cf-uitheme-newpm030
     type: org.cloudfoundry.managed-service
@@ -52,13 +35,6 @@ resources:
       config:
         HTML5Runtime_enabled: true
         version: 1.0.0
-  - name: APP2_html5_repo_host
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service-plan: app-host
-      service: html5-apps-repo
-      config:
-        sizeLimit: 2
   - name: APP2_html5_repo_runtime
     type: org.cloudfoundry.managed-service
     parameters:
