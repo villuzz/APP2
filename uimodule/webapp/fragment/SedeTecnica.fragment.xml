@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Dialog contentHeight="500px" id="DialogSede" resizable="true" draggable="true" title="{i18n>SelezionaSedeTecnica}" ariaDescribedBy="SedeDialog" ariaLabelledBy="Dialog" >
+    <Dialog contentHeight="500px" id="DialogSede" draggable="true" title="{i18n>SelezionaSedeTecnica}" ariaDescribedBy="SedeDialog" ariaLabelledBy="Dialog" >
      <customHeader>
         <Bar>
             <contentLeft>

@@ -13,7 +13,7 @@
         </f:content>
         <f:actions></f:actions>
         <f:navigationActions>
-        <Link href="file/elabeling-inventory-report.html" target="_blank" text="{i18n>accessibility}" class="sapUiMediumMarginEnd" />
+        <Link href="https://www.w3.org/WAI/eval/report-tool/" target="_blank" text="{i18n>accessibility}" class="sapUiMediumMarginEnd" />
           <Button text="Nuovo" icon="sap-icon://document" press="handleNuovo" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>NewButton}" tooltip="{i18n>NewButton}"/>
           <Button text="Modifica" icon="sap-icon://edit" press="onModify" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>ModifyButton}" tooltip="{i18n>ModifyButton}"/>
           <Button text="Copia"  icon="sap-icon://copy" press="onCopy" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>CopyButton}" tooltip="{i18n>CopyButton}"/>
