@@ -14,13 +14,13 @@
             </HBox>
 					</f:heading>
 					<f:navigationActions>
-						<Link href="https://www.w3.org/WAI/eval/report-tool/" target="_blank" text="{i18n>accessibility}" />
-					 
-          <Button text="Nuovo"  icon="sap-icon://document" press="handleNuovo" class="sapUiTinyMarginBegin"/>
-          <Button text="Modifica" icon="sap-icon://edit" press="onModify" class="sapUiTinyMarginBegin"/>
-          <Button text="Copia"  icon="sap-icon://copy" press="onCopy" class="sapUiTinyMarginBegin"/>
-          <Button text="Cancella" icon="sap-icon://delete" press="handleDelete" class="sapUiTinyMarginBegin"/>
-        </f:navigationActions>
+						  <!--<Link href="https://www.w3.org/WAI/eval/report-tool/" target="_blank" text="{i18n>accessibility}" />-->
+						  <Button text="{i18n>accessibility}" press="accesibilityLink" />
+              <Button text="Nuovo" icon="sap-icon://document" press="handleNuovo" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>NewButton}" tooltip="{i18n>NewButton}"/>
+              <Button text="Modifica" icon="sap-icon://edit" press="onModify" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>ModifyButton}" tooltip="{i18n>ModifyButton}"/>
+              <Button text="Copia"  icon="sap-icon://copy" press="onCopy" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>CopyButton}" tooltip="{i18n>CopyButton}"/>
+              <Button text="Cancella" icon="sap-icon://delete" press="handleDelete" class="sapUiTinyMarginBegin" ariaLabelledBy="{i18n>CancelButton}" tooltip="{i18n>CancelButton}"/>
+           </f:navigationActions>
 				</f:DynamicPageTitle>
 
     </f:title>

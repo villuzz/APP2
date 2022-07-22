@@ -766,11 +766,14 @@ sap.ui.define([
           }
           return this.oInvisibleMessage;
         },
-  
         createInvisibleMessage: function (sText) {
           //this.getResourceBundle().getText("busyDialogText")
           debugger;
           this.getInvisibleMessage().announce(sText, InvisibleMessageMode.Assertive);
+        },
+        accesibilityLink: function () {
+          var sRootPath = jQuery.sap.getModulePath("PM030.APP2");
+          window.open(sRootPath + "/file/newpm030-app2-prototipo-di-indice-report.html");
         }
     });
 });
