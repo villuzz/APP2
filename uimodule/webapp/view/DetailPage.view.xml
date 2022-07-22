@@ -5,12 +5,12 @@
           </f:landmarkInfo>
       <f:title>
             <f:DynamicPageTitle>
-                <f:content>
+                <f:heading>
                     <HBox height="100%" alignItems="Center" alignContent="Center" justifyContent="Center">
                         <Button type="Transparent" icon="sap-icon://nav-back" press="onBack" class="sapUiTinyMarginEnd" tooltip="{i18n>NavBack}" ariaLabelledBy="navBack"></Button>
                         <Title level="H1" text="{i18n>CreazionePiano}" class="sapUiTinyMarginTop"/>
                     </HBox>
-                </f:content>
+                </f:heading>
                 <f:navigationActions>
                   <Link href="https://www.w3.org/WAI/eval/report-tool/" target="_blank" text="{i18n>accessibility}" class="sapUiMediumSmallEnd"></Link>
                   <Button id="save" text="{i18n>Save}" type="Emphasized" press="handleSavePress" tooltip="{i18n>Save}" ariaDescribedBy="SaveAction" ariaLabelledBy="SaveButton"/>

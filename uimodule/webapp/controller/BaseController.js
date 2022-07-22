@@ -378,6 +378,9 @@ sap.ui.define([
             }
 
             var aFilter = [];
+            if (sData.DIVISIONE !== undefined && sData.DIVISIONE !== "" && sData.DIVISIONE !== null) {
+              aFilter.push(new Filter("Werks", FilterOperator.EQ, sData.DIVISIONE));
+            }
             aFilter.push(new Filter("Progres", FilterOperator.EQ, sData.PROGRES));
             aFilter.push(new Filter("Sistema", FilterOperator.EQ, sData.SISTEMA));
             var result = await this._getLinenoError("/T_ACT_PROG", aFilter);
@@ -393,7 +396,6 @@ sap.ui.define([
             aFilter.push(new Filter("Classe", FilterOperator.EQ, sData.CLASSE));
             aFilter.push(new Filter("FlagAttivo", FilterOperator.EQ, "X"));
             result = await this._getLinenoError("/T_ACT_TYPE", aFilter);
-            debugger
             if (!result) {
                 return "Combinazione Classe Sistema Progressivo non Valida";
             } else {
